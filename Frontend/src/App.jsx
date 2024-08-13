@@ -1,13 +1,18 @@
-import React from 'react'
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Register from './authenthication/register'
+import LoginPage from './authenthication/login'
 
 const App = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline text-red-500">
-        Hello World
-      </h1>
-    </div>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/" element={<Register />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;
