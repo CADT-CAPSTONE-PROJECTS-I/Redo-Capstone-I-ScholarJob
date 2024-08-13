@@ -10,7 +10,7 @@
                     <div class="card-tools">
                         <a href="{{ route('accounts.create') }}" class="btn btn-primary" >
                             <i class="fas fa-plus-circle"></i>
-                            {{__("Create Account")}}
+                            {{__("Create New")}}
                         </a>
                     </div>
                 </div>
@@ -64,15 +64,4 @@
             </div>
         </div>
     </div>
-    <!-- Search Form -->
-    {{-- <div class="align-items-center px-2 py-4 bg-white border mb-4 ">
-        <form method="GET" action="{{ route('accounts.index') }}" class="d-flex justify-content-between align-items-center">
-        <input type="text" id="success" class="col-md-4 ml-2 bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500" placeholder="Search">
-
-        </form>
-        <div class="mt-3">
-            <button type="submit" class="btn btn-primary btn-md ml-2">Filter</button>
-            <a href="{{ route('accounts.index') }}" class="btn btn-secondary btn-md ml-1 ">Clear</a>
-    </div> --}}
-
 </x-app-layout>
