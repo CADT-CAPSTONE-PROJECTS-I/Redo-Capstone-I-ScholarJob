@@ -1,4 +1,4 @@
-import React from '../import/all_import.jsx';
+import { React } from '../import/all_import.jsx';
 
 const Navbar = () => {
     return (

@@ -7,6 +7,7 @@ export { Icon } from "@iconify/react";
 //import of all components
 export { default as Register } from '../authenthication/register';
 export { default as LoginPage } from '../authenthication/login';
+export { default as Navbar } from '../Reusable Components/NavBar';
 
 //import of all icon
 export { default as FacebookIcon } from '../assets/icon/facebook_icon.jpg';
