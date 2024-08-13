@@ -1,6 +1,6 @@
-import React from "react";
-import { useNavigate } from 'react-router-dom';
-import { Icon } from "@iconify/react";
+
+import { React, useNavigate, Icon, FacebookIcon, InstargramIcon, GoogleIcon, LinkedInIcon } from '../import/all_import.jsx';
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const Register = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg flex">
         <div className="w-1/2 min-h-[500px] bg-gradient-to-tr from-customTeal-light/50 to-customTeal-dark/80 text-white p-8  rounded-l-lg rounded-r-3xl flex flex-col justify-center items-center">
-          <h2 className="text-3xl font-bold mb-4">Welcome!</h2>
+          <h2 className="text-2xl font-bold mb-4">Welcome To ScholarJob!</h2>
           <p className="mb-8">
             To keep connected with us please sign up with your personal
             infomation.
@@ -63,14 +63,21 @@ const Register = () => {
           </div>
 
           <div className="flex justify-center space-x-4 mb-8">
-            <button className="bg-white p-2 rounded-full border">
-              <Icon icon="basil:facebook-solid" width="24" height="24" />
+            <button className="bg-white">
+              {/* <Icon icon="basil:facebook-solid" width="24" height="24" /> */}
+              <img src={FacebookIcon} alt="image"  className="rounded-full border border-blue-500 w-8 h-8"/>
             </button>
-            <button className="bg-white p-2 rounded-full border">
-              <Icon icon="prime:google" width="24" height="24" />
+            <button className="bg-white ">
+              {/* <Icon icon="basil:facebook-solid" width="24" height="24" /> */}
+              <img src={GoogleIcon} alt="image"  className="p-2 rounded-full border bg-gray-5 0 border--200 w-9 h-9"/>
             </button>
-            <button className="bg-white p-2 rounded-full border">
-              <Icon icon="iconoir:instagram" width="24" height="24" />
+            <button className="bg-white">
+              {/* <Icon icon="basil:facebook-solid" width="24" height="24" /> */}
+              <img src={InstargramIcon} alt="image"  className="rounded-full border border-red-200 w-9 h-9"/>
+            </button>
+            <button className="bg-white">
+              {/* <Icon icon="basil:facebook-solid" width="24" height="24" /> */}
+              <img src={LinkedInIcon} alt="image"  className="rounded-full border border-blue-300 w-9 h-9"/>
             </button>
           </div>
         </div>

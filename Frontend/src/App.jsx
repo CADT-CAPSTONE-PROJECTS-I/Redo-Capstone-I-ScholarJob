@@ -1,14 +1,11 @@
-// App.js
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Register from './authenthication/register'
-import LoginPage from './authenthication/login'
+
+import { React, Router, Route, Routes, Register, LoginPage } from './import/all_import.jsx';
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Register />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
     </Router>

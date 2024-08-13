@@ -1,6 +1,4 @@
-import React from "react";
-import { Icon } from "@iconify/react";
-import { useNavigate } from 'react-router-dom';
+import { React, useNavigate, Icon, FacebookIcon, InstargramIcon, GoogleIcon, LinkedInIcon } from '../import/all_import.jsx';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -41,14 +39,21 @@ const Register = () => {
           </div>
 
           <div className="flex justify-center space-x-4 mb-8">
-            <button className="bg-white p-2 rounded-full border">
-              <Icon icon="basil:facebook-solid" width="24" height="24" />
+            <button className="bg-white">
+              {/* <Icon icon="basil:facebook-solid" width="24" height="24" /> */}
+              <img src={FacebookIcon} alt="image"  className="rounded-full border border-blue-500 w-8 h-8"/>
             </button>
-            <button className="bg-white p-2 rounded-full border">
-              <Icon icon="prime:google" width="24" height="24" />
+            <button className="bg-white ">
+              {/* <Icon icon="basil:facebook-solid" width="24" height="24" /> */}
+              <img src={GoogleIcon} alt="image"  className="p-2 rounded-full border bg-gray-5 0 border--200 w-9 h-9"/>
             </button>
-            <button className="bg-white p-2 rounded-full border">
-              <Icon icon="iconoir:instagram" width="24" height="24" />
+            <button className="bg-white">
+              {/* <Icon icon="basil:facebook-solid" width="24" height="24" /> */}
+              <img src={InstargramIcon} alt="image"  className="rounded-full border border-red-200 w-9 h-9"/>
+            </button>
+            <button className="bg-white">
+              {/* <Icon icon="basil:facebook-solid" width="24" height="24" /> */}
+              <img src={LinkedInIcon} alt="image"  className="rounded-full border border-blue-300 w-9 h-9"/>
             </button>
           </div>
         </div>
@@ -62,7 +67,7 @@ const Register = () => {
           <button 
            type="bottom"
            onClick={()=>{
-             navigate('/');
+             navigate('/register');
            }}
           className="bg-customTeal-dark text-white py-3 px-14 border bg-transparent text-sm rounded-full hover:bg-customTeal-dark ">
             SIGN UP
