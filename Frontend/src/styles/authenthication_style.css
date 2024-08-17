@@ -1,0 +1,29 @@
+.input-group {
+    position: relative;
+}
+
+.input-group__input {
+    color: #000;
+    background-color: transparent;
+    transition: outline-color 300ms;
+}
+
+.input-group__input:is(:focus, :valid) {
+    outline-color: #3ceb6b;
+
+}
+
+.input-group__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    translate: 26px ;
+    color: #000;
+    transition: translate 300ms, scale 300ms;
+}
+
+.input-group__input:focus + .input-group__label,
+.input-group__input:valid + .input-group__label {
+    translate: 2px -16px;
+    scale: 0.8;
+}
