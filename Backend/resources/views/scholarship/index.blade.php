@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        {{ __('Roles') }}
+        {{ __('Scholarship') }}
     </x-slot>
 
     <div class="row">
@@ -8,7 +8,7 @@
             <div class="card card-primary card-outline">
                 <div class="card-header">
                     <div class="card-tools">
-                        <a href="{{ route('roles.create') }}" class="btn btn-primary">
+                        <a href="{{ route('scholarships.create') }}" class="btn btn-primary">
                             <i class="fas fa-plus-circle"></i>
                             {{ __("Create New") }}
                         </a>
@@ -31,7 +31,7 @@
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <button class="btn btn-info text-white" id="btn_filter">{{ __("Filter") }} <i class="fas fa-filter"></i></button>
-                                <a href="{{ route('roles.index') }}" class="btn btn-danger">
+                                <a href="{{ route('scholarships.index') }}" class="btn btn-danger">
                                     {{ __('Clear') }}
                                     <i class="fas fa-sync-alt"></i>
                                 </a>
@@ -43,7 +43,7 @@
                         <div class="relative p-4 w-full max-w-md h-full md:h-auto flex justify-center items-center">
                             <div class="relative p-8 text-center bg-gray-800 rounded-lg shadow-lg" style="width: 400px; height: 200px;">
                            
-                                <div class="w-20 h-20 rounded-full border-4 border-green-500 bg-green-100 p-2 flex items-center justify-center mx-auto mb-2">
+                                w<div class="w-20 h-20 rounded-full border-4 border-green-500 bg-green-100 p-2 flex items-center justify-center mx-auto mb-2">
                                     <svg aria-hidden="true" class="w-12 h-12 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                                     </svg>
@@ -56,7 +56,7 @@
 
                     <!-- Loading Animation -->
                     <style>
-                       
+                        /* Spinner Design */
                         .loading-spinner {
                             border: 4px solid rgba(255, 255, 255, 0.2);
                             border-top: 4px solid #fff;
@@ -66,6 +66,7 @@
                             animation: spin 1s linear infinite;
                         }
 
+                        /* Keyframe for Spinning */
                         @keyframes spin {
                             0% {
                                 transform: rotate(0deg);
@@ -81,37 +82,49 @@
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>{{ __('NO') }}</th>
-                                    <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Guard Name') }}</th>
-                                    <th style="width:10%; text-align:center">{{ __('Actions') }}</th>
+                                    <th>#</th>
+                                    <th>Image</th>
+                                    <th>Organization</th>
+                                    <th>Degree</th>
+                                    <th>Eligibility</th>
+                                    <th>Qualification</th>
+                                    <th>Available</th>
+                                    <th>Deadline</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($roles as $index => $role)
+                                @foreach($scholarships as $index => $scholarship)
                                     <tr>
-                                        <td>{{ $roles->firstItem() + $index }}</td>
-                                        <td>{{ $role->name }}</td>
-                                        <td>{{ $role->guard_name }}</td>
-                                        <td style="width:10%;">
-                                            <a href="{{ route('roles.show', $role) }}" class="btn btn-warning">
-                                                {{-- {{ __('Edit') }} --}}
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $role->id }})">
-                                                {{-- {{ __('Delete') }} --}}
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                            <form id="delete-form-{{ $role->id }}" action="{{ route('roles.destroy', $role) }}" method="POST" style="display:none;">
-                                                @csrf
-                                            </form>
+                                        <td>{{ $scholarships->firstItem() + $index }}</td>
+                                        <td>
+                                            <img src="{{ asset($scholarship->image) }}" alt="Scholarship Image" class="" style="width:50px; height:50px; border-radius:10px;">
                                         </td>
-                                    </tr>
+                                        <td>{{ $scholarship->organization->name }}</td>
+                                        <td>{{ $scholarship->degree }}</td>
+                                        <td>{{ $scholarship->eligibility }}</td>
+                                        <td>{{ $scholarship->qualification }}</td>
+                                        <td>{{ $scholarship->available_position }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($scholarship->deadline)->format('d - M - Y') }}</td>
+
+                                       
+                                        <td style="width:10%;">
+                                                <a href="{{ route('scholarships.show', $scholarship) }}" class="btn btn-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $scholarship->id }})">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <form id="delete-form-{{ $scholarship->id }}" action="{{ route('scholarships.destroy', $scholarship) }}" method="POST" style="display:none;">
+                                                    @csrf
+                                                </form>
+                                            </td>
+                                        </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <div class="pagination mt-3">
-                            {!! $roles->links() !!}
+                            {!! $scholarships->links() !!}
                         </div>
                     </div>
                 </div>
@@ -133,7 +146,7 @@
                     </div>
                     <div class="mt-3 text-center sm:mt-5">
                         <h3 class="text-lg leading-6 font-medium text-gray-900">
-                            {{ __('Are you sure you want to delete this role?') }}
+                            {{ __('Are you sure you want to delete this user?') }}
                         </h3>
                         <div class="mt-2">
                             <p class="text-sm text-gray-500">
@@ -155,10 +168,10 @@
     </div>
 
     <script>
-        let roleToDelete = null;
+        let userToDelete = null;
 
-        function confirmDelete(roleId) {
-            roleToDelete = roleId;
+        function confirmDelete(userId) {
+            userToDelete = userId;
             document.getElementById('deleteModal').classList.remove('hidden');
         }
 
@@ -167,8 +180,8 @@
         }
 
         document.getElementById('confirmDeleteButton').addEventListener('click', function () {
-            if (roleToDelete) {
-                document.getElementById('delete-form-' + roleToDelete).submit();
+            if (userToDelete) {
+                document.getElementById('delete-form-' + userToDelete).submit();
             }
         });
 

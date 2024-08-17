@@ -1,14 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        {{ __('Roles') }}
+        {{ __('User') }}
     </x-slot>
-
     <div class="row">
         <div class="col-md-12">
             <div class="card card-primary card-outline">
                 <div class="card-header">
                     <div class="card-tools">
-                        <a href="{{ route('roles.create') }}" class="btn btn-primary">
+                        <a href="{{ route('clients.create') }}" class="btn btn-primary">
                             <i class="fas fa-plus-circle"></i>
                             {{ __("Create New") }}
                         </a>
@@ -31,7 +30,7 @@
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <button class="btn btn-info text-white" id="btn_filter">{{ __("Filter") }} <i class="fas fa-filter"></i></button>
-                                <a href="{{ route('roles.index') }}" class="btn btn-danger">
+                                <a href="{{ route('clients.index') }}" class="btn btn-danger">
                                     {{ __('Clear') }}
                                     <i class="fas fa-sync-alt"></i>
                                 </a>
@@ -56,7 +55,7 @@
 
                     <!-- Loading Animation -->
                     <style>
-                       
+                        /* Spinner Design */
                         .loading-spinner {
                             border: 4px solid rgba(255, 255, 255, 0.2);
                             border-top: 4px solid #fff;
@@ -66,6 +65,7 @@
                             animation: spin 1s linear infinite;
                         }
 
+                        /* Keyframe for Spinning */
                         @keyframes spin {
                             0% {
                                 transform: rotate(0deg);
@@ -81,28 +81,26 @@
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>{{ __('NO') }}</th>
+                                    <th>{{ __('#') }}</th>
                                     <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Guard Name') }}</th>
+                                    <th>{{ __('Email') }}</th>
                                     <th style="width:10%; text-align:center">{{ __('Actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($roles as $index => $role)
+                                @foreach ($clients as $index => $client)
                                     <tr>
-                                        <td>{{ $roles->firstItem() + $index }}</td>
-                                        <td>{{ $role->name }}</td>
-                                        <td>{{ $role->guard_name }}</td>
+                                        <td>{{ $clients->firstItem() + $index }}</td>
+                                        <td>{{ $client->name }}</td>
+                                        <td>{{ $client->email }}</td>
                                         <td style="width:10%;">
-                                            <a href="{{ route('roles.show', $role) }}" class="btn btn-warning">
-                                                {{-- {{ __('Edit') }} --}}
+                                            <a href="{{ route('clients.show', $client) }}" class="btn btn-warning">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $role->id }})">
-                                                {{-- {{ __('Delete') }} --}}
+                                            <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $client->id }})">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                            <form id="delete-form-{{ $role->id }}" action="{{ route('roles.destroy', $role) }}" method="POST" style="display:none;">
+                                            <form id="delete-form-{{ $client->id }}" action="{{ route('clients.destroy', $client) }}" method="POST" style="display:none;">
                                                 @csrf
                                             </form>
                                         </td>
@@ -111,7 +109,7 @@
                             </tbody>
                         </table>
                         <div class="pagination mt-3">
-                            {!! $roles->links() !!}
+                            {!! $clients->links() !!}
                         </div>
                     </div>
                 </div>
@@ -133,7 +131,7 @@
                     </div>
                     <div class="mt-3 text-center sm:mt-5">
                         <h3 class="text-lg leading-6 font-medium text-gray-900">
-                            {{ __('Are you sure you want to delete this role?') }}
+                            {{ __('Are you sure you want to delete this client?') }}
                         </h3>
                         <div class="mt-2">
                             <p class="text-sm text-gray-500">
@@ -153,12 +151,11 @@
             </div>
         </div>
     </div>
-
     <script>
-        let roleToDelete = null;
+        let clientToDelete = null;
 
-        function confirmDelete(roleId) {
-            roleToDelete = roleId;
+        function confirmDelete(clientId) {
+            clientToDelete = clientId;
             document.getElementById('deleteModal').classList.remove('hidden');
         }
 
@@ -167,21 +164,17 @@
         }
 
         document.getElementById('confirmDeleteButton').addEventListener('click', function () {
-            if (roleToDelete) {
-                document.getElementById('delete-form-' + roleToDelete).submit();
+            if (clientToDelete) {
+                document.getElementById(`delete-form-${clientToDelete}`).submit();
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            @if(session('success'))
-                const successModal = document.getElementById('successModal');
-                successModal.classList.remove('hidden');
 
-       
-                setTimeout(() => {
-                    successModal.classList.add('hidden');
-                }, 3000);
-            @endif
-        });
+        setTimeout(function() {
+            const successModal = document.getElementById('successModal');
+            if (successModal) {
+                successModal.style.display = 'none';
+            }
+        }, 3000);
     </script>
 </x-app-layout>
