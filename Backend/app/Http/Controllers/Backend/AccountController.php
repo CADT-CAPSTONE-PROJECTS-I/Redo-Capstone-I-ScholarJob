@@ -68,4 +68,4 @@ class AccountController extends Controller
 
         return redirect()->route('users.index')->with('success', 'Job Recruiter account created successfully.');
     }
-}
+} 

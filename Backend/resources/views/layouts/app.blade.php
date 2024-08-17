@@ -27,7 +27,7 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <button @click="sidebarOpen = true" class="nav-link text-gray-500 lg:hidden">
+                    <button @click="sidebarOpen = true" class="nav-link text-gray-500 lg">
                         <i class="fas fa-bars"></i>
                     </button>
                 </li>
@@ -38,8 +38,9 @@
             
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
-                        {{ Auth::user()->name }}
                         <i class="fas fa-user"></i>
+                        {{ Auth::user()->name }}
+                       
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="{{ route('profile.edit') }}" class="dropdown-item">

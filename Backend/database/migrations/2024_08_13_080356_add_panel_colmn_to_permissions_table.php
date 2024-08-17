@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('is_superadmin')->nullbale;
+        Schema::table('permissions', function (Blueprint $table) {
+            $table->string('panel')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            
+        Schema::table('permissions', function (Blueprint $table) {
+            //
         });
     }
 };

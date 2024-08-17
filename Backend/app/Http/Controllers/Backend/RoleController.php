@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -11,51 +11,42 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::paginate(10);
         return view('role.index', compact('roles'));
     }
 
     public function create()
     {
-        return view('role.create');
+        $permissions = Permission::all()->groupBy('panel');
+        return view('role.create', compact('permissions'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'guard_name' => 'required|string|max:255',
-        ]);
-
-        Role::create($request->all());
-
-        return redirect()->route('roles.index')->with('success', 'Role created successfully!');
+        $role = Role::create($request->only('name', 'guard_name'));
+        $role->permissions()->sync($request->input('permissions', []));
+        return redirect()->route('roles.index')->with('success', 'Role created successfully.');
     }
 
     public function show($id)
     {
         $role = Role::findOrFail($id);
-        return view('role.show', compact('role'));
+        $permissions = Permission::all()->groupBy('panel');
+        return view('role.edit', compact('role', 'permissions'));
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'guard_name' => 'required|string|max:255',
-        ]);
-
         $role = Role::findOrFail($id);
-        $role->update($request->all());
-
-        return redirect()->route('roles.index')->with('success', 'Role updated successfully!');
+        $role->update($request->only('name', 'guard_name'));
+        $role->permissions()->sync($request->input('permissions', []));
+        return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
     }
 
     public function destroy($id)
     {
         $role = Role::findOrFail($id);
         $role->delete();
-
-        return redirect()->route('roles.index')->with('success', 'Role deleted successfully!');
+        return redirect()->route('roles.index')->with('success', 'Role deleted successfully.');
     }
 }
