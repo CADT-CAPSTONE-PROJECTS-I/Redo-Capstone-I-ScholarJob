@@ -8,7 +8,7 @@ export { appStore } from "../stores/appStore.js";
 //import of all components
 export { default as Register } from '../authenthication/register';
 export { default as LoginPage } from '../authenthication/login';
-export { default as Navbar } from '../components/NavBar.jsx';
+export { default as Navbar } from '../footerAndHeader/NavBar.jsx';
 export { default as HomePage } from "../components/homePage.jsx";
 export { default as CareerPage } from "../components/careerPage.jsx";
 export { default as ScholarshipPage } from "../components/scholarshipPage.jsx";
