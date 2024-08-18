@@ -47,13 +47,22 @@
                             </select>
                         </div>
                         <div>
+                            <label for="job_type" class="block text-gray-700 font-medium mb-2">Job Type</label>
+                            <select id="job_type" name="job_type" 
+                                    class="form-select mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="" disabled selected>Select Job Type</option>
+                                <option value="full_time" {{ old('job_type') == 'full_time' ? 'selected' : '' }}>Full Time</option>
+                                <option value="part_time" {{ old('job_type') == 'part_time' ? 'selected' : '' }}>Part time</option>
+                            </select>
+                        </div>
+                        <div>
                             <label for="salary" class="block text-gray-700 font-medium mb-2">Salary</label>
                             <input type="text" id="salary" name="salary" placeholder="Enter Salary" value="{{ old('salary', $job->salary) }}"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
                         <div>
                             <label for="available_position" class="block text-gray-700 font-medium mb-2">Available Positions</label>
-                            <input type="number" id="available_position" name="available_position" placeholder="Enter Number of Positions" value="{{ old('available_position', $job->available_position) }}"
+                            <input type="number" id="available_position" name="available_position" placeholder="Enter Number of Positions" value="{{ old('available_position', $job->available_position)}}"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
                         <div>
@@ -66,15 +75,9 @@
                             <input type="number" id="age_require" name="age_require" placeholder="Enter Age Requirement" value="{{ old('age_require', $job->age_require) }}"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
-              
-                        <div>
-                            <label for="working_day_from" class="block text-gray-700 font-medium mb-2">Working Day From</label>
-                            <input type="date" id="working_day_from" name="working_day_from" value="{{ old('working_day_from', $job->working_day_from)}}"
-                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
-                        <div>
-                            <label for="working_day_to" class="block text-gray-700 font-medium mb-2">Working Day To</label>
-                            <input type="date" id="working_day_to" name="working_day_to" value="{{ old('working_day_to', $job->working_day_to)}}"
+                         <div>
+                            <label for="experience" class="block text-gray-700 font-medium mb-2">Experience</label>
+                            <input type="number" id="experience" name="experience" placeholder="Enter Experience" value="{{ old('experience', $job->experience) }}"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
                         <div>
@@ -93,6 +96,11 @@
                         <div class="md:col-span-2">
                             <label for="description" class="block text-gray-700 font-medium mb-2">Job Description</label>
                             <textarea id="description" name="description" placeholder="Enter Job Description"
+                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">{{ old('description', $job->description) }}</textarea>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="responsible" class="block text-gray-700 font-medium mb-2">Job Responsible</label>
+                            <textarea id="responsible" name="responsible" placeholder="Enter Job responsible"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">{{ old('description', $job->description) }}</textarea>
                         </div>
                     </div>

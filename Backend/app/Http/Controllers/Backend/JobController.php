@@ -37,8 +37,9 @@ class JobController extends Controller
             'salary' => 'required',
             'deadline' => 'required',
             'available_position' => 'required|',
-            'working_day_from' => 'required',
-            'working_day_to' => 'required',
+            'experience' => 'nullable',
+            'responsible' => 'nullable',
+            'job_type' => 'required',
             'contact' => 'nullable',
             'image' => 'nullable|image|max:2048',
         ]);
@@ -77,9 +78,10 @@ class JobController extends Controller
             'qualification' => 'string|max:255',
             'salary' => 'required',
             'deadline' => 'required',
-            'available_position' => 'required|',
-            'working_day_from' => 'required',
-            'working_day_to' => 'required',
+            'available_position' => 'nullable',
+            'experience' => 'nullable',
+            'responsible' => 'nullable',
+            'job_type' => 'required',
             'contact' => 'nullable',
             'image' => 'nullable|image|max:2048',
         ]);
@@ -87,7 +89,6 @@ class JobController extends Controller
         try {
             $job = Job::findOrFail($id);
             
-
             if ($request->hasFile('image')) {
                 $path = $request->file('image')->move(public_path('image'), $request->file('image')->getClientOriginalName());
                 $validatedData['image'] = 'image/' . $request->file('image')->getClientOriginalName();

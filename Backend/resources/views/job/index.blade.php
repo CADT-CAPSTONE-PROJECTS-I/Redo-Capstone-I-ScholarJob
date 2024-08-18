@@ -89,6 +89,7 @@
                                     <th>{{ __('Organization') }}</th>
                                     <th>{{ __('Category') }}</th>
                                     <th>{{ __('Salary') }}</th>
+                                    <th>{{ __('Job Type') }}</th>
                                     <th>{{ __('Available') }}</th>
                                     <th>{{ __('Deadline') }}</th>
                                     <th style="width:10%; text-align:center">{{ __('Actions') }}</th>
@@ -105,8 +106,8 @@
                                         <td>{{ $job->organization->name ?? '--' }}</td>
                                         <td>{{ $job->category->title ?? '--' }}</td>
                                         <td>{{ $job->salary }}</td>
+                                        <td>{{ $job->job_type }}</td>
                                         <td>{{ $job->available_position }}</td>
-                                        {{-- <td>{{ $job->deadline->format('Y-m-d') }}</td> --}}
                                         <td>{{ \Carbon\Carbon::parse($job->deadline)->format('d - M - Y') }}</td>
                                         <td style="width:10%;">
                                             <a href="{{ route('jobs.show', $job) }}" class="btn btn-warning">

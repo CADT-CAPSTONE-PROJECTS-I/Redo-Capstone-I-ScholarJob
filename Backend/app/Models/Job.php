@@ -12,7 +12,7 @@ class Job extends Model
     protected $fillable = [
         'category_id', 'organization_id', 'title', 'description',
         'age_require', 'qualification', 'salary', 'deadline', 'available_position',
-        'working_day_from', 'working_day_to', 'contact', 'image'
+        'working_day_from', 'working_day_to', 'contact', 'image','responsible','experience','job_type'
     ];
 
     public function organization()
