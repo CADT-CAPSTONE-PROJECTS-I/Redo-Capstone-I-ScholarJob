@@ -19,6 +19,7 @@
             <div class="bg-white shadow-md rounded-lg p-6">
                 <form id="jobForm" action="{{ route('jobs.update', $job->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @include('components.message-error')
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
@@ -66,8 +67,11 @@
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
                         <div>
-                            <label for="deadline" class="block text-gray-700 font-medium mb-2">Application Deadline</label>
-                            <input type="date" id="deadline" name="deadline" value="{{ old('deadline', $job->deadline)}}"
+                            <label for="deadline" class="block text-gray-700 font-medium mb-2">Deadline</label>
+                            @php
+                                $formattedDeadline = $job->deadline ? \Carbon\Carbon::parse($job->deadline)->format('Y-m-d') : '';
+                            @endphp
+                            <input type="date" id="deadline" name="deadline" value="{{ old('deadline', $formattedDeadline) }}"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
                         <div>

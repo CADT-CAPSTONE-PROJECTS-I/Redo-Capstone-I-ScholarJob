@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +11,8 @@ class Scholarship extends Model
 
     protected $fillable = [
         'organization_id', 'degree', 'eligibility', 'qualification',
-        'deadline', 'offer', 'award', 'available_position', 'image'
+        'deadline', 'offer', 'award', 'available_position', 'image',
+        'english_proficiency','major','location','age','gpa','program_duration',
     ];
 
     public function organization()

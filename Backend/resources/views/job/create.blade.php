@@ -19,6 +19,8 @@
             <div class="bg-white shadow-md rounded-lg p-6">
                 <form id="jobForm" action="{{ route('jobs.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @include('components.message-error')
+                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label for="title" class="block text-gray-700 font-medium mb-2">Title</label>

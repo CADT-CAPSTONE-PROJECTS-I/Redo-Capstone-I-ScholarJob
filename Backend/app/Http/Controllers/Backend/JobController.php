@@ -7,6 +7,7 @@ use App\Models\Organization;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreOrUpdateScholarshipRequest; 
 
 class JobController extends Controller
 {
@@ -24,25 +25,9 @@ class JobController extends Controller
         return view('job.create', compact('organizations', 'categories'));
     }
     
-    public function store(Request $request)
+    public function store(StoreOrUpdateJobRequest $request)
     {
-        
-        $validatedData = $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'organization_id' => 'required|exists:organizations,id',
-            'title' => 'required',
-            'description' => 'required',
-            'age_require' => 'nullable',
-            'qualification' => 'string|max:255',
-            'salary' => 'required',
-            'deadline' => 'required',
-            'available_position' => 'required|',
-            'experience' => 'nullable',
-            'responsible' => 'nullable',
-            'job_type' => 'required',
-            'contact' => 'nullable',
-            'image' => 'nullable|image|max:2048',
-        ]);
+        $validatedData = $request->validated();
         
         try {
             if ($request->hasFile('image')) {
@@ -67,24 +52,9 @@ class JobController extends Controller
         return view('job.edit', compact('job', 'organizations', 'categories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreOrUpdateJobRequest $request, $id)
     {
-        $validatedData = $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'organization_id' => 'required|exists:organizations,id',
-            'title' => 'required',
-            'description' => 'required',
-            'age_require' => 'nullable',
-            'qualification' => 'string|max:255',
-            'salary' => 'required',
-            'deadline' => 'required',
-            'available_position' => 'nullable',
-            'experience' => 'nullable',
-            'responsible' => 'nullable',
-            'job_type' => 'required',
-            'contact' => 'nullable',
-            'image' => 'nullable|image|max:2048',
-        ]);
+        $validatedData = $request->validated();
 
         try {
             $job = Job::findOrFail($id);
