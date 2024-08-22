@@ -25,11 +25,18 @@
                             <input type="text" id="name" name="name" placeholder="Enter Name"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
+
                         <div>
                             <label for="industry_type" class="block text-gray-700 font-medium mb-2">Industry Type</label>
-                            <input type="text" id="industry_type" name="industry_type" placeholder="Enter Industry Type"
-                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
+                            <select id="industry_type" name="industry_type" class="form-select mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="" disabled selected>Select Type</option>
+                                <option value="bank" {{ old('industry_type') == 'bank' ? 'selected' : '' }}>Bank</option>
+                                <option value="school" {{ old('industry_type') == 'school' ? 'selected' : '' }}>School</option>
+                                <option value="startup" {{ old('industry_type') == 'startup' ? 'selected' : '' }}>Startup</option>
+                                <option value="goverment" {{ old('industry_type') == 'goverment' ? 'selected' : '' }}>Gov</option>
+                            </select>
                         </div>
+
                         <div>
                             <label for="website" class="block text-gray-700 font-medium mb-2">Website</label>
                             <input type="text" id="website" name="website" placeholder="Enter Website"

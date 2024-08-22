@@ -7,7 +7,7 @@ use App\Models\Organization;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreOrUpdateScholarshipRequest; 
+use App\Http\Requests\StoreOrUpdateJobRequest; 
 
 class JobController extends Controller
 {
@@ -21,6 +21,7 @@ class JobController extends Controller
     {
         $organizations = Organization::pluck('name', 'id');
         $categories = Category::pluck('title', 'id');
+        
     
         return view('job.create', compact('organizations', 'categories'));
     }

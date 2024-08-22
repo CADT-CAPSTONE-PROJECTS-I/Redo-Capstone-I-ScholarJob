@@ -63,12 +63,14 @@
                                             <a href="{{ route('accounts.show', $user) }}" class="btn btn-warning">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $user->id }})">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                            <form id="delete-form-{{ $user->id }}" action="{{ route('accounts.destroy', $user) }}" method="POST" style="display:none;">
-                                                @csrf
-                                            </form>
+                                            @if(!$user->is_superadmin)
+                                                <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $user->id }})">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <form id="delete-form-{{ $user->id }}" action="{{ route('accounts.destroy', $user) }}" method="POST" style="display:none;">
+                                                    @csrf
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

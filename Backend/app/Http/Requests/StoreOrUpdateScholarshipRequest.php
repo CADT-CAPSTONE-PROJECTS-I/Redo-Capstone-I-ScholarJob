@@ -22,7 +22,7 @@ class StoreOrUpdateScholarshipRequest extends FormRequest
             'offer' => 'required|string|max:255',
             'award' => 'nullable|numeric',
             'available_position' => 'required|numeric',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image',
             'major' => 'nullable|string|max:255',
             'english_proficiency' => 'nullable|string|max:255',
             'location' => 'nullable|string|max:255',

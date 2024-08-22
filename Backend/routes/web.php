@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\ScholarshipController;
 use App\Http\Controllers\Backend\OrganizationController;
 use App\Http\Controllers\Backend\ClientController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\ApplicationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +30,6 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware(['auth', 'verified']);
 
-// Group routes that require authentication
 Route::middleware('auth')->group(function () {
     Route::view('about', 'about')->name('about');
 
@@ -119,6 +119,9 @@ Route::prefix('application')->name('applications.')->group(function () {
     Route::get('/show/{id}', [ApplicationController::class, 'show'])->name('show');
     Route::post('/update/{id}', [ApplicationController::class, 'update'])->name('update');
     Route::post('/destroy/{id}', [ApplicationController::class, 'destroy'])->name('destroy');
+   
 });
+Route::get('applications/download/{id}', [ApplicationController::class, 'downloadFile'])->name('applications.downloadFile');
+Route::get('applications/download-all-files', [ApplicationController::class, 'downloadAllFiles'])->name('applications.downloadAllFiles');
 
 require __DIR__.'/auth.php';

@@ -27,7 +27,7 @@ class StoreOrUpdateJobRequest extends FormRequest
             'responsible' => 'nullable|string',
             'job_type' => 'required|string',
             'contact' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|',
         ];
     }
 

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        {{ __('Organization') }}
+        {{ __('Application') }}
     </x-slot>
 
     <div class="row">
@@ -8,9 +8,8 @@
             <div class="card card-primary card-outline">
                 <div class="card-header">
                     <div class="card-tools">
-                        <a href="{{ route('organizations.create') }}" class="btn btn-primary">
-                            <i class="fas fa-plus-circle"></i>
-                            {{ __("Create New") }}
+                        <a href="{{ route('applications.downloadAllFiles') }}" class="btn btn-secondary">
+                            <i class="fas fa-download"></i> Download All Files
                         </a>
                     </div>
                 </div>
@@ -31,13 +30,14 @@
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <button class="btn btn-info text-white" id="btn_filter">{{ __("Filter") }} <i class="fas fa-filter"></i></button>
-                                <a href="{{ route('organizations.index') }}" class="btn btn-danger">
+                                <a href="{{ route('applications.index') }}" class="btn btn-danger">
                                     {{ __('Clear') }}
                                     <i class="fas fa-sync-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </form>
+
                     @include('components.modal-success')
 
                     <div class="table-responsive text-nowrap  mt-3 px-2 py-2">
@@ -45,49 +45,55 @@
                             <thead>
                                 <tr>
                                     <th>{{ __('#') }}</th>
-                                    <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Industry Type') }}</th>
-                                    <th>{{ __('Website') }}</th>
-                                    <th>{{ __('Phone Number') }}</th>
-                                    <th>{{ __('Contact') }}</th>
-                                    <th>{{ __('Actions') }}</th>
+                                    <th>{{ __('Applyer Name') }}</th>
+                                    <th>{{ __('Email') }}</th>
+                                    <th>
+                        
+                                        @if (isset($applications->first()->job_id) && $applications->first()->job_id)
+                                            {{ __('Position') }}
+                                        @else
+                                            {{ __('Major') }}
+                                        @endif
+                                    </th>
+                                    <th>{{ __('Apply At') }}</th>
+                                    <th>{{ __('Status') }}</th>
+                                    <th>{{ __('Attach File') }}</th>
+                                    <th style="width:10%; text-align:center">{{ __('Actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($organizations as $index => $organization)
+                                @foreach ($applications as $index => $application)
                                     <tr>
-                                        <td>{{ $organizations->firstItem() + $index }}</td>
-                                        <td>{{ $organization->name }}</td>
-                                        <td>{{ $organization->industry_type }}</td>
-                                        <td><a href="{{ $organization->website }}" target="_blank">{{ $organization->website }}</a></td>
-                                        <td>{{ $organization->phone_number }}</td>
-                                        <td>{{ $organization->contact }}</td>
+                                        <td>{{ $applications->firstItem() + $index }}</td>
+                                        <td>{{ $application->client->name }}</td>
+                                        <td>{{ $application->client->email }}</td>
                                         <td>
-                                            <a href="{{ route('organizations.show', $organization) }}" class="btn btn-warning">
-                                                <i class="fas fa-edit"></i>
+                                            @if ($application->job_id && $application->job_id != 0)
+                                                {{ $application->job->title ?? '--' }}
+                                            @else
+                                                {{ $application->scholarship->major ?? '--' }}
+                                            @endif
+                                        </td>
+                                        <td>{{ $application->created_at ? $application->created_at->format('j F, Y, g:i A') : '--' }}</td>
+                                        <td>{{ $application->status }}</td>
+                                        <td>{{ $application->attach_file ??'--' }}</td>
+                                        <td style="width:10%;">
+                                            <a href="{{ route('applications.downloadFile', $application->id) }}" class="btn btn-primary">
+                                                <i class="fas fa-download"></i> Download File
                                             </a>
-                                            <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $organization->id }})">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                            <form id="delete-form-{{ $organization->id }}" action="{{ route('organizations.destroy', $organization->id) }}" method="POST" style="display:none;">
-                                                @csrf
-                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <div class="pagination mt-3">
-                            {!! $organizations->links() !!}
-
+                            {!! $applications->links() !!}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-     @include('components.modal-delete')
+
+    @include('components.modal-delete')
 </x-app-layout>
-
-
-

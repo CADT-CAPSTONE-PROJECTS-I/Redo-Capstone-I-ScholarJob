@@ -45,7 +45,7 @@
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>{{ __('NO') }}</th>
+                                    <th>{{ __('#') }}</th>
                                     <th>{{ __('Name') }}</th>
                                     <th>{{ __('Guard Name') }}</th>
                                     <th style="width:10%; text-align:center">{{ __('Actions') }}</th>
@@ -59,11 +59,9 @@
                                         <td>{{ $role->guard_name }}</td>
                                         <td style="width:10%;">
                                             <a href="{{ route('roles.show', $role) }}" class="btn btn-warning">
-                                                {{-- {{ __('Edit') }} --}}
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $role->id }})">
-                                                {{-- {{ __('Delete') }} --}}
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                             <form id="delete-form-{{ $role->id }}" action="{{ route('roles.destroy', $role) }}" method="POST" style="display:none;">

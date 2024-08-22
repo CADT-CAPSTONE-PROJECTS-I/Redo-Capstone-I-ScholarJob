@@ -62,9 +62,9 @@
                                         <td>{{ $scholarships->firstItem() + $index }}</td>
                                         <td>
                                             @if($scholarship->image && file_exists(public_path($scholarship->image)))
-                                                <img src="{{ asset($scholarship->image) }}" alt="Scholarship Image" style="width:50px; height:50px; border-radius:10px;">
+                                                <img src="{{ asset($scholarship->image) }}" alt="Scholarship Image" style="width:60px; height:50px; border-radius:5px;">
                                             @else
-                                                <img src="{{ asset('image/default.png') }}" alt="Default Image" style="width:50px; height:50px; border-radius:10px;">
+                                                <img src="{{ asset('image/default.png') }}" alt="Default Image" style="width:60px; height:50px; border-radius:5px;">
                                             @endif
                                         </td>
 
