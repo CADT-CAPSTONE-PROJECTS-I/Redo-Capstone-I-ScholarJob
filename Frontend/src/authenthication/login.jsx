@@ -31,7 +31,7 @@ const Register = () => {
               className="absolute top-1 left-1 text-gray-400"
             />
             <input
-              type="text"
+              type="email"
               id="email"
               className="input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
               required
