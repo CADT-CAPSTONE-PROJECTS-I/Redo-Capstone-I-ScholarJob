@@ -7,6 +7,7 @@ use App\Models\Organization;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreOrUpdateJobRequest; 
 
 class JobController extends Controller
 {
@@ -20,28 +21,14 @@ class JobController extends Controller
     {
         $organizations = Organization::pluck('name', 'id');
         $categories = Category::pluck('title', 'id');
+        
     
         return view('job.create', compact('organizations', 'categories'));
     }
     
-    public function store(Request $request)
+    public function store(StoreOrUpdateJobRequest $request)
     {
-        
-        $validatedData = $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'organization_id' => 'required|exists:organizations,id',
-            'title' => 'required',
-            'description' => 'required',
-            'age_require' => 'nullable',
-            'qualification' => 'string|max:255',
-            'salary' => 'required',
-            'deadline' => 'required',
-            'available_position' => 'required|',
-            'working_day_from' => 'required',
-            'working_day_to' => 'required',
-            'contact' => 'nullable',
-            'image' => 'nullable|image|max:2048',
-        ]);
+        $validatedData = $request->validated();
         
         try {
             if ($request->hasFile('image')) {
@@ -66,28 +53,13 @@ class JobController extends Controller
         return view('job.edit', compact('job', 'organizations', 'categories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreOrUpdateJobRequest $request, $id)
     {
-        $validatedData = $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'organization_id' => 'required|exists:organizations,id',
-            'title' => 'required',
-            'description' => 'required',
-            'age_require' => 'nullable',
-            'qualification' => 'string|max:255',
-            'salary' => 'required',
-            'deadline' => 'required',
-            'available_position' => 'required|',
-            'working_day_from' => 'required',
-            'working_day_to' => 'required',
-            'contact' => 'nullable',
-            'image' => 'nullable|image|max:2048',
-        ]);
+        $validatedData = $request->validated();
 
         try {
             $job = Job::findOrFail($id);
             
-
             if ($request->hasFile('image')) {
                 $path = $request->file('image')->move(public_path('image'), $request->file('image')->getClientOriginalName());
                 $validatedData['image'] = 'image/' . $request->file('image')->getClientOriginalName();

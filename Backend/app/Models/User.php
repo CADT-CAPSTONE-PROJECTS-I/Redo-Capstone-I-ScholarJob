@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,7 +22,8 @@ class User extends Authenticatable
         'name',
         'email',        
         'password',
-        'role_id'
+        'role_id',
+        'is_superadmin'
     ];
 
     /**
@@ -48,4 +50,15 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class,'role_id');
     }
+    
+    public function isSuperAdmin()
+    {
+        return $this->is_superadmin;
+    }
+    public function hasPermission($permission)
+    {
+        return $this->isSuperAdmin() || $this->role->permissions->contains('name', $permission);
+    }
+
+    
 }
