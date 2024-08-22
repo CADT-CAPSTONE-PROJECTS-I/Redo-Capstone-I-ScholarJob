@@ -13,7 +13,16 @@ export default {
           dark: '#067d68',
           darker: '#0F766E',
         },
-      }
+        customBlue: {
+          light: '#829caa',
+        },
+        customPink: {
+          light: '#f8f0ec',
+        },
+      },
+      fontFamily: {
+        bebas: ['Bebas Neue', 'sans-serif'],
+      },
     },
   },
   plugins: [],
