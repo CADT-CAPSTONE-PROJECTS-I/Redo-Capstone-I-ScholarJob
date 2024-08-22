@@ -31,7 +31,7 @@
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
                         <div>
-                            <label for="website" class="block text-gray-700 font-medium mb-2">Website</label>
+                            <label for="website" class="block text-gray-700 font-medium mb-2">Media</label>
                             <input type="text" id="website" name="website" value="{{ $organization->website }}" placeholder="Enter Website"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>

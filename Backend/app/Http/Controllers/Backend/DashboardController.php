@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Client; 
 use App\Models\Organization;
 use App\Models\Scholarship; 
+use App\Models\Application; 
 use DB;
 
 class DashboardController extends Controller
@@ -39,6 +40,21 @@ class DashboardController extends Controller
         $clientsByMonth = Client::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
                                 ->groupBy('month')
                                 ->pluck('count', 'month');
+        $applicationsJobByMonth = Application::whereNotNull('job_id')
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->pluck('count', 'month');
+        
+        $applicationsScholarshipByMonth = Application::whereNotNull('scholarship_id')
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->pluck('count', 'month');
+        
+        $applicationDistribution = [
+            'Applied for Job' => Application::whereNotNull('job_id')->count(),
+            'Applied for Scholarship' => Application::whereNotNull('scholarship_id')->count(),
+        ];
+                            
 
         return view('dashboard.index', compact(
             'jobCount', 
@@ -49,7 +65,10 @@ class DashboardController extends Controller
             'jobsByMonth', 
             'scholarshipsByMonth', 
             'userDistribution', 
-            'clientsByMonth' 
+            'clientsByMonth',
+            'applicationsJobByMonth',
+            'applicationsScholarshipByMonth',
+            'applicationDistribution',
         ));
     }
 }

@@ -7,12 +7,14 @@
         <div class="col-md-12">
             <div class="card card-primary card-outline">
                 <div class="card-header">
+                @if (auth()->user()->hasPermission('CreateOrganization'))
                     <div class="card-tools">
                         <a href="{{ route('organizations.create') }}" class="btn btn-primary">
                             <i class="fas fa-plus-circle"></i>
                             {{ __("Create New") }}
                         </a>
                     </div>
+                @endif
                 </div>
                 <div class="card-body">
                     <form action="" id="form_filter">
@@ -47,10 +49,13 @@
                                     <th>{{ __('#') }}</th>
                                     <th>{{ __('Name') }}</th>
                                     <th>{{ __('Industry Type') }}</th>
-                                    <th>{{ __('Website') }}</th>
+                                    <th>{{ __('Media') }}</th>
                                     <th>{{ __('Phone Number') }}</th>
                                     <th>{{ __('Contact') }}</th>
+                                    @if (auth()->user()->hasPermission('DeleteOrganization') || auth()->user()->hasPermission('UpdateOrganization'))
                                     <th>{{ __('Actions') }}</th>
+                                    @endif
+                               
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,17 +67,25 @@
                                         <td><a href="{{ $organization->website }}" target="_blank">{{ $organization->website }}</a></td>
                                         <td>{{ $organization->phone_number }}</td>
                                         <td>{{ $organization->contact }}</td>
+                                        @if (auth()->user()->hasPermission('DeleteOrganization') || auth()->user()->hasPermission('UpdateOrganization'))
                                         <td>
+                                            @if (auth()->user()->hasPermission('UpdateOrganization'))
                                             <a href="{{ route('organizations.show', $organization) }}" class="btn btn-warning">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $organization->id }})">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                            <form id="delete-form-{{ $organization->id }}" action="{{ route('organizations.destroy', $organization->id) }}" method="POST" style="display:none;">
-                                                @csrf
-                                            </form>
+                                                        
+                                            @endif
+                                            @if (auth()->user()->hasPermission('DeleteOrganization'))
+                                                <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $organization->id }})">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <form id="delete-form-{{ $organization->id }}" action="{{ route('organizations.destroy', $organization->id) }}" method="POST" style="display:none;">
+                                                    @csrf
+                                                </form>
+                                            @endif
                                         </td>
+                                        @endif
+                    
                                     </tr>
                                 @endforeach
                             </tbody>
