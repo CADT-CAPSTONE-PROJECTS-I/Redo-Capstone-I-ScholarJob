@@ -6,12 +6,15 @@
         <div class="col-md-12">
             <div class="card card-primary card-outline">
                 <div class="card-header">
+                @if (auth()->user()->hasPermission('CreateUser'))
                     <div class="card-tools">
                         <a href="{{ route('clients.create') }}" class="btn btn-primary">
                             <i class="fas fa-plus-circle"></i>
                             {{ __("Create New") }}
                         </a>
                     </div>
+                @endif
+              
                 </div>
                 <div class="card-body">
                     <form action="" id="form_filter">
@@ -47,7 +50,9 @@
                                     <th>{{ __('#') }}</th>
                                     <th>{{ __('Name') }}</th>
                                     <th>{{ __('Email') }}</th>
-                                    <th style="width:10%; text-align:center">{{ __('Actions') }}</th>
+                                    @if (auth()->user()->hasPermission('UpdateUser') || auth()->user()->hasPermission('DeleteUser'))
+                                        <th style="width:10%; text-align:center">{{ __('Actions') }}</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,17 +61,23 @@
                                         <td>{{ $clients->firstItem() + $index }}</td>
                                         <td>{{ $client->name }}</td>
                                         <td>{{ $client->email }}</td>
+                                        @if (auth()->user()->hasPermission('UpdateUser') || auth()->user()->hasPermission('DeleteUser'))
                                         <td style="width:10%;">
-                                            <a href="{{ route('clients.show', $client) }}" class="btn btn-warning">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $client->id }})">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                            <form id="delete-form-{{ $client->id }}" action="{{ route('clients.destroy', $client) }}" method="POST" style="display:none;">
-                                                @csrf
-                                            </form>
+                                            @if (auth()->user()->hasPermission('UpdateUser'))
+                                                <a href="{{ route('clients.show', $client) }}" class="btn btn-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </a> 
+                                            @endif
+                                            @if (auth()->user()->hasPermission('DeleteUser'))    
+                                                <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $client->id }})">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <form id="delete-form-{{ $client->id }}" action="{{ route('clients.destroy', $client) }}" method="POST" style="display:none;">
+                                                    @csrf
+                                                </form> 
+                                            @endif
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>

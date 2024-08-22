@@ -7,12 +7,15 @@
         <div class="col-md-12">
             <div class="card card-primary card-outline">
                 <div class="card-header">
+                @if (auth()->user()->hasPermission('CreateScholarship'))
                     <div class="card-tools">
                         <a href="{{ route('scholarships.create') }}" class="btn btn-primary">
                             <i class="fas fa-plus-circle"></i>
                             {{ __("Create New") }}
                         </a>
                     </div>
+                @endif
+     
                 </div>
                 <div class="card-body">
                     <form action="" id="form_filter">
@@ -52,8 +55,11 @@
                                     <th>Eligibility</th>
                                     <th>Qualification</th>
                                     <th>Available</th>
-                                    <th>Deadline</th>
+                                    <th>Deadline</th>             
+                                    @if (auth()->user()->hasPermission('UpdateScholarship') || auth()->user()->hasPermission('DeleteScholarship'))
                                     <th>Actions</th>
+                                    @endif
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,18 +81,24 @@
                                         <td>{{ $scholarship->available_position }}</td>
                                         <td>{{ \Carbon\Carbon::parse($scholarship->deadline)->format('d - M - Y') }}</td>
 
-                                       
-                                        <td style="width:10%;">
+                                        @if (auth()->user()->hasPermission('UpdateScholarship') || auth()->user()->hasPermission('DeleteScholarship'))
+                                            <td style="width:10%;">
+                                                @if (auth()->user()->hasPermission('UpdateScholarship'))
                                                 <a href="{{ route('scholarships.show', $scholarship) }}" class="btn btn-warning">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
+                                                @endif
+                                                @if (auth()->user()->hasPermission('DeleteScholarship'))
                                                 <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $scholarship->id }})">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $scholarship->id }}" action="{{ route('scholarships.destroy', $scholarship) }}" method="POST" style="display:none;">
                                                     @csrf
-                                                </form>
+                                                </form> 
+                                                @endif
                                             </td>
+                                        @endif
+                      
                                         </tr>
                                 @endforeach
                             </tbody>

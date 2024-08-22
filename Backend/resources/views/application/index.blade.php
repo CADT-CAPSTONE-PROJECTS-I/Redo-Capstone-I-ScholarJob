@@ -7,11 +7,14 @@
         <div class="col-md-12">
             <div class="card card-primary card-outline">
                 <div class="card-header">
+                @if (auth()->user()->hasPermission('DownloadZip'))
                     <div class="card-tools">
                         <a href="{{ route('applications.downloadAllFiles') }}" class="btn btn-secondary">
                             <i class="fas fa-download"></i> Download All Files
                         </a>
-                    </div>
+                    </div>             
+                @endif
+             
                 </div>
                 <div class="card-body">
                     <form action="" id="form_filter">
@@ -45,20 +48,17 @@
                             <thead>
                                 <tr>
                                     <th>{{ __('#') }}</th>
-                                    <th>{{ __('Applyer Name') }}</th>
+                                    <th>{{ __('Applicant') }}</th>
                                     <th>{{ __('Email') }}</th>
-                                    <th>
-                        
-                                        @if (isset($applications->first()->job_id) && $applications->first()->job_id)
-                                            {{ __('Position') }}
-                                        @else
-                                            {{ __('Major') }}
-                                        @endif
-                                    </th>
+                                    <th>{{ __('Position') }}</th>
+                                    <th>{{ __('Major') }}</th>
                                     <th>{{ __('Apply At') }}</th>
                                     <th>{{ __('Status') }}</th>
                                     <th>{{ __('Attach File') }}</th>
-                                    <th style="width:10%; text-align:center">{{ __('Actions') }}</th>
+                                    @if (auth()->user()->hasPermission('DownloadCV'))
+                                    <th style="width:10%; text-align:center">{{ __('Actions') }}</th>  
+                                    @endif
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -67,21 +67,21 @@
                                         <td>{{ $applications->firstItem() + $index }}</td>
                                         <td>{{ $application->client->name }}</td>
                                         <td>{{ $application->client->email }}</td>
-                                        <td>
-                                            @if ($application->job_id && $application->job_id != 0)
-                                                {{ $application->job->title ?? '--' }}
-                                            @else
-                                                {{ $application->scholarship->major ?? '--' }}
-                                            @endif
-                                        </td>
+                                        <td>{{ $application->job->title ?? '--' }}</td>
+                                        <td>{{ $application->scholarship->major ?? '--' }}</td>
                                         <td>{{ $application->created_at ? $application->created_at->format('j F, Y, g:i A') : '--' }}</td>
                                         <td>{{ $application->status }}</td>
                                         <td>{{ $application->attach_file ??'--' }}</td>
+                                        @if (auth()->user()->hasPermission('DownloadCV'))
                                         <td style="width:10%;">
-                                            <a href="{{ route('applications.downloadFile', $application->id) }}" class="btn btn-primary">
-                                                <i class="fas fa-download"></i> Download File
-                                            </a>
+                                            @if ($application->attach_file != null)
+                                                <a href="{{ route('applications.downloadFile', $application->id) }}" class="btn btn-primary">
+                                                    <i class="fas fa-download"></i> Download File
+                                                </a>
+                                            @endif
                                         </td>
+                                        @endif
+                         
                                     </tr>
                                 @endforeach
                             </tbody>
