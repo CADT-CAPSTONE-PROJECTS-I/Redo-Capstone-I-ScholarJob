@@ -5,8 +5,8 @@
 <aside :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'"
        class="fixed inset-y-0 left-0 z-30 w-64 transition duration-300 transform lg:translate-x-0 lg:static lg:inset-0">
     <a href="{{ route('dashboard') }}" class="flex items-center justify-center py-4 border-b border-gray-700">
-     <img src="{{ asset('image/scholarJob_logo_green.png') }}" alt="Scholar Job Logo" style="width:50px; height:50px;">
-        <span class="text-white text-2xl font-semibold">{{ __('ScholarJob') }}</span>
+    <img src="{{ asset('image/scholarJob_logo_green.png') }}" alt="Scholar Job Logo" style="width:50px; height:50px;">
+        <span class="text-white text-2xl font-semibold ">{{ __('SCHOLARJOB') }}</span>
     </a>
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"

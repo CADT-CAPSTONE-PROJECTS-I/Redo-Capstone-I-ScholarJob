@@ -65,8 +65,8 @@
                                 @foreach ($applications as $index => $application)
                                     <tr>
                                         <td>{{ $applications->firstItem() + $index }}</td>
-                                        <td>{{ $application->client->name }}</td>
-                                        <td>{{ $application->client->email }}</td>
+                                        <td>{{ $application->client->name ?? '--' }}</td>
+                                        <td>{{ $application->client->email ?? '--'}}</td>
                                         <td>{{ $application->job->title ?? '--' }}</td>
                                         <td>{{ $application->scholarship->major ?? '--' }}</td>
                                         <td>{{ $application->created_at ? $application->created_at->format('j F, Y, g:i A') : '--' }}</td>
