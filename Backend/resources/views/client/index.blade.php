@@ -59,7 +59,7 @@
                                 @foreach ($clients as $index => $client)
                                     <tr>
                                         <td>{{ $clients->firstItem() + $index }}</td>
-                                        <td>{{ $client->name }}</td>
+                                        <td>{{ $client->name ?? '--'}}</td>
                                         <td>{{ $client->email }}</td>
                                         @if (auth()->user()->hasPermission('UpdateUser') || auth()->user()->hasPermission('DeleteUser'))
                                         <td style="width:10%;">
