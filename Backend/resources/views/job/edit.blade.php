@@ -52,8 +52,10 @@
                             <select id="job_type" name="job_type" 
                                     class="form-select mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                                 <option value="" disabled selected>Select Job Type</option>
-                                <option value="full_time" {{ old('job_type') == 'full_time' ? 'selected' : '' }}>Full Time</option>
-                                <option value="part_time" {{ old('job_type') == 'part_time' ? 'selected' : '' }}>Part time</option>
+                                <option value="full_time" {{ $job->job_type == 'full_time' ? 'selected' : '' }}>Full Time</option>
+                                <option value="part_time" {{ $job->job_type == 'part_time' ? 'selected' : '' }}>Part time</option>
+                                <option value="remote" {{ $job->job_type == 'remote' ? 'selected' : '' }}>Remote</option>
+                                <option value="on_site" {{ $job->job_type == 'on_site' ? 'selected' : '' }}>On Site</option>
                             </select>
                         </div>
                         <div>
@@ -98,7 +100,7 @@
                         <div class="md:col-span-2">
                             <label for="responsible" class="block text-gray-700 font-medium mb-2">Responsible</label>
                             <textarea id="responsible" name="responsible" placeholder="Enter Job responsible"
-                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">{{ old('description', $job->description) }}</textarea>
+                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">{{ old('description', $job->responsible) }}</textarea>
                         </div>
 
                         <div style="width: 350px;">
