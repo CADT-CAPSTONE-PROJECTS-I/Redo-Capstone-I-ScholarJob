@@ -174,7 +174,7 @@ const FormCVPage = () => {
                   <div className="h-3 w-3 bg-customBlue-light "></div>
                   <h1 className="font-bold -mt-4">ABOUT ME</h1>
                 </div>
-                <p className="text-sm text-justify pr-9 pl-3 font-semibold">
+                <p className="text-sm text-justify pr-9 pl-3 font-semibold w-[480px]">
                   {cvData.aboutMe}
                 </p>
               </div>
@@ -192,7 +192,7 @@ const FormCVPage = () => {
                         <li key={index} className="flex break-words pr-6 pl-3">
                           {" "}
                           <span className="text-xl mr-2 -mt-1">•</span>{" "}
-                          <span className="inline-block text-justify">
+                          <span className="inline-block text-justify w-[410px]">
                             {education}
                           </span>
                         </li>
@@ -217,7 +217,7 @@ const FormCVPage = () => {
                         <li key={index} className="flex break-words pr-6 pl-3">
                           {" "}
                           <span className="text-xl mr-2 -mt-1">•</span>{" "}
-                          <span className="inline-block text-justify">
+                          <span className="inline-block text-justify w-[410px]">
                             {experience}
                           </span>
                         </li>
