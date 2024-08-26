@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Navbar } from "../import/all_import.jsx"; 
+import { Navbar,ScholarJobLogoWhite } from "../import/all_import.jsx"; 
 import { getJobDetail } from '../API/career_api';
 
 const DetailedJobPage = () => {
@@ -20,77 +20,94 @@ const DetailedJobPage = () => {
     return <div>Loading...</div>;
   }
 
-  return (
-    <div>
+  const responsibilities = job.responsible
+  ? job.responsible
+      .split(/(?<=\.)\s+/)
+      .filter((item) => item.trim() !== '')
+  : [];
 
-      <header className="p-12 bg-white">
-        <Navbar /> 
+  return (
+    <div className="bg-gray-100 min-h-screen">
+      <header className="p-6 bg-white shadow-md">
+        <Navbar />
       </header>
 
-      <div className="max-w-screen-lg mx-auto p-8">
-
-        <div className="flex justify-between items-start mb-8">
+      <div className="max-w-screen-lg mx-auto p-8 bg-white shadow-lg rounded-lg mt-6">
+        <div className="bg-teal-600 p-6 rounded mb-8">
           <div className="flex items-center">
             <img
-              src={job.image_url}
+              src={job.image_url || ScholarJobLogoWhite}
               alt={job.title}
-              className="w-32 h-32 object-cover mr-4 rounded"
+              className="w-32 h-32 object-cover mr-6 rounded"
             />
-            <div>
-              <h1 className="text-2xl font-bold">{job.title}</h1>
-              <p>{job.organization.name}, {job.organization.location}</p>
-              <p>Publish Date: {new Date(job.created_at).toLocaleDateString()}</p>
-              <p>Closing Date: {new Date(job.deadline).toLocaleDateString()}</p>
+            <div className="text-white">
+              <h1 className="text-2xl font-bold mb-2">{job.title}</h1>
+              <p className="text-lg">{job.organization.name}, {job.organization.location}</p>
+              <div className="text-gray-200 mt-2 flex">
+                <p className="mr-6">Publish Date: {new Date(job.created_at).toLocaleDateString()}</p>
+                <p>Closing Date: {new Date(job.deadline).toLocaleDateString()}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="border border-gray-300 rounded">
+            <div className="bg-teal-600 p-4 rounded-t">
+              <h2 className="text-lg font-semibold text-white">Job's Requirement</h2>
+            </div>
+            <div className="bg-white p-4 space-y-2">
+              <div className="border-b border-gray-300 pb-2">Experience: {job.experience}</div>
+              <div className="border-b border-gray-300 pb-2">Age Requirement: {job.age_require}</div>
+              <div className="border-b border-gray-300 pb-2">Job Description: {job.description}</div>
+            
+            </div>
+          </div>
+
+          <div className="border border-gray-300 rounded">
+            <div className="bg-teal-600 p-4 rounded-t">
+              <h2 className="text-lg font-semibold text-white">Job's Information</h2>
+            </div>
+            <div className="bg-white p-4 space-y-2">
+              <div className="border-b border-gray-300 pb-2">Job Category: {job.category.title}</div>
+              <div className="border-b border-gray-300 pb-2">Job Type: {job.job_type}</div>
+              <div className="border-b border-gray-300 pb-2">Experience: {job.experience}</div>
+              <div className="border-b border-gray-300 pb-2">Salary: {job.salary}</div>
+              <div>Location: {job.organization.address}</div>
             </div>
           </div>
         </div>
 
-
-        <div className="grid grid-cols-2 gap-4 mb-8">
-          <div className="bg-teal-100 p-4 rounded">
-            <h2 className="text-xl font-semibold mb-2">Job's Requirement</h2>
-            <p>{job.qualification}</p>
-            <p>Experience: {job.experience}</p>
-            <p>Age Requirement: {job.age_require}</p>
-            <p>{job.responsible}</p>
+        <div className="border border-gray-300 rounded mb-8">
+          <div className="bg-teal-600 p-4 rounded-t">
+            <h2 className="text-lg font-semibold text-white">Job's Responsibilities</h2>
           </div>
-
-          <div className="bg-teal-100 p-4 rounded">
-            <h2 className="text-xl font-semibold mb-2">Job's Information</h2>
-            <p>Category: {job.category.name}</p>
-            <p>Type: {job.job_type}</p>
-            <p>Salary: {job.salary}</p>
-            <p>Location: {job.organization.location}</p>
-            <p>Available Position: {job.available_position}</p>
+          <div className="bg-white p-4">
+            <ul className="list-disc list-inside">
+              {responsibilities.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
           </div>
         </div>
 
-
-        <div className="bg-teal-100 p-4 rounded mb-8">
-          <h2 className="text-xl font-semibold mb-2">Job's Responsibilities</h2>
-          <p>{job.description}</p>
+        <div className="border border-gray-300 rounded mb-8">
+          <div className="bg-teal-600 p-4 rounded-t">
+            <h2 className="text-lg font-semibold text-white">Contact Information</h2>
+          </div>
+          <div className="bg-white p-4 space-y-2">
+            <div className="border-b border-gray-300 pb-2">Phone Number: {job.organization.phone_number}</div>
+            <div className="border-b border-gray-300 pb-2">Email: {job.organization.contact}</div>
+            <div>Location: {job.organization.address}</div>
+          </div>
         </div>
-        <div className="bg-teal-100 p-4 rounded mb-8">
-          <h2 className="text-xl font-semibold mb-2">Contact Information</h2>
-          <p>Phone: {job.contact.phone}</p>
-          <p>Email: {job.contact.email}</p>
-          <p>Location: {job.organization.location}</p>
-        </div>
 
- 
         <div className="text-center">
-          <button className="bg-green-500 text-white px-6 py-3 rounded hover:bg-green-600">
+          <button className="bg-teal-600 text-white px-10 py-3 rounded-full hover:bg-green-600 text-lg shadow-md">
             Apply Now!
           </button>
         </div>
       </div>
-
- 
-      <footer className="bg-gray-200 p-4 mt-8">
-        <div className="container mx-auto text-center">
-          <p>&copy; 2024 ScholarJob. All rights reserved.</p>
-        </div>
-      </footer>
     </div>
   );
 };
