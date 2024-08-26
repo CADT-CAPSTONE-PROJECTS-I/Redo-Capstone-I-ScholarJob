@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Navbar,
-  ScholarJobLogoGreen,
-} from "../import/all_import.jsx";
+import { Navbar, ScholarJobLogoGreen } from "../import/all_import.jsx";
 import { getJobs } from '../API/career_api.jsx';
+import { Link } from 'react-router-dom';
 
 const CareerPage = () => {
   const [jobs, setJobs] = useState([]);
@@ -56,7 +54,6 @@ const CareerPage = () => {
             </button>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-        
             <select className="p-2 rounded-lg text-gray-700" name="job_type" onChange={handleFilterChange}>
               <option value="">Job Type</option>
               <option value="On-site">On-site</option>
@@ -97,26 +94,28 @@ const CareerPage = () => {
         <div className="container mx-auto px-4 py-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {jobs.map((job, idx) => (
-              <div key={idx} className="bg-white rounded-lg p-4 shadow-md">
-                <div className="flex items-center mb-4">
-                <img
-                  src={job.image_url ?? ScholarJobLogoGreen}
-                  className="h-10"
-                  alt="ScholarJob Logo"
-                />
-                  <div className="ml-4">
-                    <h3 className="text-lg font-bold">{job.title}</h3>
-                    <p>{job.organization?.name}</p>
+              <Link to={`/career/${job.id}`} key={idx} className="no-underline">
+                <div className="bg-white rounded-lg p-4 shadow-md">
+                  <div className="flex items-center mb-4">
+                    <img
+                      src={job.image_url ?? ScholarJobLogoGreen}
+                      className="h-10"
+                      alt="ScholarJob Logo"
+                    />
+                    <div className="ml-4">
+                      <h3 className="text-lg font-bold">{job.title}</h3>
+                      <p>{job.organization?.name}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <p><strong>Experience:</strong> {job.experience} year(s)</p>
+                    <p><strong>Job Type:</strong> {job.job_type}</p>
+                    <p><strong>Salary:</strong> {job.salary}</p>
+                    <p><strong>Available position:</strong> {job.available_position} pax</p>
+                    <p><strong>Location:</strong> {job.location}</p>
                   </div>
                 </div>
-                <div>
-                  <p><strong>Experience:</strong> {job.experience} year(s)</p>
-                  <p><strong>Job Type:</strong> {job.job_type}</p>
-                  <p><strong>Salary:</strong> {job.salary}</p>
-                  <p><strong>Available position:</strong> {job.available_position} pax</p>
-                  <p><strong>Location:</strong> {job.location}</p>
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
