@@ -42,6 +42,11 @@ class JobController extends Controller
        
             $query->where('experience', '<=', $request->experience);
         }
+        if ($request->filled('organization_address')) {
+            $query->whereHas('organization', function ($q) use ($request) {
+                $q->where('address', 'like', '%' . $request->organization_address . '%');
+            });
+        }
     
         $jobs = $query->with(['organization', 'category'])->get();
 
@@ -68,4 +73,21 @@ class JobController extends Controller
             'data' => $job,
         ]);
     }
+    public function getAddress()
+    {
+        $addresses = Job::with('organization')
+            ->select('organization_id')
+            ->distinct()
+            ->get()
+            ->map(function ($job) {
+                return $job->organization->address;
+            })
+            ->unique();
+
+        return response()->json([
+            'success' => true,
+            'data' => $addresses,
+        ]);
+    }
+
 }

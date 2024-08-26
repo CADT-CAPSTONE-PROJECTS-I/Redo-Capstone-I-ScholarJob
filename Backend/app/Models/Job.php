@@ -18,9 +18,12 @@ class Job extends Model
 
     public function getImageUrlAttribute()
     {
+        if (empty($this->attributes['image'])) {
+            return null;
+        }
         return asset($this->attributes['image']);
     }
-
+    
     public function organization()
     {
         return $this->belongsTo(Organization::class);

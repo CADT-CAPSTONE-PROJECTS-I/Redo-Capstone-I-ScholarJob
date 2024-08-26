@@ -53,6 +53,8 @@
                                 <option value="" disabled selected>Select Job type</option>
                                 <option value="full_time" {{ old('job_type') == 'full_time' ? 'selected' : '' }}>Full Time</option>
                                 <option value="part_time" {{ old('job_type') == 'part_time' ? 'selected' : '' }}>Part time</option>
+                                <option value="remote" {{ old('job_type') == 'remote' ? 'selected' : '' }}>Remote</option>
+                                <option value="on_site" {{ old('job_type') == 'on_site' ? 'selected' : '' }}>On Site</option>
                             </select>
                         </div>
                         <div>
