@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Navbar, ScholarJobLogoGreen } from "../import/all_import.jsx";
-import { getJobs } from '../API/career_api.jsx';
+import { getJobs, getOrganizationAddresses } from '../API/career_api.jsx';
 import { Link } from 'react-router-dom';
 
-const CareerPage = () => {
+const CareerPage = () => {  
   const [jobs, setJobs] = useState([]);
   const [filters, setFilters] = useState({
     title: '',
@@ -11,8 +11,10 @@ const CareerPage = () => {
     salary_min: '',
     salary_max: '',
     experience: '',
-    category_id: ''
+    category_id: '',
+    organization_address: '' 
   });
+  const [addresses, setAddresses] = useState([]);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -22,6 +24,15 @@ const CareerPage = () => {
 
     fetchJobs();
   }, [filters]);
+
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      const response = await getOrganizationAddresses();
+      setAddresses(response.data);
+    };
+
+    fetchAddresses();
+  }, []);
 
   const handleFilterChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
@@ -48,7 +59,7 @@ const CareerPage = () => {
             />
             <button
               className="bg-white text-green-500 px-4 py-2 ml-2 rounded-lg"
-              onClick={() => getJobs(filters)}
+              onClick={() => fetchJobs()}
             >
               Search
             </button>
@@ -67,11 +78,17 @@ const CareerPage = () => {
               <option value="3">3+ Years</option>
             </select>
             <select className="p-2 rounded-lg text-gray-700" name="salary_min" onChange={handleFilterChange}>
-              <option value="">Salary Min</option>
+              <option value="">Salary</option>
               <option value="1000">&lt; 1000$</option>
               <option value="5000">1000$ - 5000$</option>
               <option value="5001">&gt; 5000$</option>
             </select>
+            {/* <select className="p-2 rounded-lg text-gray-700" name="salary_max" onChange={handleFilterChange}>
+              <option value="">Salary Max</option>
+              <option value="1000">&lt; 1000$</option>
+              <option value="5000">1000$ - 5000$</option>
+              <option value="5001">&gt; 5000$</option>
+            </select> */}
             <select className="p-2 rounded-lg text-gray-700" name="category_id" onChange={handleFilterChange}>
               <option value="">Category</option>
               <option value="1">Accounting</option>
@@ -79,10 +96,16 @@ const CareerPage = () => {
               <option value="3">Software Development</option>
               <option value="4">Marketing</option>
             </select>
+            <select className="p-2 rounded-lg text-gray-700" name="organization_address" onChange={handleFilterChange}>
+              <option value="">Select Organization Address</option>
+              {addresses.map((address, idx) => (
+                <option key={idx} value={address}>{address}</option>
+              ))}
+            </select>
           </div>
         </div>
       </section>
-      <br />
+      <br/>
 
       <div className="flex justify-center mb-6">
         <button className="px-4 py-2 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white rounded-lg">Recommended</button>
@@ -95,24 +118,25 @@ const CareerPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {jobs.map((job, idx) => (
               <Link to={`/career/${job.id}`} key={idx} className="no-underline">
-                <div className="bg-white rounded-lg p-4 shadow-md">
-                  <div className="flex items-center mb-4">
-                    <img
-                      src={job.image_url ?? ScholarJobLogoGreen}
-                      className="h-10"
-                      alt="ScholarJob Logo"
-                    />
-                    <div className="ml-4">
+                <div className="bg-white rounded-lg shadow-md p-4 flex">
+                  <img
+                    src={job.image_url || ScholarJobLogoGreen}
+                    className="w-32 h-32 object-cover rounded-lg mr-5"
+                    alt="ScholarJob Logo"
+                  />
+                  <div className="flex flex-col justify-between">
+                    <div className="ml-3">
                       <h3 className="text-lg font-bold">{job.title}</h3>
                       <p>{job.organization?.name}</p>
                     </div>
-                  </div>
-                  <div>
-                    <p><strong>Experience:</strong> {job.experience} year(s)</p>
-                    <p><strong>Job Type:</strong> {job.job_type}</p>
-                    <p><strong>Salary:</strong> {job.salary}</p>
-                    <p><strong>Available position:</strong> {job.available_position} pax</p>
-                    <p><strong>Location:</strong> {job.location}</p>
+                    <div className="ml-3">
+                      <p><strong>Job Type:</strong> {job.job_type}</p>
+                      <p><strong>Salary:</strong> {job.salary}</p>
+                      <p><strong>Available position:</strong> {job.available_position} pax</p>
+                    </div>
+                    <div className="ml-3 mt-2 text-gray-600">
+                      <p><strong>Location:</strong> {job.organization.address}</p>
+                    </div>
                   </div>
                 </div>
               </Link>
