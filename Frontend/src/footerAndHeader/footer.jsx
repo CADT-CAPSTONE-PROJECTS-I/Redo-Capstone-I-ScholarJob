@@ -10,7 +10,7 @@ const Footer = () => {
     <footer className="mt-16 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white py-12 px-16">
       <div className="container mx-auto flex flex-wrap justify-between">
         <div className="mb-6">
-          <Link to="/home" className="flex items-center space-x-3">
+          <Link to="/home" className="flex items-center space-x-1">
             <img
               src={ScholarJobLogoWhite}
               className="h-10"

@@ -71,27 +71,32 @@ const FillSkill = () => {
                 {`Education ${index + 1}`}
               </label>
               <div className="flex justify-end mt-1 space-x-1">
-                <button
-                  type="button"
-                  
-                  onClick={() => removeFill(index, "educations", cvData, setCvData)}
-                  className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
-                >
-                  <Icon
-                    icon={"fluent:delete-24-regular"}
-                  />
-                  <div class="tooltiptext">Delete line</div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => addFill(cvData, setCvData, "educations")}
-                  className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
-                >
-                  <Icon
-                    icon={"mingcute:add-line"}
-                  />
-                  <div class="tooltiptext">Add more line</div>
-                </button>
+                {index !== 0 ? (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      removeFill(index, "educations", cvData, setCvData)
+                    }
+                    className="p-3 bg-transperent tooltip border text-red-500 hover:text-white  border-red-500 rounded-full hover:bg-red-500 transition duration-200"
+                  >
+                    <Icon icon={"fluent:delete-24-regular"} />
+                    <div class="tooltiptext">Delete line</div>
+                  </button>
+                ) : (
+                  ""
+                )}
+                {index === 0 ? (
+                  <button
+                    type="button"
+                    onClick={() => addFill(cvData, setCvData, "educations")}
+                    className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
+                  >
+                    <Icon icon={"mingcute:add-line"} />
+                    <div class="tooltiptext">Add more line</div>
+                  </button>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           ))}
@@ -125,27 +130,32 @@ const FillSkill = () => {
                 {`Hard Skill ${index + 1}`}
               </label>
               <div className="flex justify-end mt-1 space-x-1">
-                <button
-                  type="button"
-                  
-                  onClick={() => removeFill(index, "hardSkills", cvData, setCvData)}
-                  className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
-                >
-                  <Icon
-                    icon={"fluent:delete-24-regular"}
-                  />
-                  <div class="tooltiptext">Delete line</div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => addFill(cvData, setCvData, "hardSkills")}
-                  className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
-                >
-                  <Icon
-                    icon={"mingcute:add-line"}
-                  />
-                  <div class="tooltiptext">Add more line</div>
-                </button>
+                {index !== 0 ? (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      removeFill(index, "hardSkills", cvData, setCvData)
+                    }
+                    className="p-3 bg-transperent tooltip border text-red-500 hover:text-white  border-red-500 rounded-full hover:bg-red-500 transition duration-200"
+                  >
+                    <Icon icon={"fluent:delete-24-regular"} />
+                    <div class="tooltiptext">Delete line</div>
+                  </button>
+                ) : (
+                  ""
+                )}
+                {index === 0 ? (
+                  <button
+                    type="button"
+                    onClick={() => addFill(cvData, setCvData, "hardSkills")}
+                    className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
+                  >
+                    <Icon icon={"mingcute:add-line"} />
+                    <div class="tooltiptext">Add more line</div>
+                  </button>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           ))}
@@ -179,27 +189,32 @@ const FillSkill = () => {
                 {`Soft Skills ${index + 1}`}
               </label>
               <div className="flex justify-end mt-1 space-x-1">
-                <button
-                  type="button"
-                  
-                  onClick={() => removeFill(index, "softSkills", cvData, setCvData)}
-                  className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
-                >
-                  <Icon
-                    icon={"fluent:delete-24-regular"}
-                  />
-                  <div class="tooltiptext">Delete line</div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => addFill(cvData, setCvData, "softSkills")}
-                  className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
-                >
-                  <Icon
-                    icon={"mingcute:add-line"}
-                  />
-                  <div class="tooltiptext">Add more line</div>
-                </button>
+                {index !== 0 ? (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      removeFill(index, "softSkills", cvData, setCvData)
+                    }
+                    className="p-3 bg-transperent tooltip border text-red-500 hover:text-white  border-red-500 rounded-full hover:bg-red-500 transition duration-200"
+                  >
+                    <Icon icon={"fluent:delete-24-regular"} />
+                    <div class="tooltiptext">Delete line</div>
+                  </button>
+                ) : (
+                  ""
+                )}
+                {index === 0 ? (
+                  <button
+                    type="button"
+                    onClick={() => addFill(cvData, setCvData, "softSkills")}
+                    className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
+                  >
+                    <Icon icon={"mingcute:add-line"} />
+                    <div class="tooltiptext">Add more line</div>
+                  </button>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           ))}
@@ -233,31 +248,35 @@ const FillSkill = () => {
                 {`Experience ${index + 1}`}
               </label>
               <div className="flex justify-end mt-1 space-x-1">
-                <button
-                  type="button"
-                  
-                  onClick={() => removeFill(index, "experiences", cvData, setCvData)}
-                  className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
-                >
-                  <Icon
-                    icon={"fluent:delete-24-regular"}
-                  />
-                  <div class="tooltiptext">Delete line</div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => addFill(cvData, setCvData, "experiences")}
-                  className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
-                >
-                  <Icon
-                    icon={"mingcute:add-line"}
-                  />
-                  <div class="tooltiptext">Add more line</div>
-                </button>
+                {index !== 0 ? (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      removeFill(index, "experiences", cvData, setCvData)
+                    }
+                    className="p-3 bg-transperent tooltip border text-red-500 hover:text-white  border-red-500 rounded-full hover:bg-red-500 transition duration-200"
+                  >
+                    <Icon icon={"fluent:delete-24-regular"} />
+                    <div class="tooltiptext">Delete line</div>
+                  </button>
+                ) : (
+                  ""
+                )}
+                {index === 0 ? (
+                  <button
+                    type="button"
+                    onClick={() => addFill(cvData, setCvData, "experiences")}
+                    className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
+                  >
+                    <Icon icon={"mingcute:add-line"} />
+                    <div class="tooltiptext">Add more line</div>
+                  </button>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           ))}
-
 
           {/* languege */}
           <div className="mb-4 text-sm font-bold">Your Languages</div>
@@ -288,53 +307,35 @@ const FillSkill = () => {
                 {`Languages ${index + 1}`}
               </label>
               <div className="flex justify-end mt-1 space-x-1">
-                <button
-                  type="button"
-                  
-                  onClick={() => removeFill(index, "languages", cvData, setCvData)}
-                  className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
-                >
-                  <Icon
-                    icon={"fluent:delete-24-regular"}
-                  />
-                  <div class="tooltiptext">Delete line</div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => addFill(cvData, setCvData, "languages")}
-                  className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
-                >
-                  <Icon
-                    icon={"mingcute:add-line"}
-                  />
-                  <div class="tooltiptext">Add more line</div>
-                </button>
+                {index !== 0 ? (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      removeFill(index, "languages", cvData, setCvData)
+                    }
+                    className="p-3 bg-transperent tooltip border text-red-500 hover:text-white  border-red-500 rounded-full hover:bg-red-500 transition duration-200"
+                  >
+                    <Icon icon={"fluent:delete-24-regular"} />
+                    <div class="tooltiptext">Delete line</div>
+                  </button>
+                ) : (
+                  ""
+                )}
+                {index === 0 ? (
+                  <button
+                    type="button"
+                    onClick={() => addFill(cvData, setCvData, "languages")}
+                    className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
+                  >
+                    <Icon icon={"mingcute:add-line"} />
+                    <div class="tooltiptext">Add more line</div>
+                  </button>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           ))}
-
-          {/* reference */}
-          {/* <div className="input-group relative w-full mt-5 mb-4">
-            <Icon
-              icon={"material-symbols-light:quick-reference-outline"}
-              className="absolute top-1 left-1 text-gray-400"
-            />
-            <input
-              type="text"
-              id="reference"
-              name="reference"
-              value={cvData.reference}
-              onChange={handleChange}
-              className="input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
-              required
-            />
-            <label
-              htmlFor="reference"
-              className="input-group__label block text-gray-400  text-sm"
-            >
-              Reference
-            </label>
-          </div> */}
         </div>
       </form>
     </div>

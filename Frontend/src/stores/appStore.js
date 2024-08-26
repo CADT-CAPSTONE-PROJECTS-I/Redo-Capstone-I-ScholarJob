@@ -14,6 +14,7 @@ const appStore = create((set, get) => ({
     name: '',
     gender: '',
     position: '',
+    aboutMe: '',
     age: '',
     email: '',
     dateOfBirth: '',
@@ -26,7 +27,7 @@ const appStore = create((set, get) => ({
     hardSkills: [""],
     softSkills: [""],
     languages: [""],
-    // reference: ' ',
+    references: ' ',
     profilePicture: '',
   },
   setCvData: (data) => set((state) => ({

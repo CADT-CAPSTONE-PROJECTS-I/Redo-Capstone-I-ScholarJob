@@ -5,7 +5,6 @@ export { default as useState } from "react";
 export { useNavigate, BrowserRouter as Router, Route, Routes, RouterProvider, createBrowserRouter, Link, NavLink } from 'react-router-dom';
 export { Icon } from "@iconify/react";
 export { appStore } from "../stores/appStore.js";
-// export {ReactTooltip} from 'react-tooltip';
 
 
 //import of all components
@@ -31,6 +30,8 @@ export { default as ScholarJobLogoGreen } from '../assets/logo/scholarJob_logo_g
 export { default as ScholarJobLogoWhite } from '../assets/logo/scholarjob_logo_white.png';
 export { default as ManTable } from '../assets/image/man_table.png';
 export { default as UploadImage } from '../assets/image/upload-image.png';
+export { default as GraduateImage } from '../assets/image/graduate_image.jpg';
+export { default as WorkImage } from '../assets/image/work_image.jpg';
 
 //import of all style css
 import "../styles/authenthication_style.css";

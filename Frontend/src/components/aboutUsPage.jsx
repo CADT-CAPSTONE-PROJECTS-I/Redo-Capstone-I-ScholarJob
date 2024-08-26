@@ -1,4 +1,4 @@
-import { React, Navbar, Footer } from "../import/all_import.jsx";
+import { React, Navbar, Footer, WorkImage, GraduateImage } from "../import/all_import.jsx";
 
 const AboutUsPage = () => {
   return (
@@ -32,7 +32,7 @@ const AboutUsPage = () => {
         </div>
         <div className="w-1/2 flex justify-end pt-4 pr-16">
           <img
-            src="https://via.placeholder.com/700x300"
+            src={WorkImage}
             alt="Mission Image"
             className="w-auto max-w-md rounded-lg"
           />
@@ -42,7 +42,7 @@ const AboutUsPage = () => {
       <section className="mt-12 flex flex-col md:flex-row justify-between items-center">
       <div className="w-1/2 flex justify-start ml-16 pt-4 ">
           <img
-            src="https://via.placeholder.com/700x300"
+            src={GraduateImage}
             alt="Mission Image"
             className="w-auto max-w-md rounded-lg"
           />
