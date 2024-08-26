@@ -10,6 +10,7 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from "./import/all_import.jsx";
+import DetailedJobPage from "./CareerDetail/detail_page.jsx";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const App = () => {
         {
           path: "/career",
           element: <CareerPage />,
+        },
+        {
+          path: "/career/:jobId", 
+          element: <DetailedJobPage />,
         },
         {
           path: "/scholarship",
