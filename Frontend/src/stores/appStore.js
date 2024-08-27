@@ -10,6 +10,9 @@ const appStore = create((set, get) => ({
   selectedImage: null,
   setSelectedImage: (data) => set({selectedImage: data }),
 
+  currentPage: 1,
+  setCurrentPage: (data) => set({currentPage: data }),
+
   cvData: {
     name: '',
     gender: '',

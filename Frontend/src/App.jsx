@@ -9,6 +9,8 @@ import {
   CVGeneratePage,
   RouterProvider,
   createBrowserRouter,
+  ScholarshipDetail,
+
 } from "./import/all_import.jsx";
 
 const App = () => {
@@ -47,6 +49,10 @@ const App = () => {
         {
           path: "/register",
           element: <Register />,
+        },
+        {
+          path: "/scholarship/detail",
+          element: <ScholarshipDetail />,
         },
       ],
     },

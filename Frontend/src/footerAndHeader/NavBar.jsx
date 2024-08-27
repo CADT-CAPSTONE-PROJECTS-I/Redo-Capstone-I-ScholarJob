@@ -135,7 +135,6 @@ const Navbar = () => {
                 About Us
               </NavLink>
             </li>
-            
           </ul>
         </div>
       </div>
