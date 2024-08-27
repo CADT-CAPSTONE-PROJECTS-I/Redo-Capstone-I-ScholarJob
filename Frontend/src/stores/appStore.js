@@ -10,10 +10,14 @@ const appStore = create((set, get) => ({
   selectedImage: null,
   setSelectedImage: (data) => set({selectedImage: data }),
 
+  currentPage: 1,
+  setCurrentPage: (data) => set({currentPage: data }),
+
   cvData: {
     name: '',
     gender: '',
     position: '',
+    aboutMe: '',
     age: '',
     email: '',
     dateOfBirth: '',
@@ -26,7 +30,7 @@ const appStore = create((set, get) => ({
     hardSkills: [""],
     softSkills: [""],
     languages: [""],
-    // reference: ' ',
+    references: ' ',
     profilePicture: '',
   },
   setCvData: (data) => set((state) => ({

@@ -6,7 +6,7 @@
   .tooltip .tooltiptext {
     visibility: hidden;
     width: 120px;
-    background-color: #555;
+    background-color: rgba(94, 79, 79, 0.6); /* Slight transparency */
     color: #fff;
     text-align: center;
     border-radius: 5px;
@@ -19,7 +19,9 @@
     opacity: 0;
     transition: opacity 0.3s;
     font-size: 14px;
-  }
+    backdrop-filter: blur(8px); /* Apply the blur effect */
+}
+
 
   .tooltip:hover .tooltiptext {
     visibility: visible;

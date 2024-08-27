@@ -35,7 +35,8 @@ const CVGeneratePage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center">
+    <div>
+      <div className="min-h-screen flex flex-col justify-center items-center">
       <header className="p-10">
         <Navbar />
       </header>
@@ -77,10 +78,11 @@ const CVGeneratePage = () => {
           <FormCVPage/>
         </div>
       </div>
-
       
+    </div>
+    <div>
         <Footer/>
-      
+      </div>
     </div>
   );
 };

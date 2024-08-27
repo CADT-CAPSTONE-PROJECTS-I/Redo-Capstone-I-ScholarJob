@@ -14,7 +14,7 @@ const Navbar = () => {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-3  px-16">
         <Link
           to="/home"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
+          className="flex items-center space-x-1 rtl:space-x-reverse"
         >
           <img
             src={ScholarJobLogoGreen}
@@ -135,7 +135,6 @@ const Navbar = () => {
                 About Us
               </NavLink>
             </li>
-            
           </ul>
         </div>
       </div>
