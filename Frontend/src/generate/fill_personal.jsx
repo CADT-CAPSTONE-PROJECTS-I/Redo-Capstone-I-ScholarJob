@@ -44,7 +44,7 @@ const FillPersonal = () => {
               name="name"
               value={cvData.name}
               onChange={handleChange}
-              className="input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
+              className=" input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
               required
             />
             <label
@@ -198,12 +198,15 @@ const FillPersonal = () => {
             />
             <input
               type="text"
-              id="about"
+              id="aboutMe"
+              name="aboutMe"
+              value={cvData.aboutMe}
+              onChange={handleChange}
               className="input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
               required
             />
             <label
-              htmlFor="about"
+              htmlFor="aboutMe"
               className="input-group__label block text-gray-400  text-sm"
             >
               About you
