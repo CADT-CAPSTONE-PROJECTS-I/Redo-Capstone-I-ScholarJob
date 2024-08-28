@@ -25,6 +25,7 @@ export { default as EditProfile } from "../profile/edit_profile.jsx";
 export { default as ViewProfile } from "../profile/view_profile.jsx";
 export { loginClient } from '../API/authentication_api.jsx';
 export { registerClient } from '../API/authentication_api.jsx';
+export { default as MessagePopup } from '../card/pop_up.jsx';
 
 //import of all icon and image
 export { default as FacebookIcon } from '../assets/icon/facebook_icon.jpg';
@@ -39,6 +40,7 @@ export { default as CadtLogo } from '../assets/image/cadtLogo_image.png'
 export { default as HarvardUniverity } from '../assets/image/harvardUniversity_image.png'
 export { default as GraduateImage } from '../assets/image/graduate_image.jpg';
 export { default as WorkImage } from '../assets/image/work_image.jpg';
+export { default as LoginImage } from '../assets/image/login_image.png';
 
 //import of all style css
 import "../styles/authenthication_style.css";

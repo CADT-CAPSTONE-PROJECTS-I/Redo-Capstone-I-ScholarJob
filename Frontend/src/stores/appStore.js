@@ -62,6 +62,12 @@ const appStore = create((set, get) => ({
   isDropdownOpen: false,
   setIsDropdownOpen:(data) => set({isDropdownOpen: data}),
 
+  isPopupOpen: false,
+  setIsPopupOpen: (data) => set({isPopupOpen: data}),
+  // openPopup: () => set({ isPopupOpen: true }),
+  // closePopup: () => set({ isPopupOpen: false }),
+
+
 }));
 
 export {appStore};
