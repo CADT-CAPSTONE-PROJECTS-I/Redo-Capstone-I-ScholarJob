@@ -91,7 +91,7 @@
                             </tbody>
                         </table>
                         <div class="pagination mt-3">
-                            {!! $organizations->links() !!}
+                            {!! $organizations->links('components.pagination') !!}
 
                         </div>
                     </div>
