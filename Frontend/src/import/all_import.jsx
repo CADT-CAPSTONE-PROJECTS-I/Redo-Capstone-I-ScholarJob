@@ -1,11 +1,10 @@
 
 //import of all installation
-export { default as React } from "react";
-export { default as useState } from "react";
+export { default as React, useRef, useEffect } from "react";
 export { useNavigate, BrowserRouter as Router, Route, Routes, RouterProvider, createBrowserRouter, Link, NavLink } from 'react-router-dom';
 export { Icon } from "@iconify/react";
 export { appStore } from "../stores/appStore.js";
-
+export { default as axios } from 'axios';
 
 //import of all components
 export { default as Register } from '../authenthication/register';
@@ -21,6 +20,11 @@ export { default as FillPersonal } from "../generate/fill_personal.jsx";
 export { default as FillSkill } from "../generate/fill_skill.jsx";
 export { default as FormCVPage } from "../generate/form_cv.jsx";
 export { default as ScholarshipDetail } from "../detailPages/schorlarship_details.jsx";
+export { default as DetailedJobPage } from "../CareerDetail/detail_page.jsx";
+export { default as EditProfile } from "../profile/edit_profile.jsx";
+export { default as ViewProfile } from "../profile/view_profile.jsx";
+export { loginClient } from '../API/authentication_api.jsx';
+export { registerClient } from '../API/authentication_api.jsx';
 
 //import of all icon and image
 export { default as FacebookIcon } from '../assets/icon/facebook_icon.jpg';

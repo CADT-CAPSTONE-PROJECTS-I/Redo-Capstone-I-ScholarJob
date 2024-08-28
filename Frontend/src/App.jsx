@@ -10,9 +10,10 @@ import {
   RouterProvider,
   createBrowserRouter,
   ScholarshipDetail,
-
+  DetailedJobPage,
+  EditProfile,
+  ViewProfile,
 } from "./import/all_import.jsx";
-import DetailedJobPage from "./CareerDetail/detail_page.jsx";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -58,6 +59,15 @@ const App = () => {
         {
           path: "/scholarship/detail",
           element: <ScholarshipDetail />,
+        },
+        
+        {
+          path: "/view",
+          element: <ViewProfile/>,
+        },
+        {
+          path: "/view/edit",
+          element: <EditProfile/>,
         },
       ],
     },

@@ -37,6 +37,30 @@ const appStore = create((set, get) => ({
     cvData: { ...state.cvData, ...data },
   })),
 
+  formData: {
+    name: '',
+    email: '',
+    password: '',
+    // password_comfirmation: '',
+  },
+  setFormData: (data) => set((state) => ({
+    formData: {...state.formData, ...data},
+  })),
+
+  message: null,
+  setMessage:(data) => set({message: data}),
+
+  errors: null,
+  setErrors:(data) => set({errors: data}),
+
+  messageLogin: null,
+  setMessageLogin:(data) => set({messageLogin: data}),
+
+  errorsLogin: null,
+  setErrorsLogin:(data) => set({errorsLogin: data}),
+
+  isDropdownOpen: false,
+  setIsDropdownOpen:(data) => set({isDropdownOpen: data}),
 
 }));
 
