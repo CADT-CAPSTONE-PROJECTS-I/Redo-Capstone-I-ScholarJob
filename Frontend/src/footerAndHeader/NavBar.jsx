@@ -68,7 +68,7 @@ const Navbar = () => {
               <div className="absolute right-20 mt-10 w-48 bg-white shadow-lg rounded-lg border border-gray-200 z-10">
                 <div>
                   <div className="px-4 py-2 hover:bg-customTeal hover:text-white cursor-pointer">
-                    <Link 
+                    <Link
                       to="/view"
                       className="px-4 py-2 hover:bg-customTeal hover:text-white cursor-pointer"
                     >

@@ -1,9 +1,15 @@
-import { React, Navbar, Footer, WorkImage, GraduateImage } from "../import/all_import.jsx";
+import {
+  React,
+  Navbar,
+  Footer,
+  WorkImage,
+  GraduateImage,
+} from "../import/all_import.jsx";
 
 const AboutUsPage = () => {
   return (
     <div>
-      <header className="p-16">
+      <header className="p-12">
         <Navbar />
       </header>
       <section className="relative items-center flex mx-16 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white rounded-lg">
@@ -40,7 +46,7 @@ const AboutUsPage = () => {
       </section>
 
       <section className="mt-12 flex flex-col md:flex-row justify-between items-center">
-      <div className="w-1/2 flex justify-start ml-16 pt-4 ">
+        <div className="w-1/2 flex justify-start ml-16 pt-4 ">
           <img
             src={GraduateImage}
             alt="Mission Image"
@@ -60,7 +66,6 @@ const AboutUsPage = () => {
             discover how we can help you achieve your aspirations.
           </p>
         </div>
-        
       </section>
 
       <section className="mt-16 relative flex flex-col justify-center">
@@ -123,7 +128,7 @@ const AboutUsPage = () => {
           </div>
         </div>
       </section>
-      <footer>
+      <footer className="mt-12">
         <Footer />
       </footer>
     </div>

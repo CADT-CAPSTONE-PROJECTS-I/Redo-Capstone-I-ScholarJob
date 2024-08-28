@@ -7,7 +7,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="mt-16 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white py-12 px-16">
+    <footer className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white py-12 px-16">
       <div className="container mx-auto flex flex-wrap justify-between">
         <div className="mb-6">
           <Link to="/home" className="flex items-center space-x-1">
@@ -16,7 +16,9 @@ const Footer = () => {
               className="h-10"
               alt="ScholarJob Logo"
             />
-            <span className="font-bebas self-center text-3xl whitespace-nowrap font-bold bg-gradient-to-t mt-1 from-white/50 to-gray-200/80 bg-clip-text text-transparent">ScholarJob</span>
+            <span className="font-bebas self-center text-3xl whitespace-nowrap font-bold bg-gradient-to-t mt-1 from-white/50 to-gray-200/80 bg-clip-text text-transparent">
+              ScholarJob
+            </span>
           </Link>
           <p className="mt-4 max-w-xs">
             If you would like to learn more about our programs or have any
@@ -30,7 +32,7 @@ const Footer = () => {
             <ul>
               <li>
                 <a href="/" className="hover:text-customTeal-dark">
-                   Home
+                  Home
                 </a>
               </li>
               <li>
@@ -100,10 +102,7 @@ const Footer = () => {
         </div>
         <div className="input-group flex flex-col items-center">
           <div className="flex flex-1">
-            <Icon
-              icon={"ic:twotone-email"}
-              className="text-white m-1"
-            />
+            <Icon icon={"ic:twotone-email"} className="text-white m-1" />
             <p className="text-sm font-bold">
               Stay up to date on the latest from ScholarJob
             </p>

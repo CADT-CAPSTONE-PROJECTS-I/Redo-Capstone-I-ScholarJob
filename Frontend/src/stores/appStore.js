@@ -64,9 +64,28 @@ const appStore = create((set, get) => ({
 
   isPopupOpen: false,
   setIsPopupOpen: (data) => set({isPopupOpen: data}),
-  // openPopup: () => set({ isPopupOpen: true }),
-  // closePopup: () => set({ isPopupOpen: false }),
 
+  jobs: [], 
+  setJobs: (data) => set({jobs: data}),
+
+  filters: {
+    itle: '',
+    job_type: '',
+    salary_min: '',
+    salary_max: '',
+    experience: '',
+    category_id: '',
+    organization_address: '' 
+  },
+  setFilters: (data) => set((state) => ({
+    cvData: { ...state.filters, ...data },
+  })),
+
+  addresses: [], 
+  setAddresses: (data) => set({addresses: data}),
+
+  job: null,
+  setJob:(data) => set({job: data}), 
 
 }));
 

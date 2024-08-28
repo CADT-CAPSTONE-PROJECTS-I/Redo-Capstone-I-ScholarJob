@@ -77,7 +77,6 @@ const CVGeneratePage = () => {
                   className="flex justify-center items-center px-4 py-2 bg-customTeal hover:bg-customTeal-dark text-white rounded-md"
                   onClick={handleDownloadButtonClick}
                 >
-                  
                   <span className="mr-2">Download as PDF</span>
                   <Icon icon={"carbon:generate-pdf"} className="text-white " />
                 </button>
@@ -99,9 +98,14 @@ const CVGeneratePage = () => {
             <FormCVPage />
           </div>
         </div>
-        {isPopupOpen && <MessagePopup MessagePopUp="Log in to gain access to download your CV" ImagePopup={LoginImage} />}
+        {isPopupOpen && (
+          <MessagePopup
+            MessagePopUp="Log in to gain access to download your CV"
+            ImagePopup={LoginImage}
+          />
+        )}
       </div>
-      <div>
+      <div className="mt-12">
         <Footer />
       </div>
     </div>

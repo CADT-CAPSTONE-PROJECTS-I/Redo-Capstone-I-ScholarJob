@@ -1,7 +1,7 @@
 
 //import of all installation
 export { default as React, useRef, useEffect } from "react";
-export { useNavigate, BrowserRouter as Router, Route, Routes, RouterProvider, createBrowserRouter, Link, NavLink } from 'react-router-dom';
+export { useNavigate, BrowserRouter as Router, Route, Routes, RouterProvider, createBrowserRouter, Link, NavLink, useParams } from 'react-router-dom';
 export { Icon } from "@iconify/react";
 export { appStore } from "../stores/appStore.js";
 export { default as axios } from 'axios';
@@ -26,6 +26,8 @@ export { default as ViewProfile } from "../profile/view_profile.jsx";
 export { loginClient } from '../API/authentication_api.jsx';
 export { registerClient } from '../API/authentication_api.jsx';
 export { default as MessagePopup } from '../card/pop_up.jsx';
+export { getJobs, getOrganizationAddresses } from '../API/career_api.jsx';
+export { getJobDetail } from '../API/career_api';
 
 //import of all icon and image
 export { default as FacebookIcon } from '../assets/icon/facebook_icon.jpg';

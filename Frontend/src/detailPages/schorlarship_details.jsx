@@ -203,7 +203,9 @@ const scholarship_detailPage = () => {
           </button>
         </div>
       </div>
-      <Footer />
+      <footer className="mt-12">
+        <Footer />
+      </footer>
     </div>
   );
 };
