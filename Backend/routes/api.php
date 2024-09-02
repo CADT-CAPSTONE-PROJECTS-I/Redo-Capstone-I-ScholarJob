@@ -4,16 +4,18 @@ use App\Http\Controllers\API\ClientController;
 use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\ScholarshipController;
 use App\Http\Controllers\API\ApplicationController;
+use App\Http\Controllers\API\ResumeController;
+use App\Http\Controllers\API\HomepageController;
 
 
 
 Route::post('/register', [ClientController::class, 'register']);
 Route::post('/login', [ClientController::class, 'login']);
-
-
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout',[ClientController::class,'logout']);
     Route::get('/profile', [ClientController::class, 'profile']);
-    Route::put('/profile', [ClientController::class, 'updateProfile']);
+    Route::post('/profile/update', [ClientController::class, 'updateProfile']);
+    Route::post('/generate/cv', [ResumeController::class, 'createOrUpdate']);
 });
 
 
@@ -25,5 +27,7 @@ Route::get('/organization-addresses', [JobController::class, 'getAddress']);
 Route::get('scholarship/list',[ScholarshipController::class, 'list']);
 Route::get('scholarship/detail/{id}',[ScholarshipController::class, 'detail']);
 
-
 Route::post('applications/store', [ApplicationController::class, 'store']);
+
+Route::get('homepage',[HomepageController::class, 'index']);
+Route::get('urgent/job',[HomepageController::class, 'ListUrgentJobs']);

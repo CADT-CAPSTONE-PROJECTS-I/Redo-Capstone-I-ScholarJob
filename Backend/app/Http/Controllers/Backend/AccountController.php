@@ -55,14 +55,13 @@ class AccountController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Create user
+  
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        // Assign role
         $role = Role::where('name', 'Job Recruiter')->first();
         $user->roles()->attach($role->id);
 
