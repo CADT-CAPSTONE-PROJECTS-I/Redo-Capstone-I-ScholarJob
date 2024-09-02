@@ -115,7 +115,7 @@
                     </div>
 
                     <div class="pagination mt-3">
-                        {!! $jobs->links() !!}
+                        {!! $jobs->links('components.pagination') !!}
                     </div>
                 </div>
             </div>

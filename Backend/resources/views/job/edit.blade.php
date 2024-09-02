@@ -91,6 +91,16 @@
                             <input type="text" id="contact" name="contact" placeholder="Enter Contact Information" value="{{ old('contact', $job->contact) }}"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
+                        <div>
+                            <label for="urgent" class="block text-gray-700 font-medium mb-2">Urgent</label>
+                            <select id="urgent" name="urgent"
+                                class="form-select mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 required">
+                                <option value="" disabled selected>Select Urgency</option>
+                                <option value="1" {{ $job->urgent == '1' ? 'selected' : '' }}>Urgent</option>
+                                <option value="0" {{ $job->urgent == '0' ? 'selected' : '' }}>Not Urgent</option>
+                            </select>
+                        </div>
+              
           
                         <div class="md:col-span-2">
                             <label for="description" class="block text-gray-700 font-medium mb-2">Description</label>

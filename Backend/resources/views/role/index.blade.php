@@ -73,7 +73,7 @@
                             </tbody>
                         </table>
                         <div class="pagination mt-3">
-                            {!! $roles->links() !!}
+                            {!! $roles->links('components.pagination') !!}
                         </div>
                     </div>
                 </div>

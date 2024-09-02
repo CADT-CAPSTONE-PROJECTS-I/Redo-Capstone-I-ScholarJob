@@ -14,11 +14,19 @@ class ClientController extends Controller
 {
     public function register(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:clients,email',
-            'password' => 'required|string|min:8',
+        $validateClient = Validator::make($request->all(), [
+            'name' => 'nullable',           
+            'email' => 'required',
+            'password' => 'required',
         ]);
+
+        if ($validateClient->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'validation error',
+                'errors' => $validateClient->errors()
+            ]);
+        }
 
         $client = Client::create([
             'name' => $request->name,
@@ -26,17 +34,22 @@ class ClientController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $token = $client->createToken('authToken')->plainTextToken;
+
         return response()->json([
-            'message' => 'You have registered successfully!',
-            'client' => $client,
-        ], 200);
+            'status' => true,
+            'message' => 'client registered successfully',
+            'token' => $token,
+            'client_id' => $client->id,
+            'data' => $client
+        ]);
     }
 
     public function login(Request $request)
     {
         $validateLogin = Validator::make($request->all(), [
-            'email' => 'required|string|email',
-            'password' => 'required|string',
+            'email' => 'required',
+            'password' => 'required',
         ]);
 
         if ($validateLogin->fails()) {
@@ -47,7 +60,7 @@ class ClientController extends Controller
             ]);
         }
 
-        $client = Client::where('email', $request->email)->first();
+        $client = client::where('email', $request->email)->first();
 
         if (!$client || !Hash::check($request->password, $client->password)) {
             return response()->json([
@@ -62,64 +75,60 @@ class ClientController extends Controller
             'status' => true,
             'message' => 'client logged in successfully',
             'token' => $token,
+            'client_id' => $client->id,
             'data' => $client
         ]);
     }
 
-    // public function login(Request $request)
-    // {
-    //     $request->validate([
-    //         'email' => 'required|string|email',
-    //         'password' => 'required|string',
-    //     ]);
-
-    //     if (!Auth::attempt($request->only('email', 'password'))) {
-    //         throw ValidationException::withMessages([
-    //             'email' => ['The provided credentials are incorrect.'],
-    //         ]);
-    //     }
-
-    //     $client = Auth::user();
-    //     $token = $client->createToken('Personal Access Token')->plainTextToken;
-
-    //     return response()->json([
-    //         'message' => 'Login successful!',
-    //         'token' => $token,
-    //     ]);
-    // }
-
-    public function profile(Request $request)
+    public function profile()
     {
-        return response()->json($request->user());
+        $client = auth()->user();
+        return response()->json([
+            'status' => true,
+            'message' => 'Profile Information',
+            'data' => $client,
+        ], 200);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'client logged out successfully'
+        ]);
     }
 
     public function updateProfile(Request $request)
     {
-        $client = $request->user();
+        $client = auth()->user();
 
-        $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'email' => 'sometimes|required|string|email|max:255|unique:clients,email,' . $client->id,
-            'password' => 'sometimes|nullable|string|min:8|confirmed',
+        $validateclient = Validator::make($request->all(), [
+            'name' => 'nullable',   
+            'email' => 'nullable|email',
+            'password' => 'nullable',
         ]);
 
-        if ($request->has('name')) {
-            $client->name = $request->name;
+     
+        if ($validateclient->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation error',
+                'errors' => $validateclient->errors()
+            ]);
         }
 
-        if ($request->has('email')) {
-            $client->email = $request->email;
-        }
-
-        if ($request->has('password')) {
-            $client->password = Hash::make($request->password);
-        }
-
-        $client->save();
+        $client->update([
+            'name' => $request->name ?? $client->name,
+            'email' => $request->email ?? $client->email,
+            'password' => $request->password ? Hash::make($request->password) : $client->password,
+        ]);
 
         return response()->json([
-            'message' => 'Profile updated successfully!',
-            'client' => $client,
+            'status' => true,
+            'message' => 'Profile updated successfully',
+            'data' => $client
         ]);
     }
 }
