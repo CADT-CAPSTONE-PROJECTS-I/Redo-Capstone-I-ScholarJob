@@ -1,62 +1,55 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Navbar,
   CadtLogo,
   Icon,
   appStore,
-  HarvardUniverity,
   Link,
+  ScholarJobLogoGreen
 } from "../import/all_import.jsx";
 
 const ScholarshipPage = () => {
-  const data = [
-    {
-      id: 1,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: CadtLogo,
-    },
-    {
-      id: 2,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: CadtLogo,
-    },
-    {
-      id: 3,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: HarvardUniverity,
-    },
-    {
-      id: 4,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: CadtLogo,
-    },
-    {
-      id: 5,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: HarvardUniverity,
-    },
-  ];
-
-  const scholarship = Array.from({ length: 30 }, (_, index) => ({
-    url: "cadt",
-    school_name: "Cambodia Academy & Digital Technology",
-    image: index % 3 === 0 ? HarvardUniverity : CadtLogo,
-    degree: "Master Degree",
-    duration: 3.5,
-    location: "Phnom Penh",
-    available_position: 100,
-    dateline: `15-January-${2025 + Math.floor(index / 10)}`,
-  }));
-
+  const [scholarships, setScholarships] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [totalRecords, setTotalRecords] = useState(0);
   const itemsPerPage = 10;
-  const { currentPage, setCurrentPage } = appStore();
+  const { currentPage, setCurrentPage } = appStore(); 
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = scholarship.slice(indexOfFirstItem, indexOfLastItem);
+  useEffect(() => {
+    fetchScholarships();
+  }, [currentPage]);
 
-  const totalPages = Math.ceil(scholarship.length / itemsPerPage);
+  const fetchScholarships = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get('http://localhost:8000/api/scholarship/list', {
+        params: {
+          page: currentPage,
+          per_page: itemsPerPage,
+        },
+      });
+      setScholarships(response.data.data);
+      setTotalRecords(response.data.total);
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
+  };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const totalPages = Math.ceil(totalRecords / itemsPerPage);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
@@ -105,70 +98,7 @@ const ScholarshipPage = () => {
             </div>
           </div>
           <div className="mt-6 flex flex-row justify-between">
-            <form className="w-[160px] font-normal">
-              <select
-                id="countries"
-                className="mr-10 text-gray-600 text-sm rounded-lg block w-full p-3 hover:cursor-pointer focus:ring-customTeal focus:border-customTeal-darker"
-              >
-                <option selected className="hover:focus:bg-customTeal">
-                  Choose a country
-                </option>
-                <option value="US" className="hover:focus:bg-customTeal ">
-                  United States
-                </option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
-              </select>{" "}
-            </form>
-            <form className="w-[160px] font-normal">
-              <select
-                id="countries"
-                className="mr-10 text-gray-600 text-sm rounded-lg block w-full p-3 hover:cursor-pointer focus:ring-customTeal focus:border-customTeal-darker"
-              >
-                <option selected className="hover:focus:bg-customTeal">
-                  Choose a country
-                </option>
-                <option value="US" className="hover:focus:bg-customTeal ">
-                  United States
-                </option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
-              </select>{" "}
-            </form>
-            <form className="w-[160px] font-normal">
-              <select
-                id="countries"
-                className="text-gray-600 text-sm rounded-lg block w-full p-3 hover:cursor-pointer focus:ring-customTeal focus:border-customTeal-darker"
-              >
-                <option selected className="hover:focus:bg-customTeal">
-                  Choose a country
-                </option>
-                <option value="US" className="hover:focus:bg-customTeal ">
-                  United States
-                </option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
-              </select>{" "}
-            </form>
-            <form className="w-[160px] font-normal">
-              <select
-                id="countries"
-                className="text-gray-600 text-sm rounded-lg block w-full p-3 hover:cursor-pointer focus:ring-customTeal focus:border-customTeal-darker"
-              >
-                <option selected className="hover:focus:bg-customTeal">
-                  Choose a country
-                </option>
-                <option value="US" className="hover:focus:bg-customTeal ">
-                  United States
-                </option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
-              </select>{" "}
-            </form>
+     
           </div>
         </div>
         <Icon
@@ -184,42 +114,18 @@ const ScholarshipPage = () => {
         </p>
       </div>
 
-      <Link to={`/scholarship/detail`}>
-        <div className="flex flex-wrap mt-10">
-          {data.map((school) => (
-            <div
-              key={school.id}
-              className="w-60 h-90 mx-auto bg-gray-200 shadow-xl rounded-lg overflow-y-auto"
-            >
-              <div className="flex items-center justify-center h-[270px] p-2">
-                <img
-                  src={school.image}
-                  alt={`${school.school_name} Logo`}
-                  className="w-full h-full object-contain rounded-lg border border-gray-300"
-                />
-              </div>
-              <div className="p-4 bg-gray-200">
-                <h2 className="text-center text-lg font-semibold text-gray-600">
-                  {school.school_name}
-                </h2>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Link>
-
       <div className="grid grid-cols-2 gap-10 mt-10 px-8">
-        {currentItems.map((scholarship, index) => (
+        {scholarships.map((scholarship, index) => (
           <Link
             key={index}
-            to={`/scholarship/detail`}
+            to={`/scholarship/${scholarship.id}`}
             className="flex flex-col items-center bg-gray-200 border border-gray-200 rounded-lg shadow-xl md:flex-row md:max-w-3xl hover:bg-gray-100"
           >
             <div className="flex items-center justify-center p-2 md:w-48">
-              <img
-                className="object-contain w-full h-48 md:h-auto md:w-48 rounded-md border border-gray-300"
-                src={scholarship.image}
-                alt={`${scholarship.school_name} Logo`}
+            <img
+                src={scholarship.image_url || ScholarJobLogoGreen}
+                className="w-32 h-32 object-cover rounded-lg mr-5"
+                alt="ScholarJob Logo"
               />
             </div>
             <div className="flex flex-col justify-between p-4 leading-normal">
@@ -230,7 +136,7 @@ const ScholarshipPage = () => {
                 {scholarship.degree}
               </h6>
               <p className="text-sm font-medium text-gray-500">
-                Duration: {scholarship.duration} years
+                Duration: {scholarship.program_duration} years
               </p>
               <p className="text-sm font-medium text-gray-500">
                 Location: {scholarship.location}
@@ -239,7 +145,7 @@ const ScholarshipPage = () => {
                 Available Positions: {scholarship.available_position}
               </p>
               <p className="text-sm font-medium text-gray-500">
-                Deadline: {scholarship.dateline}
+                Deadline: {scholarship.deadline}
               </p>
             </div>
           </Link>
@@ -252,9 +158,7 @@ const ScholarshipPage = () => {
             <ul className="inline-flex items-center -space-x-px">
               <li>
                 <button
-                  onClick={() =>
-                    paginate(currentPage > 1 ? currentPage - 1 : 1)
-                  }
+                  onClick={() => paginate(currentPage > 1 ? currentPage - 1 : 1)}
                   className="mx-3 text-customTeal p-1 rounded-full hover:bg-customTeal hover:text-white"
                 >
                   <Icon
@@ -280,9 +184,7 @@ const ScholarshipPage = () => {
               <li>
                 <button
                   onClick={() =>
-                    paginate(
-                      currentPage < totalPages ? currentPage + 1 : totalPages
-                    )
+                    paginate(currentPage < totalPages ? currentPage + 1 : totalPages)
                   }
                   className="mx-3 text-customTeal p-1 rounded-full hover:bg-customTeal hover:text-white"
                 >

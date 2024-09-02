@@ -19,4 +19,14 @@ class Scholarship extends Model
     {
         return $this->belongsTo(Organization::class);
     }
+
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        if (empty($this->attributes['image'])) {
+            return null;
+        }
+        return asset($this->attributes['image']);
+    }
 }

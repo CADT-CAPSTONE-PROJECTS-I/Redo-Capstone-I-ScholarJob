@@ -26,14 +26,17 @@ class JobController extends Controller
             $query->where('category_id', $request->category_id);
         }
     
-        if ($request->filled('salary_min')) {
-            $query->whereRaw('CAST(salary AS UNSIGNED) >= ?', [$request->salary_min]);
+        if ($request->filled('salary')) {
+            $salary = $request->salary;
+            if ($salary === '1000') {
+                $query->whereRaw('CAST(salary AS UNSIGNED) < ?', [1000]);
+            } elseif ($salary === '5000') {
+                $query->whereRaw('CAST(salary AS UNSIGNED) BETWEEN ? AND ?', [1000, 5000]);
+            } elseif ($salary === '5001') {
+                $query->whereRaw('CAST(salary AS UNSIGNED) > ?', [5000]);
+            }
         }
-
-        if ($request->filled('salary_max')) {
-            $query->whereRaw('CAST(salary AS UNSIGNED) <= ?', [$request->salary_max]);
-        }
-    
+        
         if ($request->filled('job_type')) {
             $query->where('job_type', $request->job_type);
         }
