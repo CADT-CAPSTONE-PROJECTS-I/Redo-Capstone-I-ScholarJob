@@ -26,9 +26,6 @@ const DetailedJobPage = () => {
     return <div>Loading...</div>;
   }
 
-  const responsibilities = job.responsible
-    ? job.responsible.split(/(?<=\.)\s+/).filter((item) => item.trim() !== "")
-    : [];
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -37,7 +34,7 @@ const DetailedJobPage = () => {
       </header>
 
       <div className="max-w-screen-lg mx-auto p-8 bg-white shadow-lg rounded-lg mt-12 ">
-        <div className="bg-customTeal p-6 rounded mb-8">
+        <div className=" bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white p-6 rounded mb-8">
           <div className="flex items-center">
             <img
               src={job.image_url || ScholarJobLogoWhite}
@@ -63,7 +60,7 @@ const DetailedJobPage = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div className="border border-gray-300 rounded">
-            <div className="bg-customTeal p-4 rounded-t">
+            <div className=" bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white p-4 rounded-t">
               <h2 className="text-lg font-semibold text-white">
                 Job's Requirement
               </h2>
@@ -76,13 +73,17 @@ const DetailedJobPage = () => {
                 Age Requirement: {job.age_require}
               </div>
               <div className="border-b border-gray-300 pb-2">
-                Job Description: {job.description}
+                <strong>Job Description:</strong>
+                <div
+                  className="mt-2"
+                  dangerouslySetInnerHTML={{ __html: job.description }}
+                />
               </div>
             </div>
           </div>
 
           <div className="border border-gray-300 rounded">
-            <div className="bg-customTeal p-4 rounded-t">
+            <div className=" bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white p-4 rounded-t">
               <h2 className="text-lg font-semibold text-white">
                 Job's Information
               </h2>
@@ -106,22 +107,17 @@ const DetailedJobPage = () => {
         </div>
 
         <div className="border border-gray-300 rounded mb-8">
-          <div className="bg-customTeal p-4 rounded-t">
+          <div className=" bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white p-4 rounded-t">
             <h2 className="text-lg font-semibold text-white">
               Job's Responsibilities
             </h2>
           </div>
           <div className="bg-white p-4">
-            <ul className="list-disc list-inside">
-              {responsibilities.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul>
           </div>
         </div>
 
         <div className="border border-gray-300 rounded mb-8">
-          <div className="bg-customTeal p-4 rounded-t">
+          <div className=" bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white p-4 rounded-t">
             <h2 className="text-lg font-semibold text-white">
               Contact Information
             </h2>
@@ -138,7 +134,7 @@ const DetailedJobPage = () => {
         </div>
 
         <div className="text-center">
-          <button className="bg-customTeal text-white px-10 py-3 rounded-lg hover:bg-customTeal-dark text-lg shadow-md">
+          <button className=" bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white text-white px-10 py-3 rounded-lg hover: bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white-dark text-lg shadow-md">
             Apply Now!
           </button>
         </div>
