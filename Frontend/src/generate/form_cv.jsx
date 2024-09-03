@@ -63,7 +63,7 @@ const FormCVPage = () => {
             </div>
 
             {/* perspnality */}
-            <div className="flex flex-col ml-4 mt-2 justify-start ">
+            {/* <div className="flex flex-col ml-4 mt-2 justify-start ">
               <div className="flex items-center ml-1  space-x-2 justify-start">
                 <div className="h-3 w-3 bg-customBlue-light"></div>
                 <h1 className="font-bold -mt-4">PERSONALITY</h1>
@@ -87,7 +87,7 @@ const FormCVPage = () => {
                   </pre>
                 </li>
               </ul>
-            </div>
+            </div> */}
 
             {/* hard skill */}
             <div className="flex flex-col ml-4 mt-5 justify-start ">
