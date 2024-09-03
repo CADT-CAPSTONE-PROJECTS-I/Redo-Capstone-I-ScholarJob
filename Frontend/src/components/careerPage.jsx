@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navbar, ScholarJobLogoGreen, Link } from "../import/all_import.jsx";
+import { Navbar, ScholarJobLogoGreen, Link, appStore } from "../import/all_import.jsx";
 import { getJobs, getOrganizationAddresses } from '../API/career_api.jsx';
 
 
