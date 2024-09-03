@@ -3,9 +3,32 @@ import {
   Navbar,
   HarvardUniverity,
   Footer,
+  ScholarshipDetails,
 } from "../import/all_import.jsx";
 
 const scholarship_detailPage = () => {
+  const { scholarshipId } = useParams();
+  const [Scholarships, setScholarships] = useState(null);
+
+  useEffect(() => {
+    const getScholarshipsDetail = async () => {
+      const data = await getScholarshipsDetail(scholarshipId);
+      setJob(data);
+    };
+
+    getScholarshipsDetail();
+  }, [scholarshipId]);
+
+  if (!Scholarships) {
+    return <div>Loading...</div>;
+  }
+
+  const responsibilities = Scholarships.responsible
+    ? Scholarships.responsible
+        .split(/(?<=\.)\s+/)
+        .filter((item) => item.trim() !== "")
+    : [];
+
   return (
     <div>
       <header className="p-8">
@@ -17,22 +40,35 @@ const scholarship_detailPage = () => {
           <div className="flex  p-8">
             <div className="flex-shrink-0">
               <img
-                src={HarvardUniverity}
-                alt="CADT Logo"
+                src={Scholarships.image_url || ScholarJobLogoWhite}
+                alt={Scholarships.title}
                 className="w-40 h-40"
               />
             </div>
             <div className="ml-8 ">
-              <h1 className="text-3xl font-bold">
-                Master Degree in Machine Learning
-              </h1>
-              <h2 className="text-xl mt-4 font-semibold">
-                Cambodia Academy & Digital Technology
-              </h2>
-              <p className="mt-2">
-                A driving force of digital governance development in Cambodia to
-                provide digital skill training for civil servants.
-              </p>
+              <div className="flex items-center">
+                <img
+                  src={Scholarships.image_url || ScholarJobLogoWhite}
+                  alt={Scholarships.title}
+                  className="w-32 h-32 object-cover mr-6 rounded"
+                />
+                <div className="text-white">
+                  <h1 className="text-2xl font-bold mb-2">{job.title}</h1>
+                  <p className="text-lg">
+                    {Scholarships.organization.name}, {Scholarships.organization.location}
+                  </p>
+                  <div className="text-gray-200 mt-2 flex">
+                    <p className="mr-6">
+                      Publish Date:{" "}
+                      {new Date(Scholarships.created_at).toLocaleDateString()}
+                    </p>
+                    <p>
+                      Closing Date:{" "}
+                      {new Date(Scholarships.deadline).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="">

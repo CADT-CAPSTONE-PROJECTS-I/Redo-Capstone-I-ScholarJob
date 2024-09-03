@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Navbar, ScholarJobLogoGreen } from "../import/all_import.jsx";
+import { Navbar, ScholarJobLogoGreen, Link } from "../import/all_import.jsx";
 import { getJobs, getOrganizationAddresses } from '../API/career_api.jsx';
-import { Link } from 'react-router-dom';
+
 
 const CareerPage = () => {  
   const [jobs, setJobs] = useState([]);

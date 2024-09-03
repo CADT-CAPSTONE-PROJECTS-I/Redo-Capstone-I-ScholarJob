@@ -5,245 +5,253 @@ import {
   appStore,
   HarvardUniverity,
   Link,
+  Footer,
+  getOrganizationAddresses,
+  fetchScholarships
 } from "../import/all_import.jsx";
+import React, { useState, useEffect } from "react";
 
 const ScholarshipPage = () => {
-  const data = [
-    {
-      id: 1,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: CadtLogo,
-    },
-    {
-      id: 2,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: CadtLogo,
-    },
-    {
-      id: 3,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: HarvardUniverity,
-    },
-    {
-      id: 4,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: CadtLogo,
-    },
-    {
-      id: 5,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: HarvardUniverity,
-    },
-  ];
-
-  const scholarship = Array.from({ length: 30 }, (_, index) => ({
-    url: "cadt",
-    school_name: "Cambodia Academy & Digital Technology",
-    image: index % 3 === 0 ? HarvardUniverity : CadtLogo,
-    degree: "Master Degree",
-    duration: 3.5,
-    location: "Phnom Penh",
-    available_position: 100,
-    dateline: `15-January-${2025 + Math.floor(index / 10)}`,
-  }));
+  const { currentPage, setCurrentPage, addresses, setAddresses } = appStore();
+  const [filters, setFilters] = useState({
+    title: "",
+    job_type: "",
+    salary_min: "",
+    salary_max: "",
+    experience: "",
+    category_id: "",
+    organization_address: "",
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [Scholarships, setScholarships] = useState([]);
 
   const itemsPerPage = 10;
-  const { currentPage, setCurrentPage } = appStore();
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = scholarship.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(scholarship.length / itemsPerPage);
+  const currentItems = Array.isArray(Scholarships)
+    ? Scholarships.slice(indexOfFirstItem, indexOfLastItem)
+    : [];
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const totalPages = Array.isArray(Scholarships)
+    ? Math.ceil(Scholarships.length / itemsPerPage)
+    : 1;
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    scrollToTop();
+  };
+
+  useEffect(() => {
+    const getScholarships = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchScholarships();
+        console.log("Fetched Scholarships Data:", data);
+        setScholarships(data);
+      } catch (error) {
+        console.error("Error fetching scholarships:", error);
+        setError("Error fetching scholarships");
+      } finally {
+        setLoading(false);
+      }
+    };
+    getScholarships()
+  }, [])
+
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      try {
+        const response = await getOrganizationAddresses();
+        setAddresses(response);
+      } catch (error) {
+        setError("Error fetching addresses");
+      }
+    };
+    fetchAddresses();
+  }, [setAddresses]);
+
+  const handleFilterChange = (e) => {
+    setFilters({ ...filters, [e.target.name]: e.target.value });
+    setCurrentPage(1); // Reset to first page when filters change
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div>
       <header className="p-8">
         <Navbar />
       </header>
-      <section className="relative flex items-center min-h-[300px] m-8 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white justify-center">
-        <div className="w-1/2 pl-8 text-4xl font-bold">
-          <div className="flex flex-col">
+      <section className="relative flex items-center min-h-[250px] mx-16 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl font-bold mb-4">
             Start your flourishing journey with us, ScholarJob!
-            <div className="mt-5">
-              <form>
-                <div className="relative">
-                  <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg
-                      className="w-4 h-4 text-gray-900"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                      />
-                    </svg>
-                  </div>
-                  <input
-                    type="search"
-                    id="default-search"
-                    className="block w-full p-4 ps-10 text-sm font-normal text-gray-600 rounded-lg bg-white focus:outline-none"
-                    placeholder="Please input the scholarship you want to find...."
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="text-white absolute end-2.5 bottom-2.5 bg-customTeal hover:bg-customTeal-dark focus:ring-2 focus:outline-none focus:ring-customTeal-dark font-sm rounded-lg text-sm px-4 py-2"
-                  >
-                    Search
-                  </button>
-                </div>
-              </form>
-            </div>
+          </h1>
+          <div className="flex justify-center items-center mb-6">
+            <input
+              type="text"
+              placeholder="Please input the position you want to find..."
+              className="p-2 w-full max-w-md border rounded-lg text-gray-700"
+              name="title"
+              onChange={handleFilterChange}
+              value={filters.title}
+            />
+            <button
+              className="bg-white text-green-500 px-4 py-2 ml-2 rounded-lg"
+              onClick={() => paginate(1)} // Triggers pagination to update filtered results
+            >
+              Search
+            </button>
           </div>
-          <div className="mt-6 flex flex-row justify-between">
-            <form className="w-[160px] font-normal">
-              <select
-                id="countries"
-                className="mr-10 text-gray-600 text-sm rounded-lg block w-full p-3 hover:cursor-pointer focus:ring-customTeal focus:border-customTeal-darker"
-              >
-                <option selected className="hover:focus:bg-customTeal">
-                  Choose a country
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+            <select
+              className="p-2 rounded-lg text-gray-700"
+              name="job_type"
+              onChange={handleFilterChange}
+              value={filters.job_type}
+            >
+              <option value="">Job Type</option>
+              <option value="On-site">On-site</option>
+              <option value="Remote">Remote</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+            <select
+              className="p-2 rounded-lg text-gray-700"
+              name="experience"
+              onChange={handleFilterChange}
+              value={filters.experience}
+            >
+              <option value="">Experience</option>
+              <option value="1">1 Year</option>
+              <option value="2">2 Years</option>
+              <option value="3">3+ Years</option>
+            </select>
+            <select
+              className="p-2 rounded-lg text-gray-700"
+              name="salary_min"
+              onChange={handleFilterChange}
+              value={filters.salary_min}
+            >
+              <option value="">Salary</option>
+              <option value="1000">&lt; 1000$</option>
+              <option value="5000">1000$ - 5000$</option>
+              <option value="5001">&gt; 5000$</option>
+            </select>
+            <select
+              className="p-2 rounded-lg text-gray-700"
+              name="category_id"
+              onChange={handleFilterChange}
+              value={filters.category_id}
+            >
+              <option value="">Category</option>
+              <option value="1">Accounting</option>
+              <option value="2">Engineering</option>
+              <option value="3">Software Development</option>
+              <option value="4">Marketing</option>
+            </select>
+            <select
+              className="p-2 rounded-lg text-gray-700"
+              name="organization_address"
+              onChange={handleFilterChange}
+              value={filters.organization_address}
+            >
+              <option value="">Select Organization Address</option>
+              {addresses.map((address, idx) => (
+                <option key={idx} value={address}>
+                  {address}
                 </option>
-                <option value="US" className="hover:focus:bg-customTeal ">
-                  United States
-                </option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
-              </select>{" "}
-            </form>
-            <form className="w-[160px] font-normal">
-              <select
-                id="countries"
-                className="mr-10 text-gray-600 text-sm rounded-lg block w-full p-3 hover:cursor-pointer focus:ring-customTeal focus:border-customTeal-darker"
-              >
-                <option selected className="hover:focus:bg-customTeal">
-                  Choose a country
-                </option>
-                <option value="US" className="hover:focus:bg-customTeal ">
-                  United States
-                </option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
-              </select>{" "}
-            </form>
-            <form className="w-[160px] font-normal">
-              <select
-                id="countries"
-                className="text-gray-600 text-sm rounded-lg block w-full p-3 hover:cursor-pointer focus:ring-customTeal focus:border-customTeal-darker"
-              >
-                <option selected className="hover:focus:bg-customTeal">
-                  Choose a country
-                </option>
-                <option value="US" className="hover:focus:bg-customTeal ">
-                  United States
-                </option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
-              </select>{" "}
-            </form>
-            <form className="w-[160px] font-normal">
-              <select
-                id="countries"
-                className="text-gray-600 text-sm rounded-lg block w-full p-3 hover:cursor-pointer focus:ring-customTeal focus:border-customTeal-darker"
-              >
-                <option selected className="hover:focus:bg-customTeal">
-                  Choose a country
-                </option>
-                <option value="US" className="hover:focus:bg-customTeal ">
-                  United States
-                </option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
-              </select>{" "}
-            </form>
+              ))}
+            </select>
           </div>
         </div>
-        <Icon
-          icon="fluent:hat-graduation-sparkle-20-regular"
-          className="w-[200px] h-[200px] ml-20"
-        />
       </section>
 
-      <div className="px-8 text-center">
-        <h1 className="text-5xl font-bold">Here are a few recommendations!</h1>
+      <div className="px-8 mt-4 text-center">
+        <h1 className="text-4xl font-bold">Here are a few recommendations!</h1>
         <p className="text-lg font-regular text-black-900 opacity-60">
           Pick the one that suits you, and helps you flourish your bright future
         </p>
       </div>
 
-      <Link to={`/scholarship/detail`}>
-        <div className="flex flex-wrap mt-10">
-          {data.map((school) => (
-            <div
-              key={school.id}
-              className="w-60 h-90 mx-auto bg-gray-200 shadow-xl rounded-lg overflow-y-auto"
-            >
-              <div className="flex items-center justify-center h-[270px] p-2">
-                <img
-                  src={school.image}
-                  alt={`${school.school_name} Logo`}
-                  className="w-full h-full object-contain rounded-lg border border-gray-300"
-                />
-              </div>
-              <div className="p-4 bg-gray-200">
-                <h2 className="text-center text-lg font-semibold text-gray-600">
-                  {school.school_name}
-                </h2>
-              </div>
-            </div>
+      <div className="relative mx-10">
+        <div className="relative mx-10">
+          <ul>
+            {Scholarships.map((scholarship, idx) => (
+              <li key={idx}>
+                <Link to={`/scholarship/${scholarship.id}`} onClick={scrollToTop}>
+                  <div className="flex flex-wrap mt-10">
+                    <div className="w-60 h-90 mx-auto bg-gray-200 shadow-xl rounded-lg overflow-y-auto">
+                      <div className="flex items-center justify-center h-[270px] p-2">
+                        <img
+                          src={scholarship.image || HarvardUniverity}
+                          alt={`${scholarship.school_name} Logo`}
+                          className="w-full h-full object-contain rounded-lg border border-gray-300"
+                        />
+                      </div>
+                      <div className="p-4 bg-gray-200">
+                        <h2 className="text-center text-lg font-semibold text-gray-600">
+                          {scholarship.school_name}
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="grid grid-cols-2 gap-12 mt-10 px-6">
+          {Scholarships.map((scholarship, index) => (
+            <li key={index} className="list-none" onClick={scrollToTop}>
+              <Link
+                to={`/scholarship/detail/${scholarship.id}`}
+                className="flex flex-col items-center bg-gray-200 border border-gray-200 rounded-lg shadow-xl md:flex-row md:max-w-3xl hover:bg-gray-100"
+              >
+                <div className="flex items-center justify-center p-2 md:w-48">
+                  <img
+                    className="object-contain w-full h-48 md:h-auto md:w-48 rounded-md border border-gray-300"
+                    src={scholarship.image_url || HarvardUniverity}
+                    alt={`${scholarship.school_name} Logo`}
+                  />
+                </div>
+                <div className="flex flex-col justify-between p-1 leading-normal">
+                  <h5 className="text-2xl font-bold tracking-tight text-gray-600 mb-8">
+                    {scholarship.school_name}
+                  </h5>
+                  <h6 className="text-lg font-bold text-gray-600 mb-2">
+                    {scholarship.degree}
+                  </h6>
+                  <p className="text-sm font-medium text-gray-500">
+                    Duration: {scholarship.duration} years
+                  </p>
+                  <p className="text-sm font-medium text-gray-500">
+                    Location: {scholarship.location}
+                  </p>
+                  <p className="text-sm font-medium text-gray-500">
+                    Available Positions: {scholarship.available_position}
+                  </p>
+                  <p className="text-sm font-medium text-gray-500">
+                    Deadline: {scholarship.dateline}
+                  </p>
+                </div>
+              </Link>
+            </li>
           ))}
         </div>
-      </Link>
-
-      <div className="grid grid-cols-2 gap-10 mt-10 px-8">
-        {currentItems.map((scholarship, index) => (
-          <Link
-            key={index}
-            to={`/scholarship/detail`}
-            className="flex flex-col items-center bg-gray-200 border border-gray-200 rounded-lg shadow-xl md:flex-row md:max-w-3xl hover:bg-gray-100"
-          >
-            <div className="flex items-center justify-center p-2 md:w-48">
-              <img
-                className="object-contain w-full h-48 md:h-auto md:w-48 rounded-md border border-gray-300"
-                src={scholarship.image}
-                alt={`${scholarship.school_name} Logo`}
-              />
-            </div>
-            <div className="flex flex-col justify-between p-4 leading-normal">
-              <h5 className="text-2xl font-bold tracking-tight text-gray-600 mb-10">
-                {scholarship.school_name}
-              </h5>
-              <h6 className="text-lg font-bold text-gray-600 mb-2">
-                {scholarship.degree}
-              </h6>
-              <p className="text-sm font-medium text-gray-500">
-                Duration: {scholarship.duration} years
-              </p>
-              <p className="text-sm font-medium text-gray-500">
-                Location: {scholarship.location}
-              </p>
-              <p className="text-sm font-medium text-gray-500">
-                Available Positions: {scholarship.available_position}
-              </p>
-              <p className="text-sm font-medium text-gray-500">
-                Deadline: {scholarship.dateline}
-              </p>
-            </div>
-          </Link>
-        ))}
       </div>
 
       <div className="flex justify-center my-6">
@@ -267,11 +275,9 @@ const ScholarshipPage = () => {
                 <li key={index + 1}>
                   <button
                     onClick={() => paginate(index + 1)}
-                    className={`px-3 py-1.5 mx-4 leading-tight rounded-full ${
-                      currentPage === index + 1
-                        ? "text-white bg-customTeal"
-                        : "text-gray-500 bg-white"
-                    } hover:bg-customTeal hover:text-white`}
+                    className={`px-2 py-1 text-customTeal hover:bg-customTeal hover:text-white rounded-full ${
+                      currentPage === index + 1 ? "bg-customTeal text-white" : ""
+                    }`}
                   >
                     {index + 1}
                   </button>
@@ -296,6 +302,10 @@ const ScholarshipPage = () => {
           </div>
         </nav>
       </div>
+
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 };
