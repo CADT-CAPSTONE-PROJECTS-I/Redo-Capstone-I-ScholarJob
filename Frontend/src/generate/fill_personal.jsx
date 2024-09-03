@@ -22,10 +22,10 @@ const FillPersonal = () => {
       <form className="">
         <div className="flex flex-col">
           <h1 className="text-lg font-bold">Establisheed Fact that a reader</h1>
-          <p1 className="w-96">
+          <p className="w-96">
             Includes your first and last name at least one way for employers to
             reach you.
-          </p1>
+          </p>
         </div>
         <div className="flex flex-col items-center justify-center">
           <h2 className="font-bold text-md m-4">YOUR INFO</h2>
@@ -92,7 +92,7 @@ const FillPersonal = () => {
               required
             />
             <label
-              htmlForor="age"
+              lowercase="age"
               className="input-group__label block text-gray-400  text-sm"
             >
               Age
@@ -228,7 +228,7 @@ const FillPersonal = () => {
               required
             />
             <label
-              htmlForor="placeOfBirth"
+              lowercase="placeOfBirth"
               className="input-group__label block text-gray-400  text-sm"
             >
               Place of Birth
@@ -250,7 +250,7 @@ const FillPersonal = () => {
               required
             />
             <label
-              htmlForor="currentAddress"
+              lowercase="currentAddress"
               className="input-group__label block text-gray-400  text-sm"
             >
               Address

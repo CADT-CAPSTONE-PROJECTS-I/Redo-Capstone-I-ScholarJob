@@ -108,7 +108,7 @@ const ScholarshipPage = () => {
       </section>
 
       <div className="px-8 text-center">
-        <h1 className="text-5xl font-bold">Here are a few recommendations!</h1>
+        <h1 className="text-5xl font-bold">Here are a some recommendations!</h1>
         <p className="text-lg font-regular text-black-900 opacity-60">
           Pick the one that suits you, and helps you flourish your bright future
         </p>
@@ -118,19 +118,19 @@ const ScholarshipPage = () => {
         {scholarships.map((scholarship, index) => (
           <Link
             key={index}
-            to={`/scholarship/${scholarship.id}`}
+            to={`/scholarship/detail/${scholarship.id}`}
             className="flex flex-col items-center bg-gray-200 border border-gray-200 rounded-lg shadow-xl md:flex-row md:max-w-3xl hover:bg-gray-100"
           >
             <div className="flex items-center justify-center p-2 md:w-48">
             <img
                 src={scholarship.image_url || ScholarJobLogoGreen}
-                className="w-32 h-32 object-cover rounded-lg mr-5"
+                className="w-32 h-32 object-cover rounded-lg mr-3 "
                 alt="ScholarJob Logo"
               />
             </div>
             <div className="flex flex-col justify-between p-4 leading-normal">
-              <h5 className="text-2xl font-bold tracking-tight text-gray-600 mb-10">
-                {scholarship.school_name}
+              <h5 className="text-2xl font-bold tracking-tight text-gray-600 mb-1">
+                {scholarship.major}
               </h5>
               <h6 className="text-lg font-bold text-gray-600 mb-2">
                 {scholarship.degree}
@@ -145,7 +145,7 @@ const ScholarshipPage = () => {
                 Available Positions: {scholarship.available_position}
               </p>
               <p className="text-sm font-medium text-gray-500">
-                Deadline: {scholarship.deadline}
+                Deadline: {new Date(scholarship.deadline).toLocaleDateString()}
               </p>
             </div>
           </Link>

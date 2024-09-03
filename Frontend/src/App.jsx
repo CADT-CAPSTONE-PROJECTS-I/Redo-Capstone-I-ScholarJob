@@ -1,3 +1,4 @@
+import ScholarshipDetailPage from "./detailPages/schorlarship_details.jsx";
 import {
   React,
   Register,
@@ -40,10 +41,10 @@ const App = () => {
           path: "/scholarship",
           element: <ScholarshipPage />,
         },
-        {
-          path: "/scholarship/:scholarshipId",
-          element: <ScholarshipDetail />,
-        },
+        // {
+        //   path: "/scholarship/:id",
+        //   element: <ScholarshipDetailPage />,
+        // },
         {
           path: "/about",
           element: <AboutUsPage />,
@@ -61,8 +62,8 @@ const App = () => {
           element: <Register />,
         },
         {
-          path: "/scholarship/detail",
-          element: <ScholarshipDetail />,
+          path: "/scholarship/detail/:id",
+          element: <ScholarshipDetail/>,
         },
         
         {

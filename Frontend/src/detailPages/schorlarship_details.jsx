@@ -1,11 +1,61 @@
-import {
-  React,
-  Navbar,
-  HarvardUniverity,
-  Footer,
-} from "../import/all_import.jsx";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { Navbar, Footer,ScholarJobLogoWhite } from "../import/all_import.jsx";
+import ApplyModal from './apply_modal.jsx';
 
-const scholarship_detailPage = () => {
+const ScholarshipDetailPage = () => {
+  const { id } = useParams();
+  const [scholarship, setScholarship] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [clientId, setClientId] = useState(null);
+
+  useEffect(() => {
+    const fetchScholarshipDetail = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/scholarship/detail/${id}`);
+        setScholarship(response.data.data);
+        setLoading(false);
+        
+        const storedClientId = localStorage.getItem('clientId');
+        console.log('Stored Client ID:', storedClientId);
+        setClientId(storedClientId);
+        
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchScholarshipDetail();
+  }, [id]);
+
+  const handleApplyNowClick = () => {
+    if (!clientId) {
+      alert('Please log in to apply.');
+      return;
+    }
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!scholarship) {
+    return <div>No scholarship details available.</div>;
+  }
+
   return (
     <div>
       <header className="p-8">
@@ -13,199 +63,113 @@ const scholarship_detailPage = () => {
       </header>
 
       <div className="m-auto w-[1200px]">
-        <section className="flex justify-center items-center min-h-[200px] w-[1200px]  mt-8 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white">
-          <div className="flex  p-8">
-            <div className="flex-shrink-0">
-              <img
-                src={HarvardUniverity}
-                alt="CADT Logo"
-                className="w-40 h-40"
-              />
-            </div>
-            <div className="ml-8 ">
-              <h1 className="text-3xl font-bold">
-                Master Degree in Machine Learning
-              </h1>
-              <h2 className="text-xl mt-4 font-semibold">
-                Cambodia Academy & Digital Technology
-              </h2>
-              <p className="mt-2">
-                A driving force of digital governance development in Cambodia to
-                provide digital skill training for civil servants.
-              </p>
-            </div>
-          </div>
-          <div className="">
-            <button className="bg-customTeal text-white rounded-lg py-2 px-4 font-bold hover:bg-customTeal-dark transition-colors">
-              More info
-            </button>
-          </div>
-        </section>
-
-        <section className="flex flex-row ">
-          <div className="mt-8 rounded-xl w-[650px] bg-white shadow-lg mr-8">
-            <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 rounded-t-lg p-4">
-              <h2 className="text-lg text-white font-bold">
-                Scholarship Description
-              </h2>
-            </div>
-            <div className="p-4">
-              <p className="text-gray-700 mb-4">
-                CADT aims to be a national flagship research and education
-                institution for Digital Technology and Innovation, nurturing
-                digital talent and innovators to drive Cambodia toward a digital
-                society.
-              </p>
-
-              <ul className="list-none mb-4 space-y-2">
-                <li className="flex items-center">
-                  <span className="font-bold">Degree Program: </span> Master of
-                  Science in Machine Learning
-                </li>
-                <hr className="my-2 border-gray-300" />
-
-                <li className="flex items-center">
-                  <span className="font-bold">Program Duration: </span> 2 years
-                </li>
-                <hr className="my-2 border-gray-300" />
-
-                <li className="flex items-center">
-                  <span className="font-bold">Location: </span> Phnom Penh
-                </li>
-                <hr className="my-2 border-gray-300" />
-
-                <li className="flex items-center">
-                  <span className="font-bold">Eligible Number: </span> 100 - 150
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-8 rounded-xl w-[560px] bg-white shadow-lg">
-            <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 rounded-t-lg p-4">
-              <h2 className="text-lg text-white font-bold">
-                Scholarship Requirements
-              </h2>
-            </div>
-            <div className="p-4">
-              <ul className="list-none mb-4 space-y-2">
-                <li className="flex items-center">
-                  <span className="font-bold">Academic level:</span> Master of
-                  Science in Machine Learning
-                </li>
-                <hr className="my-2 border-gray-300" />
-
-                <li className="flex items-center">
-                  <span className="font-bold">Field of study: </span> Computer
-                  Science
-                </li>
-                <hr className="my-2 border-gray-300" />
-
-                <li className="flex items-center">
-                  <span className="font-bold">English proficiency: </span>{" "}
-                  Advanced
-                </li>
-                <hr className="my-2 border-gray-300" />
-
-                <li className="flex items-center">
-                  <span className="font-bold">Age:</span>24 - 35
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-        <section className="flex flex-row justify-between">
-          <div className="mt-8 rounded-xl w-[650px] bg-white shadow-lg mr-8">
-            <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 rounded-t-lg p-4">
-              <h2 className="text-lg text-white font-bold">
-                Applicaiton Requirements
-              </h2>
-            </div>
-            <div className="p-4">
-              <ul className="list-none mb-4 space-y-2">
-                <li className="flex items-center">
-                  <span className="font-bold">Completed Application form</span>
-                </li>
-                <hr className="my-2 border-gray-300" />
-
-                <li className="flex items-center">
-                  <span className="font-bold">Official Transcipts</span>
-                </li>
-                <hr className="my-2 border-gray-300" />
-
-                <li className="flex items-center">
-                  <span className="font-bold">Letter Recommendation</span>
-                </li>
-                <hr className="my-2 border-gray-300" />
-
-                <li className="flex items-center">
-                  <span className="font-bold">Personal Statement</span>
-                </li>
-                <hr className="my-2 border-gray-300" />
-                <li className="flex items-center">
-                  <span className="font-bold">Ciriculum Vitae</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 rounded-xl w-[560px] bg-white shadow-lg">
-            <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 rounded-t-lg p-4">
-              <h2 className="text-lg text-white font-bold">Contact Us !</h2>
-            </div>
-            <div className="p-4">
-              <p className="font-bold mb-4">
-                We have various ways to get in touch. As you can see below:{" "}
-              </p>
-              <div>
-                <li className="flex items-center">
-                  <span className="font-bold">Email Address: </span>{" "}
-                </li>
-                <hr className="my-2 border-gray-300" />
-
-                <li className="flex items-center">
-                  <span className="font-bold">Phone numbers: </span>
-                </li>
-                <hr className="my-2 border-gray-300" />
-
-                <li className="flex items-center">
-                  <span className="font-bold">Location: </span>
-                </li>
+        <section className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white p-6 rounded mb-2 mt-5">
+          <div className="flex items-center">
+            <img
+              src={scholarship.image_url || ScholarJobLogoWhite}
+              alt={scholarship.title}
+              className="w-32 h-32 object-cover mr-6 rounded"
+            />
+            <div className="text-white">
+              <h1 className="text-2xl font-bold mb-2">{scholarship.title}</h1>
+              <div className="">
+                <h1 className="text-3xl font-bold">{scholarship.major}</h1>
+                <h2 className="text-xl mt-4 font-semibold">{scholarship.degree}</h2>
+              </div>
+              <div className="text-gray-200 mt-2 flex">
+                <p className="mr-6">
+                  Publish Date: {new Date(scholarship.created_at).toLocaleDateString()}
+                </p>
+                <p>
+                  Closing Date: {new Date(scholarship.deadline).toLocaleDateString()}
+                </p>
               </div>
             </div>
           </div>
         </section>
-        <section className="mt-8">
-          <div>
-            <h1 className="font-bold text-black text-xl">Eligibility: </h1>
-            <p>
-              ​-This scholarship is open to need-based students only.
-              <br />
-              -This scholarship cannot be combined with any other scholarship
-              scheme provided by CADT.
-              <br />
-              -This scholarship is openly awarded to international students
-            </p>
+
+        {/* Scholarship Description and Requirements */}
+        <section className="flex flex-row">
+          <div className="mt-8 rounded-xl w-[650px] bg-white shadow-lg mr-8">
+            <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 rounded-t-lg p-4">
+              <h2 className="text-lg text-white font-bold">Scholarship Description</h2>
+            </div>
+            <div className="p-4">
+              <p className="text-gray-700 mb-4">{scholarship.full_description}</p>
+              <ul className="list-none mb-4 space-y-2">
+                <li className="flex items-center">
+                  <span className="font-bold">Degree Program: </span>{scholarship.degree}
+                </li>
+                <hr className="my-2 border-gray-300" />
+                <li className="flex items-center">
+                  <span className="font-bold">Program Duration: </span>{scholarship.program_duration} years
+                </li>
+                <hr className="my-2 border-gray-300" />
+                <li className="flex items-center">
+                  <span className="font-bold">Location: </span>{scholarship.location}
+                </li>
+                <hr className="my-2 border-gray-300" />
+                <li className="flex items-center">
+                  <span className="font-bold">Eligible Number: </span>{scholarship.available_position}
+                </li>
+              </ul>
+            </div>
           </div>
-          <div>
-            <h1 className="font-bold text-black text-xl">Benefits: </h1>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa
-              blanditiis totam, nobis molestiae cupiditate amet eveniet
-              similique minima eos aut, dolore id assumenda. Incidunt sint
-              cumque cum. Voluptatem, autem necessitatibus.
-            </p>
+
+          <div className="mt-8 rounded-xl w-[560px] bg-white shadow-lg">
+            <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 rounded-t-lg p-4">
+              <h2 className="text-lg text-white font-bold">Scholarship Requirements</h2>
+            </div>
+            <div className="p-4">
+              <ul className="list-none mb-4 space-y-2">
+                <li className="flex items-center">
+                  <span className="font-bold">Award: </span>{scholarship.award}
+                </li>
+                <hr className="my-2 border-gray-300" />
+                <li className="flex items-center">
+                  <span className="font-bold">English proficiency: </span>{scholarship.english_proficiency}
+                </li>
+                <hr className="my-2 border-gray-300" />
+                <li className="flex items-center">
+                  <span className="font-bold">Age: </span>{scholarship.age}
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
-        <div className="mt-8 flex justify-center items-center ">
-          <button className="w-[400px] h-[50px] bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white rounded-lg py-2 px-4 font-bold hover:bg-customTeal-dark transition-colors">
+        <section className="mt-8">
+          <div>
+            <h1 className="font-bold text-black text-xl">Eligibility: </h1>
+            <p>{scholarship.eligibility}</p>
+          </div>
+          <div>
+            <h1 className="font-bold text-black text-xl">Benefits: </h1>
+            <p>{scholarship.offer}</p>
+          </div>
+        
+        </section>
+        {/* <h1 className="font-bold text-black text-xl flex justify-center items-center">How to Apply</h1> */}
+        <div   onClick={handleApplyNowClick} className="mt-8 flex justify-center items-center ">
+          <button className="w-[400px] h-[50px] bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white rounded-lg py-2 px-4 font-bold hover:bg-customTeal-dark transition-colors mb-5">
             Apply Now!
           </button>
         </div>
       </div>
-      <Footer />
+
+
+      <ApplyModal 
+        isOpen={isModalOpen} 
+        onClose={handleCloseModal} 
+        clientId={clientId} 
+        scholarshipId={scholarship.id} 
+      />
+
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 };
 
-export default scholarship_detailPage;
+export default ScholarshipDetailPage;
