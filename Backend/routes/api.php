@@ -27,7 +27,7 @@ Route::get('/organization-addresses', [JobController::class, 'getAddress']);
 Route::get('scholarship/list',[ScholarshipController::class, 'list']);
 Route::get('scholarship/detail/{id}',[ScholarshipController::class, 'detail']);
 
-Route::post('applications/store', [ApplicationController::class, 'store']);
+Route::post('application/store', [ApplicationController::class, 'store']);
 
 Route::get('homepage',[HomepageController::class, 'index']);
 Route::get('urgent/job',[HomepageController::class, 'ListUrgentJobs']);

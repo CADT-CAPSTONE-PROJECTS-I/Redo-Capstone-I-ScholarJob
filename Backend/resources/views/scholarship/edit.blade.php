@@ -45,12 +45,6 @@
                         </div>
 
                         <div>
-                            <label for="eligibility" class="block text-gray-700 font-medium mb-2">Eligibility</label>
-                            <input type="text" id="eligibility" name="eligibility" placeholder="Enter Eligibility" value="{{ old('eligibility', $scholarship->eligibility) }}"
-                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
-
-                        <div>
                             <label for="qualification" class="block text-gray-700 font-medium mb-2">Qualification</label>
                             <select id="qualification" name="qualification" class="form-select mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                                 <option value="" disabled>Select Qualification</option>
@@ -70,18 +64,11 @@
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
 
-
                         <div>
-                            <label for="offer" class="block text-gray-700 font-medium mb-2">Offer</label>
-                            <input type="text" id="offer" name="offer" placeholder="Enter Offer" value="{{ old('offer', $scholarship->offer) }}"
+                            <label for="award" class="block text-gray-700 font-medium mb-2">Award</label>
+                            <input type="text" id="award" name="award" placeholder="Enter Award Amount" value="{{ old('award', $scholarship->award) }}"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
-
-                        {{-- <div>
-                            <label for="award" class="block text-gray-700 font-medium mb-2">Award</label>
-                            <input type="number" id="award" name="award" placeholder="Enter Award Amount" value="{{ old('award', $scholarship->award) }}"
-                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
-                        </div> --}}
                         <div>
                             <label for="available_position" class="block text-gray-700 font-medium mb-2">Available Positions</label>
                             <input type="number" id="available_position" name="available_position" placeholder="Enter Available Positions" value="{{ old('available_position', $scholarship->available_position) }}"
@@ -121,6 +108,17 @@
                             <input type="number" id="program_duration" name="program_duration" placeholder="Enter Program Duration" value="{{ old('program_duration', $scholarship->program_duration) }}"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
+
+                        <div class="md:col-span-2">
+                            <label for="eligibility" class="block text-gray-700 font-medium mb-2">Eligibility</label>
+                            <textarea id="eligibility" name="eligibility" placeholder="Enter scholarship eligibility"
+                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 required">{{ old('eligibility', $scholarship->eligibility) }}</textarea>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="offer" class="block text-gray-700 font-medium mb-2">Offer</label>
+                            <textarea id="offer" name="offer" placeholder="Enter scholarship offer"
+                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 required">{{ old('offer', $scholarship->offer) }}</textarea>
+                        </div>
                         <div>
                             <label for="image" class="block text-gray-700 font-medium mb-2">Image</label>
                             <div class="relative w-full h-64 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50">
@@ -146,6 +144,21 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#eligibility'))
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector('#offer'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
     <script>
     function previewImage(event) {
         const imagePreview = document.getElementById('imagePreview');

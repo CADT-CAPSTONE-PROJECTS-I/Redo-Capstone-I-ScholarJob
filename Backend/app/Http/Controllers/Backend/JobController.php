@@ -80,6 +80,7 @@ class JobController extends Controller
             $job->delete();
             return redirect()->route('jobs.index')->with('success', 'Job deleted successfully.');
         } catch (\Exception $e) {
+            
             return back()->with('error', 'Failed to delete job. Please try again.');
         }
     }
