@@ -12,8 +12,10 @@ import {
   createBrowserRouter,
   ScholarshipDetail,
   DetailedJobPage,
+  OrganizationDetail,
   EditProfile,
   ViewProfile,
+
 } from "./import/all_import.jsx";
 
 const App = () => {
@@ -73,6 +75,11 @@ const App = () => {
         {
           path: "/view/edit",
           element: <EditProfile/>,
+        },
+        {
+          path: "/organization",
+          path: "/scholarship/organization/",
+          element: <OrganizationDetail/>,
         },
       ],
     },

@@ -114,6 +114,7 @@ const ScholarshipPage = () => {
         </p>
       </div>
 
+
       <div className="grid grid-cols-2 gap-10 mt-10 px-8">
         {scholarships.map((scholarship, index) => (
           <Link

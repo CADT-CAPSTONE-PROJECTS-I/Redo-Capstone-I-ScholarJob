@@ -18,7 +18,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/generate/cv', [ResumeController::class, 'createOrUpdate']);
 });
 
-
 Route::get('job/list',[JobController::class, 'list']);
 Route::get('job/detail/{id}',[JobController::class, 'detail']);
 Route::get('/organization-addresses', [JobController::class, 'getAddress']);

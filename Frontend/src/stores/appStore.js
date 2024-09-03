@@ -1,6 +1,10 @@
 import { create } from "zustand";
 
 const appStore = create((set, get) => ({
+
+  // scholarship: [], 
+  // setScholarship: (data) => set({ scholarship: data }),
+
   changePassword: false,
   setChangePassword: (data) => set({ changePassword: data }),
 
@@ -12,6 +16,12 @@ const appStore = create((set, get) => ({
 
   currentPage: 1,
   setCurrentPage: (data) => set({currentPage: data }),
+
+  activeTab: 'about',
+  setActiveTab:(data) => set ({activeTab: data }),
+
+  addresses: [],
+  setAddresses: (data) => set ({addresses: data}),
 
   cvData: {
     name: '',
