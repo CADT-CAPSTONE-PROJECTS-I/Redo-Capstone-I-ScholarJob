@@ -8,7 +8,6 @@ import {
   Link,
   ScholarJobLogoGreen
 } from "../import/all_import.jsx";
-import React, { useState, useEffect } from "react";
 
 const ScholarshipPage = () => {
   const [scholarships, setScholarships] = useState([]);
@@ -57,9 +56,9 @@ const ScholarshipPage = () => {
       <header className="p-8">
         <Navbar />
       </header>
-      <section className="relative flex items-center min-h-[250px] mx-16 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">
+      <section className="relative flex items-center min-h-[300px] m-8 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white justify-center">
+        <div className="w-1/2 pl-8 text-4xl font-bold">
+          <div className="flex flex-col">
             Start your flourishing journey with us, ScholarJob!
             <div className="mt-5">
               <form>
@@ -102,6 +101,10 @@ const ScholarshipPage = () => {
      
           </div>
         </div>
+        <Icon
+          icon="fluent:hat-graduation-sparkle-20-regular"
+          className="w-[200px] h-[200px] ml-20"
+        />
       </section>
 
       <div className="px-8 text-center">
@@ -110,6 +113,7 @@ const ScholarshipPage = () => {
           Pick the one that suits you, and helps you flourish your bright future
         </p>
       </div>
+
 
       <div className="grid grid-cols-2 gap-10 mt-10 px-8">
         {scholarships.map((scholarship, index) => (
@@ -168,9 +172,11 @@ const ScholarshipPage = () => {
                 <li key={index + 1}>
                   <button
                     onClick={() => paginate(index + 1)}
-                    className={`px-2 py-1 text-customTeal hover:bg-customTeal hover:text-white rounded-full ${
-                      currentPage === index + 1 ? "bg-customTeal text-white" : ""
-                    }`}
+                    className={`px-3 py-1.5 mx-4 leading-tight rounded-full ${
+                      currentPage === index + 1
+                        ? "text-white bg-customTeal"
+                        : "text-gray-500 bg-white"
+                    } hover:bg-customTeal hover:text-white`}
                   >
                     {index + 1}
                   </button>
@@ -193,10 +199,6 @@ const ScholarshipPage = () => {
           </div>
         </nav>
       </div>
-
-      <footer>
-        <Footer />
-      </footer>
     </div>
   );
 };
