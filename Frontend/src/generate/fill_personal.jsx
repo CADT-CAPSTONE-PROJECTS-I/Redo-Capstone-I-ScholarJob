@@ -22,13 +22,13 @@ const FillPersonal = () => {
       <form className="">
         <div className="flex flex-col">
           <h1 className="text-lg font-bold">Establisheed Fact that a reader</h1>
-          <p1 className="w-96">
+          <p className="w-96">
             Includes your first and last name at least one way for employers to
             reach you.
-          </p1>
+          </p>
         </div>
         <div className="flex flex-col items-center justify-center">
-          <h2 className="font-bold text-md m-4">YOUR PERSONALITY</h2>
+          <h2 className="font-bold text-md m-4">YOUR INFO</h2>
         </div>
 
         <div className="mt-3 grid grid-cols-2 gap-y-1 gap-x-3">
@@ -76,8 +76,8 @@ const FillPersonal = () => {
               Position
             </label>
           </div>
-          {/* age */}
-          <div className="input-group relative w-full mt-5 mb-4">
+  
+          {/* <div className="input-group relative w-full mt-5 mb-4">
             <Icon
               icon={"tabler:number"}
               className="absolute top-1 left-1 text-gray-400"
@@ -92,13 +92,13 @@ const FillPersonal = () => {
               required
             />
             <label
-              htmlForor="age"
+              lowercase="age"
               className="input-group__label block text-gray-400  text-sm"
             >
               Age
             </label>
           </div>
-          {/* gender */}
+    
           <div className="input-group relative w-full mt-5 mb-4">
             <Icon
               icon={"icons8:gender"}
@@ -123,7 +123,7 @@ const FillPersonal = () => {
             >
               Gender
             </label>
-          </div>
+          </div> */}
           {/* phone */}
           <div className="input-group relative w-full mt-5 mb-4">
             <Icon
@@ -169,7 +169,7 @@ const FillPersonal = () => {
             </label>
           </div>
           {/* date of birth */}
-          <div className="input-group relative w-full mt-5 mb-4">
+          {/* <div className="input-group relative w-full mt-5 mb-4">
             <Icon
               icon={"iconoir:birthday-cake"}
               className="absolute top-1 left-1 text-gray-400"
@@ -189,7 +189,7 @@ const FillPersonal = () => {
             >
               Date of Birth
             </label>
-          </div>
+          </div> */}  
           {/* aboutyou */}
           <div className="input-group relative w-full mt-5 mb-4">
             <Icon
@@ -213,7 +213,7 @@ const FillPersonal = () => {
             </label>
           </div>
           {/* place of birth */}
-          <div className="input-group relative w-full mt-5 mb-4">
+          {/* <div className="input-group relative w-full mt-5 mb-4">
             <Icon
               icon={"weui:location-outlined"}
               className="absolute top-1 left-1 text-gray-400"
@@ -228,12 +228,12 @@ const FillPersonal = () => {
               required
             />
             <label
-              htmlForor="placeOfBirth"
+              lowercase="placeOfBirth"
               className="input-group__label block text-gray-400  text-sm"
             >
               Place of Birth
             </label>
-          </div>
+          </div> */}
           {/* current address */}
           <div className="input-group relative w-full mt-5 mb-4">
             <Icon
@@ -250,7 +250,7 @@ const FillPersonal = () => {
               required
             />
             <label
-              htmlForor="currentAddress"
+              lowercase="currentAddress"
               className="input-group__label block text-gray-400  text-sm"
             >
               Address

@@ -32,10 +32,10 @@ const FillSkill = () => {
       <form className="">
         <div className="flex flex-col">
           <h1 className="text-lg font-bold">Establisheed Fact that a reader</h1>
-          <p1 className="w-96">
+          <p className="w-96">
             Includes your skill and education at least one way for employers to
             reach you.
-          </p1>
+          </p>
         </div>
         <div className="flex flex-col items-center justify-center">
           <h2 className="font-bold text-md m-4">YOUR SKILL</h2>

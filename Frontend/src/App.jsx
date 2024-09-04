@@ -1,3 +1,4 @@
+import ScholarshipDetailPage from "./detailPages/schorlarship_details.jsx";
 import {
   React,
   Register,
@@ -11,8 +12,10 @@ import {
   createBrowserRouter,
   ScholarshipDetail,
   DetailedJobPage,
+  OrganizationDetail,
   EditProfile,
   ViewProfile,
+
 } from "./import/all_import.jsx";
 
 const App = () => {
@@ -40,6 +43,10 @@ const App = () => {
           path: "/scholarship",
           element: <ScholarshipPage />,
         },
+        // {
+        //   path: "/scholarship/:id",
+        //   element: <ScholarshipDetailPage />,
+        // },
         {
           path: "/about",
           element: <AboutUsPage />,
@@ -57,8 +64,8 @@ const App = () => {
           element: <Register />,
         },
         {
-          path: "/scholarship/detail",
-          element: <ScholarshipDetail />,
+          path: "/scholarship/detail/:id",
+          element: <ScholarshipDetail/>,
         },
         
         {
@@ -68,6 +75,11 @@ const App = () => {
         {
           path: "/view/edit",
           element: <EditProfile/>,
+        },
+        {
+          path: "/organization",
+          path: "/scholarship/organization/",
+          element: <OrganizationDetail/>,
         },
       ],
     },

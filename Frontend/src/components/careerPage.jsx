@@ -1,13 +1,7 @@
-import {
-  Navbar,
-  ScholarJobLogoGreen,
-  getJobs,
-  getOrganizationAddresses,
-  React,
-  Link,
-  useEffect,
-  appStore,
-} from "../import/all_import.jsx";
+import React, { useEffect, useState } from 'react';
+import { Navbar, ScholarJobLogoGreen, Link, appStore } from "../import/all_import.jsx";
+import { getJobs, getOrganizationAddresses } from '../API/career_api.jsx';
+
 
 const CareerPage = () => {
   const { jobs, setJobs, filters, setFilters, addresses, setAddresses } =
@@ -82,9 +76,10 @@ const CareerPage = () => {
               <option value="2">2 Years</option>
               <option value="3">3+ Years</option>
             </select>
+
             <select
               className="p-2 rounded-lg text-gray-700"
-              name="salary_min"
+              name="salary"
               onChange={handleFilterChange}
             >
               <option value="">Salary</option>
@@ -92,12 +87,7 @@ const CareerPage = () => {
               <option value="5000">1000$ - 5000$</option>
               <option value="5001">&gt; 5000$</option>
             </select>
-            {/* <select className="p-2 rounded-lg text-gray-700" name="salary_max" onChange={handleFilterChange}>
-              <option value="">Salary Max</option>
-              <option value="1000">&lt; 1000$</option>
-              <option value="5000">1000$ - 5000$</option>
-              <option value="5001">&gt; 5000$</option>
-            </select> */}
+
             <select
               className="p-2 rounded-lg text-gray-700"
               name="category_id"
@@ -114,7 +104,7 @@ const CareerPage = () => {
               name="organization_address"
               onChange={handleFilterChange}
             >
-              <option value="">Select Organization Address</option>
+              <option value="">Select Location</option>
               {addresses.map((address, idx) => (
                 <option key={idx} value={address}>
                   {address}
