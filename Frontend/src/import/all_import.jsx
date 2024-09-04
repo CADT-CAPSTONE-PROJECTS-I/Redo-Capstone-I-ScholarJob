@@ -1,6 +1,6 @@
 
 //import of all installation
-export { default as React, useRef, useEffect } from "react";
+export { default as React, useRef, useEffect,  forwardRef  } from "react";
 export { useNavigate, BrowserRouter as Router, Route, Routes, RouterProvider, createBrowserRouter, Link, NavLink, useParams } from 'react-router-dom';
 export { Icon } from "@iconify/react";
 export { Tabs, TabsHeader, TabsBody, Tab, TabPanel, } from "@material-tailwind/react";
@@ -55,6 +55,7 @@ export { default as FindYourNeed } from '../assets/image/FindYourNeed_Image.png'
 export { default as FlourishYourFuture } from '../assets/image/flourishYourFuture_image.png'
 export { default as ApplyIt } from '../assets/image/Applyit_image.png'
 export { default as LoginImage } from '../assets/image/login_image.png'
+export { default as ImageDone } from '../assets/image/image_done.png'
 
 //import of all style css
 import "../styles/authenthication_style.css";

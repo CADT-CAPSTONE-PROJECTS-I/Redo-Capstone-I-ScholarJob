@@ -1,25 +1,28 @@
 import { Icon, React, appStore, cvClientApi } from "../import/all_import.jsx";
+import { forwardRef } from "react";
 
-const FormCVPage = () => {
+const FormCVPage = forwardRef((props, ref) => {
   const { cvData, selectedImage } = appStore();
 
-  const handleSubmit = async (e) => {
-    console.log("hii")
-    e.preventDefault();     
+  const handleSubmitCV = async (e) => {
+    e.preventDefault();
     try {
       const response = await cvClientApi(cvData, selectedImage);
-      console.log('CV Data submitted successfully:', response);
+      console.log("CV Data submitted successfully:", response);
     } catch (error) {
-      console.error('Submission failed:', error.message);
+      console.error("Submission failed:", error.message);
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center">
+    <form
+      ref={ref}
+      className="min-h-screen flex flex-col justify-center items-center"
+      onSubmit={handleSubmitCV}
+    >
       <div className="relative ">
         {/* CV Display Section */}
         <form
-        onSubmit={handleSubmit}
           id="cv-template"
           className="bg-white rounded-lg shadow-xl w-[792px] h-[1122px] "
         >
@@ -46,7 +49,8 @@ const FormCVPage = () => {
               <div className="flex flex-row items-center ml-1  space-x-2 ">
                 <div className="h-3 w-3 bg-customBlue-light"></div>
                 <div>
-                <h1 className="font-bold -mt-4">CONTACT</h1></div> 
+                  <h1 className="font-bold -mt-4">CONTACT</h1>
+                </div>
               </div>
               <div className="mt-3 flex items-center space-x-2 ">
                 <div className="h-5 w-5 bg-customBlue-light flex  items-center justify-center">
@@ -112,10 +116,12 @@ const FormCVPage = () => {
                   <ul className="text-sm font-semibold text-gray-800 ">
                     {cvData.hardSkills.map((hardSkill, index) => (
                       <li key={index} className="flex  pr-6 pl-1 ">
-                      {" "}
-                      <span className="text-xl mr-2 -mt-1">•</span> 
-                      <span className="inline-block text-justify break-words w-[205px]">{hardSkill}</span>
-                    </li>
+                        {" "}
+                        <span className="text-xl mr-2 -mt-1">•</span>
+                        <span className="inline-block text-justify break-words w-[205px]">
+                          {hardSkill}
+                        </span>
+                      </li>
                     ))}
                   </ul>
                 ) : (
@@ -136,8 +142,10 @@ const FormCVPage = () => {
                     {cvData.softSkills.map((softSkill, index) => (
                       <li key={index} className="flex  pr-6 pl-1 ">
                         {" "}
-                        <span className="text-xl mr-2 -mt-1">•</span> 
-                        <span className="inline-block text-justify break-words w-[205px]">{softSkill}</span>
+                        <span className="text-xl mr-2 -mt-1">•</span>
+                        <span className="inline-block text-justify break-words w-[205px]">
+                          {softSkill}
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -257,17 +265,10 @@ const FormCVPage = () => {
           <div>
             <h1 className="bg-customBlue-light h-10 absolute bottom-0 w-full z-1"></h1>
           </div>
-          <button className="bg-red-500 p-4 text-white"
-          type="submit"
-        >
-          submit
-        </button>
         </form>
-        
       </div>
-     
-    </div>
+    </form>
   );
-};
+});
 
 export default FormCVPage;

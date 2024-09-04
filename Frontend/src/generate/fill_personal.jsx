@@ -1,4 +1,4 @@
-import { React, appStore, UploadImage, Icon,  } from "../import/all_import.jsx";
+import { React, appStore, UploadImage, Icon, ImageDone } from "../import/all_import.jsx";
 
 const FillPersonal = () => {
   const { cvData, setCvData, setSelectedImage, selectedImage } = appStore();
@@ -9,11 +9,14 @@ const FillPersonal = () => {
   };
 
   const handleImageChange = (e) => {
-    setCvData({
-      profilePicture: URL.createObjectURL(e.target.files[0]),
-    });
-    if (e.target.files && e.target.files.length > 0) {
-      setSelectedImage(URL.createObjectURL(e.target.files[0]));
+    const file = e.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      setCvData({
+        profilePicture: URL.createObjectURL(file), 
+      });
+      setSelectedImage(file);
+    } else {
+      alert('Please select a valid image file.');
     }
   };
 
@@ -179,7 +182,7 @@ const FillPersonal = () => {
                   <div>
                     <div className="flex justify-center h-24">
                       {selectedImage ? (
-                        <img src={selectedImage} alt="Selected" />
+                        <img src={ImageDone} alt="Selected" />
                       ) : (
                         <img src={UploadImage} alt="uploadimage" />
                       )}

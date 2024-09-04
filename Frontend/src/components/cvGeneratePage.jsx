@@ -8,6 +8,8 @@ import {
   Footer,
   FormCVPage,
   LoginImage,
+  MessagePopup,
+  useRef,
 } from "../import/all_import.jsx";
 import html2pdf from "html2pdf.js";
 
@@ -21,6 +23,8 @@ const CVGeneratePage = () => {
     setIsPopupOpen,
   } = appStore();
 
+  const formRef = useRef(null);
+
   const handleClickSkill = () => {
     setCurrentComponent("skill");
   };
@@ -31,6 +35,9 @@ const CVGeneratePage = () => {
 
   const handleDownloadButtonClick = () => {
     if (message === "Login successful!") {
+      if (formRef.current) {
+        formRef.current.requestSubmit();
+      }
       handleDownloadPdf();
     } else {
       setIsPopupOpen(true);
@@ -74,10 +81,10 @@ const CVGeneratePage = () => {
 
                 <button
                   className="flex justify-center items-center px-4 py-2 bg-customTeal hover:bg-customTeal-dark text-white rounded-md"
+                  type="button"
                   onClick={handleDownloadButtonClick}
                 >
-                  <span className="mr-2">Download as PDF</span>
-                  <Icon icon={"carbon:generate-pdf"} className="text-white " />
+                  <span className="mr-2">Save CV</span>
                 </button>
               </div>
             )}
@@ -94,7 +101,7 @@ const CVGeneratePage = () => {
 
           {/* CV Display Section */}
           <div>
-            <FormCVPage />
+            <FormCVPage ref={formRef} />
           </div>
         </div>
         {isPopupOpen && (

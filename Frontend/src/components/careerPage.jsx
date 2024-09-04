@@ -1,20 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { Navbar, ScholarJobLogoGreen, Link, appStore } from "../import/all_import.jsx";
+import { Navbar, ScholarJobLogoGreen, Link ,Icon} from "../import/all_import.jsx";
 import { getJobs, getOrganizationAddresses } from '../API/career_api.jsx';
 
-
 const CareerPage = () => {
-  const { jobs, setJobs, filters, setFilters, addresses, setAddresses } =
-    appStore();
+  const [jobs, setJobs] = useState([]);
+  const [filters, setFilters] = useState({
+    title: '',
+    job_type: '',
+    salary_min: '',
+    salary: '',
+    experience: '',
+    category_id: '',
+    organization_address: '' 
+  });
+  const [addresses, setAddresses] = useState([]);
+  const [totalRecords, setTotalRecords] = useState(0);
+  const itemsPerPage = 10; 
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const data = await getJobs(filters);
-      setJobs(data);
+      const { jobs, total } = await getJobs(filters, currentPage, itemsPerPage);
+      setJobs(jobs);
+      setTotalRecords(total);
     };
 
     fetchJobs();
-  }, [filters]);
+  }, [filters, currentPage]);
 
   useEffect(() => {
     const fetchAddresses = async () => {
@@ -28,6 +40,10 @@ const CareerPage = () => {
   const handleFilterChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
+
+  const totalPages = Math.ceil(totalRecords / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div>
@@ -48,7 +64,7 @@ const CareerPage = () => {
               name="title"
               onChange={handleFilterChange}
             />
-            <button
+            <button 
               className="bg-white text-green-500 px-4 py-2 ml-2 rounded-lg"
               onClick={() => fetchJobs()}
             >
@@ -168,6 +184,53 @@ const CareerPage = () => {
           </div>
         </div>
       </section>
+
+      <div className="flex justify-center my-6">
+        <nav aria-label="Pagination">
+          <div className="py-2 shadow-2xl rounded-full">
+            <ul className="inline-flex items-center -space-x-px">
+              <li>
+                <button
+                  onClick={() => paginate(currentPage > 1 ? currentPage - 1 : 1)}
+                  className="mx-3 text-customTeal p-1 rounded-full hover:bg-customTeal hover:text-white"
+                >
+                  <Icon
+                    icon="ic:round-less-than"
+                    className="w-[28px] h-[28px]"
+                  />
+                </button>
+              </li>
+              {Array.from({ length: totalPages }, (_, index) => (
+                <li key={index + 1}>
+                  <button
+                    onClick={() => paginate(index + 1)}
+                    className={`px-3 py-1.5 mx-4 leading-tight rounded-full ${
+                      currentPage === index + 1
+                        ? "text-white bg-customTeal"
+                        : "text-gray-500 bg-white"
+                    } hover:bg-customTeal hover:text-white`}
+                  >
+                    {index + 1}
+                  </button>
+                </li>
+              ))}
+              <li>
+                <button
+                  onClick={() =>
+                    paginate(currentPage < totalPages ? currentPage + 1 : totalPages)
+                  }
+                  className="mx-3 text-customTeal p-1 rounded-full hover:bg-customTeal hover:text-white"
+                >
+                  <Icon
+                    icon="ic:round-greater-than"
+                    className="w-[28px] h-[28px]"
+                  />
+                </button>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </div>
   );
 };
