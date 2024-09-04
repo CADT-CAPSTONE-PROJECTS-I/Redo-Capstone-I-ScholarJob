@@ -35,7 +35,7 @@ const MessagePopup = ({MessagePopUp, ImagePopup}) => {
         
         <button
           onClick={toLogin}
-          className=" w-1/2 text-center bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg"
+          className=" w-1/2 text-center bg-customTeal hover:bg-customTeal-dark text-white py-2 rounded-lg"
         >
           Log in
         </button>

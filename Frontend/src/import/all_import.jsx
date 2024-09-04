@@ -1,6 +1,6 @@
 
 //import of all installation
-export { default as React, useRef, useEffect } from "react";
+export { default as React, useRef, useEffect,  forwardRef  } from "react";
 export { useNavigate, BrowserRouter as Router, Route, Routes, RouterProvider, createBrowserRouter, Link, NavLink, useParams } from 'react-router-dom';
 export { Icon } from "@iconify/react";
 export { Tabs, TabsHeader, TabsBody, Tab, TabPanel, } from "@material-tailwind/react";
@@ -28,12 +28,15 @@ export { default as UnderlineTab } from "../activeTabs_Organization/UnderlineTab
 export { default as OrganizationDetail } from "../detailPages/organization_details.jsx"
 export { default as AboutUsTab } from "../activeTabs_Organization/aboutUs_tab.jsx";
 export { default as JobOfferings } from "../activeTabs_Organization/jobOfferings_tab.jsx";
+export { default as ApplyModal } from "../detailPages/apply_modal.jsx";
 export { loginClient } from '../API/authentication_api.jsx';
 export { registerClient } from '../API/authentication_api.jsx';
 // export { fetchScholarships } from '../API/scholarship_api.jsx';
 // export { ScholarshipDetails } from '../API/scholarship_api.jsx';
 // export { getOrganizationAddresses } from '../API/scholarship_api.jsx';
-
+export { default as MessagePopup } from "../card/pop_up.jsx";
+export { getJobDetail } from '../API/career_api.jsx';
+export { cvClientApi } from '../API/cv_api.jsx';
 
 //import of all icon and image
 export { default as FacebookIcon } from '../assets/icon/facebook_icon.jpg';
@@ -51,7 +54,8 @@ export { default as WorkImage } from '../assets/image/work_image.jpg';
 export { default as FindYourNeed } from '../assets/image/FindYourNeed_Image.png'
 export { default as FlourishYourFuture } from '../assets/image/flourishYourFuture_image.png'
 export { default as ApplyIt } from '../assets/image/Applyit_image.png'
-export { default as LoginImage } from '../assets/image/login_image.png';
+export { default as LoginImage } from '../assets/image/login_image.png'
+export { default as ImageDone } from '../assets/image/image_done.png'
 
 //import of all style css
 import "../styles/authenthication_style.css";
