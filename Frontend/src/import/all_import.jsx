@@ -36,6 +36,7 @@ export { registerClient } from '../API/authentication_api.jsx';
 // export { getOrganizationAddresses } from '../API/scholarship_api.jsx';
 export { default as MessagePopup } from "../card/pop_up.jsx";
 export { getJobDetail } from '../API/career_api.jsx';
+export { cvClientApi } from '../API/cv_api.jsx';
 
 //import of all icon and image
 export { default as FacebookIcon } from '../assets/icon/facebook_icon.jpg';

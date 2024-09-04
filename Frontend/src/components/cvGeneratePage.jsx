@@ -7,7 +7,6 @@ import {
   Icon,
   Footer,
   FormCVPage,
-  MessagePopup,
   LoginImage,
 } from "../import/all_import.jsx";
 import html2pdf from "html2pdf.js";

@@ -104,7 +104,7 @@
                             </tbody>
                         </table>
                         <div class="pagination mt-3">
-                            {!! $scholarships->links() !!}
+                            {!! $scholarships->links('components.pagination') !!}
                         </div>
                     </div>
                 </div>

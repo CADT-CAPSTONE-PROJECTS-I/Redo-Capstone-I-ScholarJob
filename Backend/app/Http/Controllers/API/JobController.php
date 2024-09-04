@@ -8,24 +8,22 @@ use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
-
     public function list(Request $request)
     {
         $query = Job::query();
-    
-   
+
         if ($request->filled('title')) {
             $query->where('title', 'like', '%' . $request->title . '%');
         }
-    
+
         if ($request->filled('organization_id')) {
             $query->where('organization_id', $request->organization_id);
         }
-    
+
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
-    
+
         if ($request->filled('salary')) {
             $salary = $request->salary;
             if ($salary === '1000') {
@@ -36,29 +34,36 @@ class JobController extends Controller
                 $query->whereRaw('CAST(salary AS UNSIGNED) > ?', [5000]);
             }
         }
-        
+
         if ($request->filled('job_type')) {
             $query->where('job_type', $request->job_type);
         }
-    
+
         if ($request->filled('experience')) {
-       
             $query->where('experience', '<=', $request->experience);
         }
+
         if ($request->filled('organization_address')) {
             $query->whereHas('organization', function ($q) use ($request) {
                 $q->where('address', 'like', '%' . $request->organization_address . '%');
             });
         }
-    
-        $jobs = $query->with(['organization', 'category'])->get();
+
+        $perPage = $request->input('per_page', 10); 
+        $page = $request->input('page', 1);
+
+        $jobs = $query->with(['organization', 'category'])
+                      ->paginate($perPage, ['*'], 'page', $page);
 
         return response()->json([
             'success' => true,
-            'data' => $jobs,
+            'data' => $jobs->items(),
+            'total' => $jobs->total(),
+            'current_page' => $jobs->currentPage(), 
+            'last_page' => $jobs->lastPage(), 
+            'per_page' => $jobs->perPage(), 
         ]);
     }
-    
 
     public function detail($id)
     {
@@ -76,6 +81,7 @@ class JobController extends Controller
             'data' => $job,
         ]);
     }
+
     public function getAddress()
     {
         $addresses = Job::with('organization')
@@ -92,5 +98,4 @@ class JobController extends Controller
             'data' => $addresses,
         ]);
     }
-
 }

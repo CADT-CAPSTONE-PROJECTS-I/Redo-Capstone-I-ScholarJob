@@ -33,20 +33,20 @@ class ScholarshipController extends Controller
             });
         }
 
-        // Get pagination parameters from the request
-        $perPage = $request->input('per_page', 10); // Default to 10 per page if not specified
+        $perPage = $request->input('per_page', 10); 
         $page = $request->input('page', 1);
 
-        // Paginate the query result
-        $scholarships = $query->paginate($perPage, ['*'], 'page', $page);
+    
+        $scholarships = $query->with(['organization'])
+        ->paginate($perPage, ['*'], 'page', $page);
 
         return response()->json([
             'success' => true,
-            'data' => $scholarships->items(),  // The items for the current page
-            'total' => $scholarships->total(), // The total number of records
-            'current_page' => $scholarships->currentPage(), // The current page
-            'last_page' => $scholarships->lastPage(), // The last page number
-            'per_page' => $scholarships->perPage(), // The number of items per page
+            'data' => $scholarships->items(),
+            'total' => $scholarships->total(),
+            'current_page' => $scholarships->currentPage(), 
+            'last_page' => $scholarships->lastPage(), 
+            'per_page' => $scholarships->perPage(), 
         ]);
     }
 

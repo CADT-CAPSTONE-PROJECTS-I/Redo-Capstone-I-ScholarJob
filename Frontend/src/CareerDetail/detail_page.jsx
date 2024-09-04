@@ -16,7 +16,7 @@ const ScholarshipDetailPage = () => {
     const fetchScholarshipDetail = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/scholarship/detail/${id}`
+          `http://localhost:8000/api/job/detail/${id}`
         );
         setScholarship(response.data.data);
         setLoading(false);

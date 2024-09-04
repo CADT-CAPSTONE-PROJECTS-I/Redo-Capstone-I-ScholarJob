@@ -22,4 +22,8 @@ class Organization extends Model
     {
         return $this->hasMany(Scholarship::class);
     }
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
 }

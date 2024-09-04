@@ -1,4 +1,4 @@
-import { React, appStore, UploadImage, Icon } from "../import/all_import.jsx";
+import { React, appStore, UploadImage, Icon,  } from "../import/all_import.jsx";
 
 const FillPersonal = () => {
   const { cvData, setCvData, setSelectedImage, selectedImage } = appStore();
@@ -17,9 +17,11 @@ const FillPersonal = () => {
     }
   };
 
+  
+
   return (
     <div className="bg-gray-100 p-8 rounded-lg shadow-xl w-[70vw] z-10">
-      <form className="">
+      <form>
         <div className="flex flex-col">
           <h1 className="text-lg font-bold">Establisheed Fact that a reader</h1>
           <p className="w-96">
@@ -77,53 +79,6 @@ const FillPersonal = () => {
             </label>
           </div>
   
-          {/* <div className="input-group relative w-full mt-5 mb-4">
-            <Icon
-              icon={"tabler:number"}
-              className="absolute top-1 left-1 text-gray-400"
-            />
-            <input
-              type="number"
-              id="age"
-              name="age"
-              value={cvData.age}
-              onChange={handleChange}
-              className="input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
-              required
-            />
-            <label
-              lowercase="age"
-              className="input-group__label block text-gray-400  text-sm"
-            >
-              Age
-            </label>
-          </div>
-    
-          <div className="input-group relative w-full mt-5 mb-4">
-            <Icon
-              icon={"icons8:gender"}
-              className="absolute top-1 left-1 text-gray-400"
-            />
-            <select
-              id="gender"
-              name="gender"
-              value={cvData.gender}
-              onChange={handleChange}
-              className="input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
-              required
-            >
-              <option value=""></option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-            <label
-              htmlFor="gender"
-              className="input-group__label block text-gray-400  text-sm"
-            >
-              Gender
-            </label>
-          </div> */}
           {/* phone */}
           <div className="input-group relative w-full mt-5 mb-4">
             <Icon
@@ -168,28 +123,7 @@ const FillPersonal = () => {
               Email
             </label>
           </div>
-          {/* date of birth */}
-          {/* <div className="input-group relative w-full mt-5 mb-4">
-            <Icon
-              icon={"iconoir:birthday-cake"}
-              className="absolute top-1 left-1 text-gray-400"
-            />
-            <input
-              type="text"
-              id="dateOfBirth"
-              name="dateOfBirth"
-              value={cvData.dateOfBirth}
-              onChange={handleChange}
-              className="input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
-              required
-            />
-            <label
-              htmlFor="dateOfBirth"
-              className="input-group__label block text-gray-400  text-sm"
-            >
-              Date of Birth
-            </label>
-          </div> */}  
+   
           {/* aboutyou */}
           <div className="input-group relative w-full mt-5 mb-4">
             <Icon
@@ -212,28 +146,7 @@ const FillPersonal = () => {
               About you
             </label>
           </div>
-          {/* place of birth */}
-          {/* <div className="input-group relative w-full mt-5 mb-4">
-            <Icon
-              icon={"weui:location-outlined"}
-              className="absolute top-1 left-1 text-gray-400"
-            />
-            <input
-              type="text"
-              id="placeOfBirth"
-              name="placeOfBirth"
-              value={cvData.placeOfBirth}
-              onChange={handleChange}
-              className="input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
-              required
-            />
-            <label
-              lowercase="placeOfBirth"
-              className="input-group__label block text-gray-400  text-sm"
-            >
-              Place of Birth
-            </label>
-          </div> */}
+      
           {/* current address */}
           <div className="input-group relative w-full mt-5 mb-4">
             <Icon

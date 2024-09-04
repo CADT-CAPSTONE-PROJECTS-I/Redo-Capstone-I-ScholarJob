@@ -1,13 +1,25 @@
-import { Icon, React, appStore } from "../import/all_import.jsx";
+import { Icon, React, appStore, cvClientApi } from "../import/all_import.jsx";
 
 const FormCVPage = () => {
-  const { cvData, setCvData } = appStore();
+  const { cvData, selectedImage } = appStore();
+
+  const handleSubmit = async (e) => {
+    console.log("hii")
+    e.preventDefault();     
+    try {
+      const response = await cvClientApi(cvData, selectedImage);
+      console.log('CV Data submitted successfully:', response);
+    } catch (error) {
+      console.error('Submission failed:', error.message);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">
       <div className="relative ">
         {/* CV Display Section */}
-        <div
+        <form
+        onSubmit={handleSubmit}
           id="cv-template"
           className="bg-white rounded-lg shadow-xl w-[792px] h-[1122px] "
         >
@@ -245,8 +257,15 @@ const FormCVPage = () => {
           <div>
             <h1 className="bg-customBlue-light h-10 absolute bottom-0 w-full z-1"></h1>
           </div>
-        </div>
+          <button className="bg-red-500 p-4 text-white"
+          type="submit"
+        >
+          submit
+        </button>
+        </form>
+        
       </div>
+     
     </div>
   );
 };
