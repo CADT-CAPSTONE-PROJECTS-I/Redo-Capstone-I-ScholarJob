@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Navbar, Footer, ScholarJobLogoWhite } from "../import/all_import.jsx";
-import ApplyModal from "./apply_modal.jsx";
+import ApplyModal from "../detailPages/apply_modal.jsx";
 
 const ScholarshipDetailPage = () => {
   const { id } = useParams();

@@ -30,9 +30,9 @@ export { default as AboutUsTab } from "../activeTabs_Organization/aboutUs_tab.js
 export { default as JobOfferings } from "../activeTabs_Organization/jobOfferings_tab.jsx";
 export { loginClient } from '../API/authentication_api.jsx';
 export { registerClient } from '../API/authentication_api.jsx';
-export { fetchScholarships } from '../API/scholarship_api.jsx';
-export { ScholarshipDetails } from '../API/scholarship_api.jsx';
-export { getOrganizationAddresses } from '../API/scholarship_api.jsx';
+// export { fetchScholarships } from '../API/scholarship_api.jsx';
+// export { ScholarshipDetails } from '../API/scholarship_api.jsx';
+// export { getOrganizationAddresses } from '../API/scholarship_api.jsx';
 
 
 //import of all icon and image
