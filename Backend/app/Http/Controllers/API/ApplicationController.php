@@ -21,7 +21,7 @@ class ApplicationController extends Controller
 
         if ($request->hasFile('attach_file')) {
             $file = $request->file('attach_file');
-            $filename = time() . '_' . $file->getClieqntOriginalName();
+            $filename = time() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs('applications', $filename, 'public');
             $application->attach_file = $path;
         }
