@@ -14,12 +14,14 @@ const ScholarshipPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [totalRecords, setTotalRecords] = useState(0);
+  const [searchTerm, setSearchTerm] = useState(''); // State to store search input
+  const [query, setQuery] = useState(''); // State to store the actual query used for fetching scholarships
   const itemsPerPage = 10;
   const { currentPage, setCurrentPage } = appStore(); 
 
   useEffect(() => {
     fetchScholarships();
-  }, [currentPage]);
+  }, [currentPage, query]); // Fetch scholarships when page or search query changes
 
   const fetchScholarships = async () => {
     try {
@@ -28,6 +30,7 @@ const ScholarshipPage = () => {
         params: {
           page: currentPage,
           per_page: itemsPerPage,
+          search: query, // Include the search query in the API request
         },
       });
       setScholarships(response.data.data);
@@ -37,6 +40,16 @@ const ScholarshipPage = () => {
       setError(err.message);
       setLoading(false);
     }
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value); 
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault(); 
+    setQuery(searchTerm);
+    setCurrentPage(1); 
   };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -61,7 +74,7 @@ const ScholarshipPage = () => {
           <div className="flex flex-col">
             Start your flourishing journey with us, ScholarJob!
             <div className="mt-5">
-              <form>
+              <form onSubmit={handleSearchSubmit}> 
                 <div className="relative">
                   <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <svg
@@ -83,6 +96,8 @@ const ScholarshipPage = () => {
                   <input
                     type="search"
                     id="default-search"
+                    value={searchTerm} 
+                    onChange={handleSearchChange} 
                     className="block w-full p-4 ps-10 text-sm font-normal text-gray-600 rounded-lg bg-white focus:outline-none"
                     placeholder="Please input the scholarship you want to find...."
                     required
@@ -97,9 +112,7 @@ const ScholarshipPage = () => {
               </form>
             </div>
           </div>
-          <div className="mt-6 flex flex-row justify-between">
-     
-          </div>
+          <div className="mt-6 flex flex-row justify-between"></div>
         </div>
         <Icon
           icon="fluent:hat-graduation-sparkle-20-regular"
@@ -114,7 +127,6 @@ const ScholarshipPage = () => {
         </p>
       </div>
 
-
       <div className="grid grid-cols-2 gap-10 mt-10 px-8">
         {scholarships.map((scholarship, index) => (
           <Link
@@ -123,9 +135,9 @@ const ScholarshipPage = () => {
             className="flex flex-col items-center bg-gray-200 border border-gray-200 rounded-lg shadow-xl md:flex-row md:max-w-3xl hover:bg-gray-100"
           >
             <div className="flex items-center justify-center p-2 md:w-48">
-            <img
+              <img
                 src={scholarship.image_url || ScholarJobLogoGreen}
-                className="w-32 h-32 object-cover rounded-lg mr-3 "
+                className="w-32 h-32 object-cover rounded-lg mr-3"
                 alt="ScholarJob Logo"
               />
             </div>
@@ -200,7 +212,7 @@ const ScholarshipPage = () => {
         </nav>
       </div>
     </div>
-  );
+  );  
 };
 
 export default ScholarshipPage;
