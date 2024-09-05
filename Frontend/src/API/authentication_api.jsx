@@ -7,8 +7,8 @@ export const registerClient = async (formData) => {
     const response = await axios.post(`${BASE_URL}/register`, formData);
     const { token, id } = response.data;
     
-    sessionStorage.setItem('token', token);
-    sessionStorage.setItem('clientId', id);
+    localStorage.setItem('token', token);
+    localStorage.setItem('clientId', id);
 
     console.log(response.data);
     return response.data;
@@ -23,11 +23,11 @@ export const loginClient = async (formData) => {
     const response = await axios.post(`${BASE_URL}/login`, formData);
     const { token, client_id } = response.data;
     
-    sessionStorage.setItem('token', token);
-    sessionStorage.setItem('clientId', client_id);
+    localStorage.setItem('token', token); 
+    localStorage.setItem('clientId', client_id);
 
-    console.log('Stored token:', sessionStorage.getItem('token'));
-    console.log('Stored clientId:', sessionStorage.getItem('clientId'));
+    console.log('Stored token:', localStorage.getItem('token'));
+    console.log('Stored clientId:', localStorage.getItem('clientId'));
 
     console.log(response.data);
     return response.data;

@@ -97,6 +97,15 @@ const appStore = create((set, get) => ({
   job: null,
   setJob:(data) => set({job: data}), 
 
+  clientId: null,
+  setClientId: (data) => set({clientId: data}),
+
+  isModalOpen: false,
+  setIsModalOpen: (data) => set({isModalOpen: data}),
+
+  successModalOpen: false,
+  setSuccessModalOpen: (data) => set({successModalOpen: data}),
+
 }));
 
 export {appStore};
