@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   Navbar,
-  CadtLogo,
+  LoadingPage,
   Icon,
   appStore,
   Link,
@@ -44,7 +44,7 @@ const ScholarshipPage = () => {
   const totalPages = Math.ceil(totalRecords / itemsPerPage);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
 
   if (error) {
@@ -133,6 +133,7 @@ const ScholarshipPage = () => {
               <h5 className="text-2xl font-bold tracking-tight text-gray-600 mb-1">
                 {scholarship.major}
               </h5>
+              
               <h6 className="text-lg font-bold text-gray-600 mb-2">
                 {scholarship.degree}
               </h6>

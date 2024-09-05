@@ -89,7 +89,7 @@ const FillPersonal = () => {
               className="absolute top-1 left-1 text-gray-400"
             />
             <input
-              type="phone"
+              type="text"
               id="phone"
               name="phone"
               value={cvData.phone}

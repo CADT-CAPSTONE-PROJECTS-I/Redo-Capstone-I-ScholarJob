@@ -1,23 +1,73 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Navbar,ScholarJobLogoWhite } from "../import/all_import.jsx"; 
-import { getJobDetail } from '../API/career_api';
+import {
+  React,
+  useEffect,
+  useState,
+  useParams,
+  Navbar,
+  ScholarJobLogoWhite,
+  appStore,
+  ApplyModalJob,
+  getJobDetail,
+  MessagePopup,
+  LoginImage,
+  LoadingPage,
+} from "../import/all_import.jsx";
 
 const DetailedJobPage = () => {
   const { jobId } = useParams();
   const [job, setJob] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { clientId, setClientId, setIsPopupOpen, isPopupOpen, message, isModalOpen , setIsModalOpen } = appStore();
 
   useEffect(() => {
     const fetchJobDetail = async () => {
-      const data = await getJobDetail(jobId);
-      setJob(data);
+      try {
+        const data = await getJobDetail(jobId);
+        setJob(data);
+        setLoading(false);
+
+        const storedClientId = localStorage.getItem("clientId");
+        console.log("Stored Client ID:", storedClientId);
+        setClientId(storedClientId);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
     };
 
     fetchJobDetail();
   }, [jobId]);
 
+  const handleApplyNowClick = () => {
+    if (message !== "Login successful!") {
+      setIsPopupOpen(true);
+      setIsModalOpen(false);
+    } else {
+      setIsModalOpen(true);
+    }
+    
+    // if (!clientId) {
+    //   alert("Please log in to apply.");
+    //   return;
+    // }
+    // setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  if (loading) {
+    return <LoadingPage/>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   if (!job) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
 
   return (
@@ -36,37 +86,60 @@ const DetailedJobPage = () => {
             />
             <div className="text-white">
               <h1 className="text-2xl font-bold mb-2">{job.title}</h1>
-              <p className="text-lg">{job.organization.name}, {job.organization.location}</p>
+              <p className="text-lg">
+                {job.organization.name}, {job.organization.location}
+              </p>
               <div className="text-gray-200 mt-2 flex">
-                <p className="mr-6">Publish Date: {new Date(job.created_at).toLocaleDateString()}</p>
-                <p>Closing Date: {new Date(job.deadline).toLocaleDateString()}</p>
+                <p className="mr-6">
+                  Publish Date: {new Date(job.created_at).toLocaleDateString()}
+                </p>
+                <p>
+                  Closing Date: {new Date(job.deadline).toLocaleDateString()}
+                </p>
               </div>
             </div>
           </div>
         </div>
-    
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div className="border border-gray-300 rounded">
             <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white p-4 rounded-t">
-              <h2 className="text-lg font-semibold text-white">Job's Requirement</h2>
+              <h2 className="text-lg font-semibold text-white">
+                Job's Requirement
+              </h2>
             </div>
             <div className="bg-white p-4 space-y-2">
-              <div className="border-b border-gray-300 pb-2">Experience: {job.experience}</div>
-              <div className="border-b border-gray-300 pb-2">Age Requirement: {job.age_require}</div>
-              <div className="border-b border-gray-300 pb-2">Job Description: {job.description}</div>
-            
+              <div className="border-b border-gray-300 pb-2">
+                Experience: {job.experience}
+              </div>
+              <div className="border-b border-gray-300 pb-2">
+                Age Requirement: {job.age_require}
+              </div>
+              <div className="border-b border-gray-300 pb-2">
+                Job Description: {job.description}
+              </div>
             </div>
           </div>
 
           <div className="border border-gray-300 rounded">
             <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white p-4 rounded-t">
-              <h2 className="text-lg font-semibold text-white">Job's Information</h2>
+              <h2 className="text-lg font-semibold text-white">
+                Job's Information
+              </h2>
             </div>
             <div className="bg-white p-4 space-y-2">
-              <div className="border-b border-gray-300 pb-2">Job Category: {job.category.title}</div>
-              <div className="border-b border-gray-300 pb-2">Job Type: {job.job_type}</div>
-              <div className="border-b border-gray-300 pb-2">Experience: {job.experience}</div>
-              <div className="border-b border-gray-300 pb-2">Salary: {job.salary}</div>
+              <div className="border-b border-gray-300 pb-2">
+                Job Category: {job.category.title}
+              </div>
+              <div className="border-b border-gray-300 pb-2">
+                Job Type: {job.job_type}
+              </div>
+              <div className="border-b border-gray-300 pb-2">
+                Experience: {job.experience}
+              </div>
+              <div className="border-b border-gray-300 pb-2">
+                Salary: {job.salary}
+              </div>
               <div>Location: {job.organization.address}</div>
             </div>
           </div>
@@ -74,30 +147,52 @@ const DetailedJobPage = () => {
 
         <div className="border border-gray-300 rounded mb-8">
           <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white p-4 rounded-t">
-            <h2 className="text-lg font-semibold text-white">Job's Responsibilities</h2>
+            <h2 className="text-lg font-semibold text-white">
+              Job's Responsibilities
+            </h2>
           </div>
-          <div className="bg-white p-4">
-          {job.responsible}
-          </div>
+          <div className="bg-white p-4">{job.responsible}</div>
         </div>
 
         <div className="border border-gray-300 rounded mb-8">
           <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white p-4 rounded-t">
-            <h2 className="text-lg font-semibold text-white">Contact Information</h2>
+            <h2 className="text-lg font-semibold text-white">
+              Contact Information
+            </h2>
           </div>
           <div className="bg-white p-4 space-y-2">
-            <div className="border-b border-gray-300 pb-2">Phone Number: {job.organization.phone_number}</div>
-            <div className="border-b border-gray-300 pb-2">Email: {job.organization.contact}</div>
+            <div className="border-b border-gray-300 pb-2">
+              Phone Number: {job.organization.phone_number}
+            </div>
+            <div className="border-b border-gray-300 pb-2">
+              Email: {job.organization.contact}
+            </div>
             <div>Location: {job.organization.address}</div>
           </div>
         </div>
 
         <div className="text-center">
-          <button className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white text-white px-10 py-3 rounded-full hover:bg-green-600 text-lg shadow-md">
+          <button
+            onClick={handleApplyNowClick}
+            className="bg-customTeal text-white  px-10 py-3 rounded-lg hover:bg-customTeal-dark text-lg shadow-md"
+          >
             Apply Now!
           </button>
         </div>
       </div>
+      <ApplyModalJob
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        clientId={clientId}
+        jobId={job.id}
+      />
+
+      {isPopupOpen && (
+        <MessagePopup
+          MessagePopUp="Log in to gain access to download your CV"
+          ImagePopup={LoginImage}
+        />
+      )}
     </div>
   );
 };

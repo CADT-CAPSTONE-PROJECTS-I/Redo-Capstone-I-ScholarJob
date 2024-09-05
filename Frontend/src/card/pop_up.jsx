@@ -22,7 +22,7 @@ const MessagePopup = ({MessagePopUp, ImagePopup}) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white p-4 rounded-xl shadow-lg max-w-lg w-full h-2/4 ">
-        <div className="flex flex-col border-2 border-customTeal rounded-xl justify-center flex items-center min-h-full space-y-2">
+        <div className="flex flex-col border-2 border-customTeal rounded-xl justify-center items-center min-h-full space-y-2">
         <img src={ImagePopup} className="size-32" />
         <p className="text-gray-800 text-xl font-bold px-4">{MessagePopUp}</p>
         <div className="flex space-x-4 w-full px-4">

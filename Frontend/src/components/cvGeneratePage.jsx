@@ -10,6 +10,7 @@ import {
   LoginImage,
   MessagePopup,
   useRef,
+  PopUpGen,
 } from "../import/all_import.jsx";
 import html2pdf from "html2pdf.js";
 
@@ -21,6 +22,8 @@ const CVGeneratePage = () => {
     message,
     isPopupOpen,
     setIsPopupOpen,
+    successModalOpen,
+    setSuccessModalOpen,
   } = appStore();
 
   const formRef = useRef(null);
@@ -46,14 +49,20 @@ const CVGeneratePage = () => {
 
   const handleDownloadPdf = () => {
     const element = document.getElementById("cv-template");
-    const options = {
-      margin: 0,
-      filename: `${cvData.name || "cv"}_CV.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-    };
-    html2pdf().from(element).set(options).save();
+    try{
+      const options = {
+        margin: 0,
+        filename: `${cvData.name || "cv"}_CV.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+      };
+      html2pdf().from(element).set(options).save();
+      setSuccessModalOpen(true);
+    }catch(error){
+      console.log(error)
+    }
+
   };
 
   return (
@@ -110,6 +119,17 @@ const CVGeneratePage = () => {
             ImagePopup={LoginImage}
           />
         )}
+        <PopUpGen 
+          isOpen={successModalOpen}
+          iconColor="text-customTeal"
+          color='text-customTeal'
+          icon={"icon-park-outline:success"}
+          title='Successful Submittion'
+          onClose={() => {
+            setSuccessModalOpen(false);
+            onClose();
+          }}
+        />
       </div>
       <div className="mt-12">
         <Footer />
