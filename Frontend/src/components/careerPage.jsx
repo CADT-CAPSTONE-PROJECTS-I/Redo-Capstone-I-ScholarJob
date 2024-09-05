@@ -143,18 +143,25 @@ const CareerPage = () => {
           News
         </button>
       </div>
-
       <section className="relative items-center flex min-h-[250px] mx-16 bg-gray-100">
         <div className="container mx-auto px-4 py-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {jobs.map((job, idx) => (
               <Link to={`/career/${job.id}`} key={idx} className="no-underline">
-                <div className="bg-white rounded-lg shadow-md p-4 flex">
+                <div className="relative bg-white rounded-lg shadow-md p-4 flex">
                   <img
                     src={job.image_url || ScholarJobLogoGreen}
                     className="w-32 h-32 object-cover rounded-lg mr-5"
                     alt="ScholarJob Logo"
                   />
+
+                
+                  {job.urgent && (
+                    <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-semibold py-1 px-3 rounded-bl-lg">
+                      Urgent!
+                    </span>
+                  )}
+
                   <div className="flex flex-col justify-between">
                     <div className="ml-3">
                       <h3 className="text-lg font-bold">{job.title}</h3>
@@ -168,8 +175,7 @@ const CareerPage = () => {
                         <strong>Salary:</strong> {job.salary}
                       </p>
                       <p>
-                        <strong>Available position:</strong>{" "}
-                        {job.available_position} pax
+                        <strong>Available position:</strong> {job.available_position} pax
                       </p>
                     </div>
                     <div className="ml-3 mt-2 text-gray-600">
@@ -184,6 +190,7 @@ const CareerPage = () => {
           </div>
         </div>
       </section>
+
 
       <div className="flex justify-center my-6">
         <nav aria-label="Pagination">
