@@ -15,7 +15,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout',[ClientController::class,'logout']);
     Route::get('/profile', [ClientController::class, 'profile']);
     Route::post('/profile/update', [ClientController::class, 'updateProfile']);
-    Route::post('/generate/cv', [ResumeController::class, 'createOrUpdate']);
+    Route::post('/cv/generate', [ResumeController::class, 'createOrUpdate']);
+    Route::get('/cv/show', [ResumeController::class, 'show']);
 });
 
 Route::get('job/list',[JobController::class, 'list']);

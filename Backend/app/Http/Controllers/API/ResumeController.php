@@ -51,4 +51,38 @@ class ResumeController extends Controller
             'resume' => $resume,
         ]);
     }
+
+    public function show(Request $request)
+    {
+        $client = $request->user();
+        $resume = Resume::where('client_id', $client->id)->first(); 
+
+        if (!$resume) {
+            return response()->json([
+                'success' => true,
+                'message' => 'No resume found for this user, please create one.',
+                'resume' => [
+                    'name' => '',
+                    'position' => '',
+                    'phone_number' => '',
+                    'email' => '',
+                    'address' => '',
+                    'hard_skill' => '',
+                    'soft_skill' => '',
+                    'language' => '',
+                    'image' => '',
+                    'about' => '',
+                    'education' => '',
+                    'experience' => '',
+                    'reference' => ''
+                ],
+            ], 200); 
+        }
+
+        return response()->json([
+            'success' => true,
+            'resume' => $resume,
+        ], 200);
+    }
+
 }
