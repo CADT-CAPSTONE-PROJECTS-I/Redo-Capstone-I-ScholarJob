@@ -100,6 +100,9 @@ const appStore = create((set, get) => ({
   clientId: null,
   setClientId: (data) => set({clientId: data}),
 
+  token: null,
+  setToken: (data) => set({token: data}),
+
   isModalOpen: false,
   setIsModalOpen: (data) => set({isModalOpen: data}),
 

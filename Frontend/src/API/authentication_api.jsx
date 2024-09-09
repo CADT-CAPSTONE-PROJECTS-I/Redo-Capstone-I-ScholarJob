@@ -1,10 +1,13 @@
-import { axios } from "../import/all_import.jsx";
+import { axios, appStore } from "../import/all_import.jsx";
 
 const BASE_URL = 'http://localhost:8000/api';
 
+
 export const registerClient = async (formData) => {
+  
   try {
     const response = await axios.post(`${BASE_URL}/register`, formData);
+    
     const { token, id } = response.data;
     
     localStorage.setItem('token', token);
@@ -25,11 +28,13 @@ export const loginClient = async (formData) => {
     
     localStorage.setItem('token', token); 
     localStorage.setItem('clientId', client_id);
+    
+    appStore.setState({ token, client_id });
 
     console.log('Stored token:', localStorage.getItem('token'));
     console.log('Stored clientId:', localStorage.getItem('clientId'));
 
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Error logging in:', error.response?.data || error.message);

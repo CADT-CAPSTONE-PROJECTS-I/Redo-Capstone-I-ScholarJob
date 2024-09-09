@@ -12,6 +12,7 @@ import {
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const token = appStore.getState().token;
   const { message, setMessage, isDropdownOpen, setIsDropdownOpen } = appStore();
 
   const dropdownRef = useRef(null);
@@ -59,7 +60,7 @@ const Navbar = () => {
             SCHOLARJOB
           </span>
         </Link>
-        {message === "Login successful!" ? (
+        {token !== null ? (
           <div className=" flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button onClick={toggleDropdown} className="focus:outline-none">
               <Icon icon="ph:user-circle-light" className="w-10 h-10" />
