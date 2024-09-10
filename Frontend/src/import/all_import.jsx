@@ -78,6 +78,7 @@ export { default as ApplyIt } from "../assets/image/Applyit_image.png";
 export { default as LoginImage } from "../assets/image/login_image.png";
 export { default as ImageDone } from "../assets/image/image_done.png";
 export { default as loadingImage } from "../assets/image/loading_image.png";
+export { default as homepageVector } from "../assets/image/homepage_vector.png";
 
 //import of all style css
 import "../styles/authenthication_style.css";
