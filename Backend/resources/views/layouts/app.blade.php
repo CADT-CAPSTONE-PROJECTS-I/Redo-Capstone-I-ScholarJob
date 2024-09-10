@@ -107,11 +107,11 @@
 
         <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>&copy; {{ date('Y') }} <a href="{{ url('/') }}">{{ config('app.name', 'ScholarJob') }}</a>.</strong>
+            <!-- <strong>&copy; {{ date('Y') }} <a href="{{ url('/') }}">{{ config('app.name', 'ScholarJob') }}</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 3.0.0
-            </div>
+            </div> -->
         </footer>
     </div>
 
