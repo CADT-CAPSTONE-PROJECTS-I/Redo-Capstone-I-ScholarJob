@@ -9,6 +9,10 @@ import {
   FlourishYourFuture,
   ApplyIt,
   Footer,
+  axios,
+  appStore,
+  useEffect,
+  ScholarJobLogoGreen,
 } from "../import/all_import.jsx";
 
 const HomePage = () => {
@@ -65,6 +69,47 @@ const HomePage = () => {
     },
   ];
 
+  const {topUniversities, setTopUniversities} = appStore();
+  
+const BASE_URL = 'http://localhost:8000/api';
+  // Fetch Top 10 Universities (Example using Axios)
+  useEffect(() => {
+    const fetchTopUniversities = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/scholarship/list`);
+        console.log(response.data); // Debugging the API response structure
+  
+        // Extract the data array from the response
+        const universities = response.data.data;
+        // Set top universities to the first 10 items
+        setTopUniversities(universities.slice(0, 10));
+      } catch (error) {
+        console.error("Error fetching universities:", error);
+      }
+    };
+  
+    fetchTopUniversities();
+  }, []);
+  
+  const {topJobs, setTopJobs} = appStore(); // State for the top universities
+  useEffect(() => {
+    const fetchTopJobs = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/job/list`);
+        console.log(response.data); // Debugging the API response structure
+  
+        // Extract the data array from the response
+        const topJobs = response.data.data;
+        // Set top universities to the first 10 items
+        setTopJobs(topJobs.slice(0, 10));
+      } catch (error) {
+        console.error("Error fetching topUniversities:", error);
+      }
+    };
+  
+    fetchTopJobs();
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
@@ -119,69 +164,71 @@ const HomePage = () => {
         </div>
         {/* Scrollable container */}
         <div className="shadow-2xl rounded-b-lg mt-10 h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
-       <li className="list-none" onClick={scrollToTop} >
-          <Link to={`/scholarship/detail`}>
+        <ul className="list-none" onClick={scrollToTop}>
             <div className="flex mt-3">
-              {data.slice(0, 10).map((school) => (
-                <div
-                  key={school.id}
-                  className="w-60 h-90 mx-3 bg-gray-300 shadow-xl  rounded-lg overflow-y-auto flex-shrink-0"
+              {topJobs.map((job) => (
+                <li
+                  key={job.id}
+                  className="w-60 h-100 mx-3 bg-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0"
                 >
-                  <div className="flex items-center justify-center h-[270px] p-2">
-                    <img
-                      src={school.image}
-                      alt={`${school.school_name} Logo`}
-                      className="w-full h-full object-contain rounded-lg border border-gray-300"
-                    />
-                  </div>
-                  <div className="p-2 bg-gray-200">
-                    <h2 className="text-center text-lg font-semibold text-gray-600">
-                      {school.school_name}
-                    </h2>
-                  </div>
-                </div>
+                  <Link to={`/career/${job.id}`}>
+                    <div className="flex items-center justify-center h-[270px] p-2">
+                      <img
+                        src={job.image_url || ScholarJobLogoGreen} // Adjust according to your API data structure
+                        
+                        className="w-full h-full object-contain rounded-lg border border-gray-300"
+                      />
+                    </div>
+                    <div className="p-2 bg-gray-200">
+                      <h2 className="text-center h-[55px] text-lg font-semibold text-gray-600">
+                        {job.title}{" "}
+                        {/* Adjust according to your API data structure */}
+                      </h2>
+                    </div>
+                  </Link>
+                </li>
               ))}
             </div>
-          </Link>
-          </li>
+          </ul>
         </div>
       </section>
 
-      {/* Top 10 Scholarships */}
+      {/* Top 10 Universities Section */}
       <section className="mt-6">
         <div className="w-[1400px] m-auto mb-[-40px]">
           <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg w-[230px] flex justify-center items-center text-white font-semibold text-lg">
-            Top 10 Universities!
+            Top 10 Scholarships!
           </div>
         </div>
 
         {/* Scrollable container */}
         <div className="shadow-2xl rounded-b-lg mt-10 h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
-        <li className="list-none" onClick={scrollToTop} >
-        
-          <Link to={`/scholarship/detail`}>
+          <ul className="list-none" onClick={scrollToTop}>
             <div className="flex mt-3">
-              {data.slice(0, 10).map((school) => (
-                <div
-                  key={school.id}
-                  className="w-60 h-90 mx-3 bg-gray-300 shadow-xl  rounded-lg overflow-y-auto flex-shrink-0"
+              {topUniversities.map((university) => (
+                <li
+                  key={university.id}
+                  className="w-60 h-100 mx-3 bg-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0"
                 >
-                  <div className="flex items-center justify-center h-[270px] p-2">
-                    <img
-                      src={school.image}
-                      alt={`${school.school_name} Logo`}
-                      className="w-full h-full object-contain rounded-lg border border-gray-300"
-                    />
-                  </div>
-                  <div className="p-2 bg-gray-200">
-                    <h2 className="text-center text-lg font-semibold text-gray-600">
-                      {school.school_name}
-                    </h2>
-                  </div>
-                </div>
+                  <Link to={`/scholarship/detail/${university.id}`}>
+                    <div className="flex items-center justify-center h-[270px] p-2">
+                      <img
+                        src={university.image_url} // Adjust according to your API data structure
+                        alt={university.title}
+                        className="w-full h-full object-contain rounded-lg border border-gray-300"
+                      />
+                    </div>
+                    <div className="p-2 bg-gray-200">
+                      <h2 className="text-center h-[55px] text-lg font-semibold text-gray-600">
+                        {university.major}{" "}
+                        {/* Adjust according to your API data structure */}
+                      </h2>
+                    </div>
+                  </Link>
+                </li>
               ))}
             </div>
-          </Link></li>
+          </ul>
         </div>
       </section>
 
@@ -195,30 +242,30 @@ const HomePage = () => {
 
         {/* Scrollable container */}
         <div className="shadow-2xl rounded-b-lg mt-10 h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
-        <li className="list-none" onClick={scrollToTop} >
-          <Link to={`/scholarship/organization`}>
-            <div className="flex mt-3">
-              {data.slice(0, 10).map((school) => (
-                <div
-                  key={school.id}
-                  className="w-60 h-90 mx-3 bg-gray-300 shadow-xl  rounded-lg overflow-y-auto flex-shrink-0"
-                >
-                  <div className="flex items-center justify-center h-[270px] p-2">
-                    <img
-                      src={school.image}
-                      alt={`${school.school_name} Logo`}
-                      className="w-full h-full object-contain rounded-lg border border-gray-300"
-                    />
+          <li className="list-none" onClick={scrollToTop}>
+            <Link to={`/scholarship/organization`}>
+              <div className="flex mt-3">
+                {data.slice(0, 10).map((school) => (
+                  <div
+                    key={school.id}
+                    className="w-60 h-90 mx-3 bg-gray-300 shadow-xl  rounded-lg overflow-y-auto flex-shrink-0"
+                  >
+                    <div className="flex items-center justify-center h-[270px] p-2">
+                      <img
+                        src={school.image}
+                        alt={`${school.school_name} Logo`}
+                        className="w-full h-full object-contain rounded-lg border border-gray-300"
+                      />
+                    </div>
+                    <div className="p-2 bg-gray-200">
+                      <h2 className="text-center text-lg font-semibold text-gray-600">
+                        {school.school_name}
+                      </h2>
+                    </div>
                   </div>
-                  <div className="p-2 bg-gray-200">
-                    <h2 className="text-center text-lg font-semibold text-gray-600">
-                      {school.school_name}
-                    </h2>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Link>
+                ))}
+              </div>
+            </Link>
           </li>
         </div>
       </section>
@@ -227,36 +274,36 @@ const HomePage = () => {
       <section className="mt-6">
         <div className="w-[1400px] m-auto mb-[-40px]">
           <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg w-[300px] flex justify-center items-center text-white font-bold text-lg">
-            Scholarship Organizations
+            Universities Organizations
           </div>
         </div>
 
         {/* Scrollable container */}
         <div className="shadow-2xl rounded-b-lg mt-10 h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
-        <li className="list-none" onClick={scrollToTop} >
-          <Link to={`/scholarship/organization`}>
-            <div className="flex mt-3">
-              {data.slice(0, 10).map((school) => (
-                <div
-                  key={school.id}
-                  className="w-60 h-90 mx-3 bg-gray-300 shadow-xl  rounded-lg overflow-y-auto flex-shrink-0"
-                >
-                  <div className="flex items-center justify-center h-[270px] p-2">
-                    <img
-                      src={school.image}
-                      alt={`${school.school_name} Logo`}
-                      className="w-full h-full object-contain rounded-lg border border-gray-300"
-                    />
+          <li className="list-none" onClick={scrollToTop}>
+            <Link to={`/scholarship/organization`}>
+              <div className="flex mt-3">
+                {data.slice(0, 10).map((school) => (
+                  <div
+                    key={school.id}
+                    className="w-60 h-90 mx-3 bg-gray-300 shadow-xl  rounded-lg overflow-y-auto flex-shrink-0"
+                  >
+                    <div className="flex items-center justify-center h-[270px] p-2">
+                      <img
+                        src={school.image}
+                        alt={`${school.school_name} Logo`}
+                        className="w-full h-full object-contain rounded-lg border border-gray-300"
+                      />
+                    </div>
+                    <div className="p-2 bg-gray-200">
+                      <h2 className="text-center text-lg font-semibold text-gray-600">
+                        {school.school_name}
+                      </h2>
+                    </div>
                   </div>
-                  <div className="p-2 bg-gray-200">
-                    <h2 className="text-center text-lg font-semibold text-gray-600">
-                      {school.school_name}
-                    </h2>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Link>
+                ))}
+              </div>
+            </Link>
           </li>
         </div>
       </section>

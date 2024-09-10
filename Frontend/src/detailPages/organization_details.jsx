@@ -5,12 +5,10 @@ import {
   CadtLogo,
   UnderlineTab,
   AboutUsTab,
-  JobOfferings,
+  Offerings,
 } from "../import/all_import.jsx";
 
 const OrganizationDetails = () => {
-
-  
 
   return (
     <div className="container mx-auto">
@@ -35,7 +33,7 @@ const OrganizationDetails = () => {
 
       {/* Tabs section */}
       <div className="max-w-screen-lg mx-auto mt-4">
-        <UnderlineTab aboutContent={<AboutUsTab />} jobsContent={<JobOfferings/>} />
+        <UnderlineTab aboutContent={<AboutUsTab />} offeringContent={<Offerings/>} />
       </div>
 
       <Footer />

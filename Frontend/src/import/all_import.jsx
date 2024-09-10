@@ -48,7 +48,7 @@ export { default as ViewProfile } from "../profile/view_profile.jsx";
 export { default as UnderlineTab } from "../activeTabs_Organization/UnderlineTabs.jsx";
 export { default as OrganizationDetail } from "../detailPages/organization_details.jsx";
 export { default as AboutUsTab } from "../activeTabs_Organization/aboutUs_tab.jsx";
-export { default as JobOfferings } from "../activeTabs_Organization/jobOfferings_tab.jsx";
+export { default as Offerings } from "../activeTabs_Organization/jobOfferings_tab.jsx";
 export { default as ApplyModalScholarship } from "../detailPages/apply_modal_scho.jsx";
 export { loginClient } from "../API/authentication_api.jsx";
 export { registerClient } from "../API/authentication_api.jsx";
