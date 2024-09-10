@@ -1,4 +1,4 @@
-import { React, appStore, UploadImage, Icon, ImageDone } from "../import/all_import.jsx";
+import { React, appStore, UploadImage, Icon, ImageDone, getDataCVApi, useEffect } from "../import/all_import.jsx";
 
 const FillPersonal = () => {
   const { cvData, setCvData, setSelectedImage, selectedImage } = appStore();
@@ -8,20 +8,33 @@ const FillPersonal = () => {
     setCvData({ [name]: value });
   };
 
+  useEffect(() => {
+    const fetchCVData = async () => {
+      const data = await getDataCVApi();
+      if (data) {
+        setCvData({
+          ...data,
+          profilePicture: data.profilePicture ? data.profilePicture : null
+        });
+      }
+    };
+
+    fetchCVData();
+  }, [setCvData]);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith('image/')) {
       setCvData({
-        profilePicture: URL.createObjectURL(file), 
+        ...cvData,
+        profilePicture: URL.createObjectURL(file),
       });
       setSelectedImage(file);
     } else {
       alert('Please select a valid image file.');
     }
   };
-
   
-
   return (
     <div className="bg-gray-100 p-8 rounded-lg shadow-xl w-[70vw] z-10">
       <form>
@@ -47,7 +60,7 @@ const FillPersonal = () => {
               type="text"
               id="name"
               name="name"
-              value={cvData.name}
+              value={cvData.name || ''}
               onChange={handleChange}
               className=" input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
               required

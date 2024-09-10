@@ -29,3 +29,20 @@ export const cvClientApi = async (cvData, selectedImage) => {
     throw error.response?.data || { message: "CV submission failed" };
   }
 };
+
+export const getDataCVApi = async () => {
+  try {
+    const response = await fetch('http://localhost:8000/api/cv/show');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return {
+      ...data,
+      profilePicture: data.profilePicture ? `http://localhost:8000/${data.profilePicture}` : null
+    };
+  } catch (error) {
+    console.error('Error fetching CV data:', error);
+    return null;
+  }
+};

@@ -92,7 +92,7 @@ const FillSkill = () => {
                     className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
                   >
                     <Icon icon={"mingcute:add-line"} />
-                    <div class="tooltiptext">Add more line</div>
+                    <div className="tooltiptext">Add more line</div>
                   </button>
                 ) : (
                   ""

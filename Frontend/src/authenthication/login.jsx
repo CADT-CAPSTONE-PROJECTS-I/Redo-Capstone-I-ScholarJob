@@ -144,16 +144,16 @@ const LoginPage = () => {
               </button>
             </form>
 
-            {message && <p className="text-green-500 mt-4">{message}</p>}
+            {message && <p className="text-green-500 absolute bottom-44 text-xs">{message}</p>}
             {errors && (
-              <div className="text-red-500 mt-4">
+              <div className="text-red-500 text-xs absolute bottom-44">
                 {Object.keys(errors).map((key) => (
                   <p key={key}>{errors[key]}</p>
                 ))}
               </div>
             )}
 
-            <div className="flex items-center w-4/5 m-4">
+            <div className="flex items-center w-4/5 m-4 pt-6">
               <div className="flex-grow border-t border-b w-4/5"></div>
               <h1 className="text-base mx-4">OR</h1>
               <div className="flex-grow border-t border-b w-4/5"></div>

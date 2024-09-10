@@ -127,7 +127,7 @@ const CVGeneratePage = () => {
           title='Successful Submittion'
           onClose={() => {
             setSuccessModalOpen(false);
-            onClose();
+            // onClose();
           }}
         />
       </div>
