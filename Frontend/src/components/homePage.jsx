@@ -13,6 +13,7 @@ import {
   appStore,
   useEffect,
   ScholarJobLogoGreen,
+  homepageVector,
 } from "../import/all_import.jsx";
 
 const HomePage = () => {
@@ -69,16 +70,16 @@ const HomePage = () => {
     },
   ];
 
-  const {topUniversities, setTopUniversities} = appStore();
-  
-const BASE_URL = 'http://localhost:8000/api';
+  const { topUniversities, setTopUniversities } = appStore();
+
+  const BASE_URL = "http://localhost:8000/api";
   // Fetch Top 10 Universities (Example using Axios)
   useEffect(() => {
     const fetchTopUniversities = async () => {
       try {
         const response = await axios.get(`${BASE_URL}/scholarship/list`);
         console.log(response.data); // Debugging the API response structure
-  
+
         // Extract the data array from the response
         const universities = response.data.data;
         // Set top universities to the first 10 items
@@ -87,17 +88,17 @@ const BASE_URL = 'http://localhost:8000/api';
         console.error("Error fetching universities:", error);
       }
     };
-  
+
     fetchTopUniversities();
   }, []);
-  
-  const {topJobs, setTopJobs} = appStore(); // State for the top universities
+
+  const { topJobs, setTopJobs } = appStore(); // State for the top universities
   useEffect(() => {
     const fetchTopJobs = async () => {
       try {
         const response = await axios.get(`${BASE_URL}/job/list`);
         console.log(response.data); // Debugging the API response structure
-  
+
         // Extract the data array from the response
         const topJobs = response.data.data;
         // Set top universities to the first 10 items
@@ -106,7 +107,7 @@ const BASE_URL = 'http://localhost:8000/api';
         console.error("Error fetching topUniversities:", error);
       }
     };
-  
+
     fetchTopJobs();
   }, []);
 
@@ -120,29 +121,40 @@ const BASE_URL = 'http://localhost:8000/api';
         <Navbar />
       </header>
       <section className="relative items-center flex min-h-[200px] mx-16 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">
-            Your Future, Your Path Get ahead with ScholarJob!
-          </h1>
-          <div className="flex justify-center items-center mt-8">
-            <input
-              type="text"
-              placeholder="Please input the position you want to find..."
-              className="p-2 w-full max-w-lg border rounded-lg text-gray-700"
-              name="title"
-              // onChange={handleFilterChange}
+        <div className="flex container mx-auto">
+          <div className="mt-10">
+            <div className="ml-16 text-5xl font-bold mb-10">
+              <h1>
+                <span className="font-bebas tracking-wider">ScholarJob</span>
+              </h1>
+            </div>
+
+            <h1 className="ml-16 text-3xl font-medium">
+              Your Future, Your Path. Get ahead with ScholarJob!
+            </h1>
+
+            {/* Move the button below the text */}
+            <div className="ml-16 mt-10">
+              <Link
+                to="/register"
+                className="text-customTeal font-semibold bg-white focus:outline-none font-sm rounded-lg text-lg px-5 py-3"
+              >
+                Register now!
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex justify-end">
+            <img
+              src={homepageVector}
+              alt=""
+              className="w-[650px] mr-16 mt-28 mb-10"
             />
-            <button
-              className="bg-white text-customTeal-light px-4 py-2 ml-2 rounded-lg"
-              onClick={() => fetchJobs()}
-            >
-              Search
-            </button>
           </div>
         </div>
       </section>
 
-      <section className="mt-8  ">
+      <section className="mt-8 ">
         <div className="px-8 mt-4 text-center">
           <h1 className="text-4xl font-bold">
             Find your perfect job or scholarship opportunity
@@ -164,7 +176,7 @@ const BASE_URL = 'http://localhost:8000/api';
         </div>
         {/* Scrollable container */}
         <div className="shadow-2xl rounded-b-lg mt-10 h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
-        <ul className="list-none" onClick={scrollToTop}>
+          <ul className="list-none" onClick={scrollToTop}>
             <div className="flex mt-3">
               {topJobs.map((job) => (
                 <li
@@ -175,11 +187,10 @@ const BASE_URL = 'http://localhost:8000/api';
                     <div className="flex items-center justify-center h-[270px] p-2">
                       <img
                         src={job.image_url || ScholarJobLogoGreen} // Adjust according to your API data structure
-                        
                         className="w-full h-full object-contain rounded-lg border border-gray-300"
                       />
                     </div>
-                    <div className="p-2 bg-gray-200">
+                    <div className="p-2  bg-gray-200">
                       <h2 className="text-center h-[55px] text-lg font-semibold text-gray-600">
                         {job.title}{" "}
                         {/* Adjust according to your API data structure */}
