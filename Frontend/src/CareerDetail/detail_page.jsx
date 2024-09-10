@@ -11,6 +11,7 @@ import {
   MessagePopup,
   LoginImage,
   LoadingPage,
+  Footer
 } from "../import/all_import.jsx";
 
 const DetailedJobPage = () => {
@@ -116,7 +117,7 @@ const DetailedJobPage = () => {
                 Age Requirement: {job.age_require}
               </div>
               <div className="border-b border-gray-300 pb-2">
-                Job Description: {job.description}
+                Job Description:<div className="bg-white" dangerouslySetInnerHTML={{ __html: job.description }} />
               </div>
             </div>
           </div>
@@ -151,7 +152,7 @@ const DetailedJobPage = () => {
               Job's Responsibilities
             </h2>
           </div>
-          <div className="bg-white p-4">{job.responsible}</div>
+          <div className="bg-white p-4" dangerouslySetInnerHTML={{ __html: job.responsible }} />
         </div>
 
         <div className="border border-gray-300 rounded mb-8">
@@ -179,7 +180,12 @@ const DetailedJobPage = () => {
             Apply Now!
           </button>
         </div>
+        
       </div>
+      <br />
+      <footer>
+        <Footer />
+      </footer>
       <ApplyModalJob
         isOpen={isModalOpen}
         onClose={handleCloseModal}
@@ -194,6 +200,8 @@ const DetailedJobPage = () => {
         />
       )}
     </div>
+    
+
   );
 };
 

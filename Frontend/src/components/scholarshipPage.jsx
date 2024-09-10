@@ -6,7 +6,8 @@ import {
   Icon,
   appStore,
   Link,
-  ScholarJobLogoGreen
+  ScholarJobLogoGreen,
+  Footer
 } from "../import/all_import.jsx";
 
 const ScholarshipPage = () => {
@@ -14,14 +15,14 @@ const ScholarshipPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [totalRecords, setTotalRecords] = useState(0);
-  const [searchTerm, setSearchTerm] = useState(''); // State to store search input
-  const [query, setQuery] = useState(''); // State to store the actual query used for fetching scholarships
+  const [searchTerm, setSearchTerm] = useState(''); 
+  const [query, setQuery] = useState('')
   const itemsPerPage = 10;
   const { currentPage, setCurrentPage } = appStore(); 
 
   useEffect(() => {
     fetchScholarships();
-  }, [currentPage, query]); // Fetch scholarships when page or search query changes
+  }, [currentPage, query]);
 
   const fetchScholarships = async () => {
     try {
@@ -30,7 +31,7 @@ const ScholarshipPage = () => {
         params: {
           page: currentPage,
           per_page: itemsPerPage,
-          search: query, // Include the search query in the API request
+          search: query,
         },
       });
       setScholarships(response.data.data);
@@ -212,6 +213,10 @@ const ScholarshipPage = () => {
           </div>
         </nav>
       </div>
+      
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );  
 };

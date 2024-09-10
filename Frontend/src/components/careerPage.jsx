@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navbar, ScholarJobLogoGreen, Link ,Icon} from "../import/all_import.jsx";
+import { Navbar, ScholarJobLogoGreen, Link ,Icon, Footer} from "../import/all_import.jsx";
 import { getJobs, getOrganizationAddresses } from '../API/career_api.jsx';
 
 const CareerPage = () => {
@@ -237,6 +237,10 @@ const CareerPage = () => {
           </div>
         </nav>
       </div>
+      
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 };
