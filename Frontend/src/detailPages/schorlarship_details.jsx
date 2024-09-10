@@ -109,7 +109,6 @@ const ScholarshipDetailPage = () => {
           </div>
         </section>
 
-        {/* Scholarship Description and Requirements */}
         <section className="flex flex-row">
           <div className="mt-8 rounded-xl w-[650px] bg-white shadow-lg mr-8">
             <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 rounded-t-lg p-4">
@@ -175,11 +174,11 @@ const ScholarshipDetailPage = () => {
         <section className="mt-8">
           <div>
             <h1 className="font-bold text-black text-xl">Eligibility: </h1>
-            <p>{scholarship.eligibility}</p>
+            <div className="bg-white" dangerouslySetInnerHTML={{ __html: scholarship.eligibility }} />
           </div>
           <div>
             <h1 className="font-bold text-black text-xl">Benefits: </h1>
-            <p>{scholarship.offer}</p>
+            <div className="bg-white" dangerouslySetInnerHTML={{ __html: scholarship.offer }} />
           </div>
         </section>
         {/* <h1 className="font-bold text-black text-xl flex justify-center items-center">How to Apply</h1> */}
