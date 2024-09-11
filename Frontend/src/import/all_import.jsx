@@ -48,7 +48,7 @@ export { default as ViewProfile } from "../profile/view_profile.jsx";
 export { default as UnderlineTab } from "../activeTabs_Organization/UnderlineTabs.jsx";
 export { default as OrganizationDetail } from "../detailPages/organization_details.jsx";
 export { default as AboutUsTab } from "../activeTabs_Organization/aboutUs_tab.jsx";
-export { default as JobOfferings } from "../activeTabs_Organization/jobOfferings_tab.jsx";
+export { default as Offerings } from "../activeTabs_Organization/jobOfferings_tab.jsx";
 export { default as ApplyModalScholarship } from "../detailPages/apply_modal_scho.jsx";
 export { loginClient } from "../API/authentication_api.jsx";
 export { registerClient } from "../API/authentication_api.jsx";
@@ -79,6 +79,7 @@ export { default as ApplyIt } from "../assets/image/Applyit_image.png";
 export { default as LoginImage } from "../assets/image/login_image.png";
 export { default as ImageDone } from "../assets/image/image_done.png";
 export { default as loadingImage } from "../assets/image/loading_image.png";
+export { default as homepageVector } from "../assets/image/homepage_vector.png";
 
 //import of all style css
 import "../styles/authenthication_style.css";

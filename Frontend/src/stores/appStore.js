@@ -3,6 +3,11 @@ import { create } from "zustand";
 const appStore = create((set, get) => ({
   // scholarship: [],
   // setScholarship: (data) => set({ scholarship: data }),
+  topUniversities: [],
+  setTopUniversities: (data) => set ({topUniversities: data}),
+
+  topJobs: [],
+  setTopJobs: (data) => set ({topJobs: data}),
 
   changePassword: false,
   setChangePassword: (data) => set({ changePassword: data }),

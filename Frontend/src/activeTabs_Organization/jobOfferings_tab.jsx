@@ -7,7 +7,7 @@ import {
   Icon,
 } from "../import/all_import.jsx";
 
-const jobOfferings = () => {
+const Offerings = () => {
   const scholarship = Array.from({ length: 30 }, (_, index) => ({
     url: "cadt",
     school_name: "Cambodia Academy & Digital Technology",
@@ -37,7 +37,7 @@ const jobOfferings = () => {
             {currentItems.map((scholarship, index) => (
               <Link
                 key={index}
-                to={`/scholarship/detail`}
+                to={`/scholarship/detail/4`}
                 className="flex  flex-col items-center bg-gray-200 border border-gray-200 rounded-lg shadow-xl md:flex-row md:max-w-3xl hover:bg-gray-100"
               >
                 <div className="flex items-center  justify-center p-2 md:w-48">
@@ -73,7 +73,7 @@ const jobOfferings = () => {
         </div>
 
         {/* Column 2: Organization Stats */}
-        <div className="w-[320px] rounded-xl bg-white shadow-lg">
+        <div className="w-[320px] max-h-[500px] rounded-xl bg-white shadow-lg">
           <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 rounded-t-lg p-4">
             <h2 className="text-lg text-white font-bold">Organization Stats</h2>
           </div>
@@ -157,4 +157,4 @@ const jobOfferings = () => {
   );
 };
 
-export default jobOfferings;
+export default Offerings;

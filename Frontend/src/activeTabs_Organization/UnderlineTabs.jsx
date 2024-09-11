@@ -1,6 +1,6 @@
-import { React, appStore, Navbar, Footer, } from "../import/all_import.jsx";
+import { React, appStore } from "../import/all_import.jsx";
 
-const UnderlineTabs = ({ aboutContent, jobsContent }) => {
+const UnderlineTabs = ({ aboutContent, offeringContent }) => {
   const { activeTab, setActiveTab } = appStore();
 
   return (
@@ -19,18 +19,18 @@ const UnderlineTabs = ({ aboutContent, jobsContent }) => {
         </button>
         <button
           className={`px-4 py-2 focus:outline-none ${
-            activeTab === "jobs"
+            activeTab === "offerings"
               ? "border-b-2 border-customTeal-light text-customTeal-light"
               : "text-gray-500"
           }`}
-          onClick={() => setActiveTab("jobs")}
+          onClick={() => setActiveTab("offerings")}
         >
-          Job Offerings
+          Offerings
         </button>
       </div>
       <div className="p-4">
         {activeTab === "about" && <div>{aboutContent}</div>}
-        {activeTab === "jobs" && <div>{jobsContent}</div>}
+        {activeTab === "offerings" && <div>{offeringContent}</div>}
       </div>
     </div>
   );
