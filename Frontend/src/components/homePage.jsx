@@ -104,7 +104,7 @@ const HomePage = () => {
         // Set top universities to the first 10 items
         setTopJobs(topJobs.slice(0, 10));
       } catch (error) {
-        console.error("Error fetching topUniversities:", error);
+        console.error("Error fetching topJobs:", error);
       }
     };
 
@@ -169,13 +169,24 @@ const HomePage = () => {
 
       {/* Top 10 for Jobs  */}
       <section className="mt-6">
-        <div className="w-[1400px] m-auto mb-[-40px]">
-          <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg w-[230px] flex justify-center items-center text-white font-bold text-lg">
-            Top 10 jobs
+        <div className="w-[1400px] m-auto ">
+          <div className="flex justify-between mb-4">
+            <div className="font-bebas tracking-widest  mb-[-16px] bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg w-[230px] flex justify-center items-center text-white font-medium text-xl">
+              Top 10 jobs
+            </div>
+          <Link
+            to={`/morejobs`}
+            onClick={scrollToTop}
+          >
+            <button className="font-bebas tracking-widest translate-y-5 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[30px] rounded-t-lg w-[130px] flex justify-center items-center text-white font-medium text-lg cursor-pointer">
+              more
+            </button>
+            </Link>
           </div>
         </div>
+
         {/* Scrollable container */}
-        <div className="shadow-2xl rounded-b-lg mt-10 h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
+        <div className="shadow-2xl rounded-b-lg h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
           <ul className="list-none" onClick={scrollToTop}>
             <div className="flex mt-3">
               {topJobs.map((job) => (
@@ -190,7 +201,7 @@ const HomePage = () => {
                         className="w-full h-full object-contain rounded-lg border border-gray-300"
                       />
                     </div>
-                    <div className="p-2  bg-gray-200">
+                    <div className="p-2 bg-gray-200">
                       <h2 className="text-center h-[55px] text-lg font-semibold text-gray-600">
                         {job.title}{" "}
                         {/* Adjust according to your API data structure */}
@@ -206,14 +217,24 @@ const HomePage = () => {
 
       {/* Top 10 Universities Section */}
       <section className="mt-6">
-        <div className="w-[1400px] m-auto mb-[-40px]">
-          <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg w-[230px] flex justify-center items-center text-white font-semibold text-lg">
-            Top 10 Scholarships!
+      <div className="w-[1400px] m-auto ">
+          <div className="flex justify-between mb-4">
+            <div className="font-bebas tracking-widest  mb-[-16px] bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg w-[230px] flex justify-center items-center text-white font-medium text-xl">
+              Top 10 scholarships
+            </div>
+          <Link
+            to={`/morescholarships`}
+            onClick={scrollToTop}
+          >
+            <button className="font-bebas tracking-widest translate-y-5 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[30px] rounded-t-lg w-[130px] flex justify-center items-center text-white font-medium text-lg cursor-pointer">
+              more
+            </button>
+            </Link>
           </div>
         </div>
 
         {/* Scrollable container */}
-        <div className="shadow-2xl rounded-b-lg mt-10 h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
+        <div className="shadow-2xl rounded-b-lg h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
           <ul className="list-none" onClick={scrollToTop}>
             <div className="flex mt-3">
               {topUniversities.map((university) => (

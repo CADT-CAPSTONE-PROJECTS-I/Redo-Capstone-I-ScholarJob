@@ -1,4 +1,3 @@
-import ScholarshipDetailPage from "./detailPages/schorlarship_details.jsx";
 import {
   React,
   Register,
@@ -15,7 +14,8 @@ import {
   OrganizationDetail,
   EditProfile,
   ViewProfile,
-
+  SeeMoreJobPage,
+  SeeMoreScholarshipPage,
 } from "./import/all_import.jsx";
 
 const App = () => {
@@ -80,6 +80,14 @@ const App = () => {
           path: "/organization",
           path: "/scholarship/organization/",
           element: <OrganizationDetail/>,
+        },
+        {
+          path: "/morejobs",
+          element:<SeeMoreJobPage/>
+        },
+        {
+          path: "/morescholarships",
+          element:<SeeMoreScholarshipPage/>
         },
       ],
     },

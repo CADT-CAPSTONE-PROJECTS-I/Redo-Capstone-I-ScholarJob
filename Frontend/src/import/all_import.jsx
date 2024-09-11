@@ -58,6 +58,8 @@ export { cvClientApi } from "../API/cv_api.jsx";
 export { default as PopUpGen } from "../card/pop_up_general.jsx";
 export { default as ApplyModalJob } from "../CareerDetail/apply_modal_job.jsx";
 export { default as LoadingPage } from "../card/loading_page.jsx";
+export { default as SeeMoreJobPage } from "../components/seeMoreJobsPage.jsx";
+export { default as SeeMoreScholarshipPage } from "../components/seeMoreScholarshipsPage.jsx";
 
 //import of all icon and image
 export { default as FacebookIcon } from "../assets/icon/facebook_icon.jpg";
