@@ -82,8 +82,8 @@
             <li class="nav-item">
                 <a href="{{ route('about_us.index') }}"
                 class="nav-link {{ request()->routeIs('about_us.index') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-school"></i>
-                    <p>{{ __('AboutUs') }}</p>
+                    <i class="nav-icon fas fa-info-circle"></i> 
+                    <p>{{ __('About Us') }}</p>
                 </a>
             </li> 
             @endif

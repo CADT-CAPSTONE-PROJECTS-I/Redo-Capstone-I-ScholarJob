@@ -6,6 +6,7 @@ use App\Http\Controllers\API\ScholarshipController;
 use App\Http\Controllers\API\ApplicationController;
 use App\Http\Controllers\API\ResumeController;
 use App\Http\Controllers\API\HomepageController;
+use App\Http\Controllers\API\OrganizationController;
 
 
 
@@ -31,3 +32,7 @@ Route::post('application/store', [ApplicationController::class, 'store']);
 
 Route::get('homepage',[HomepageController::class, 'index']);
 Route::get('urgent/job',[HomepageController::class, 'ListUrgentJobs']);
+
+Route::get('organization/list',[OrganizationController::class, 'list']);
+Route::get('organization/detail/{id}',[OrganizationController::class, 'detail']);
+Route::get('/organization/list/all', [OrganizationController::class, 'listAll']);
