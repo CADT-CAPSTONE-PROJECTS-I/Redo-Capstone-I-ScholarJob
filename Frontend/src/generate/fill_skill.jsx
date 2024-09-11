@@ -1,4 +1,10 @@
-import { React, appStore, Icon } from "../import/all_import.jsx";
+import {
+  React,
+  appStore,
+  Icon,
+  useEffect,
+  useState,
+} from "../import/all_import.jsx";
 
 const FillSkill = () => {
   const { cvData, setCvData } = appStore();
@@ -8,24 +14,136 @@ const FillSkill = () => {
     setCvData({ [name]: value });
   };
 
-  // Handle adding a new skill input
   const addFill = (cvData, setCvData, name) => {
-    // Ensure newItems is an array
     const newItems = [...(cvData[name] || []), ""];
     setCvData({ [name]: newItems });
   };
 
   const removeFill = (index, name, cvData, setCvData) => {
-    const newItems = cvData[name].filter((_, i) => i !== index); // Remove item at the given index
+    const newItems = cvData[name].filter((_, i) => i !== index);
     setCvData({ [name]: newItems });
   };
 
-  // Handle input change for each skill
   const handleFillChange = (index, value, name, cvData, setCvData) => {
-    const newItems = [...(cvData[name] || [])]; // Copy the existing array
-    newItems[index] = value; // Update the item at the given index
-    setCvData({ [name]: newItems }); // Use the dynamic key
+    const newItems = [...(cvData[name] || [])];
+    newItems[index] = value;
+    setCvData({ [name]: newItems });
   };
+
+  const mergeArrayToString = (array) => {
+    return array.join(", ");
+  };
+
+  useEffect(() => {
+    const handleMergeAndSave = () => {
+      const mergedData = {
+        educations: mergeArrayToString(cvData.educations || []),
+        hardSkills: mergeArrayToString(cvData.hardSkills || []),
+        softSkills: mergeArrayToString(cvData.softSkills || []),
+        experiences: mergeArrayToString(cvData.experiences || []),
+        languages: mergeArrayToString(cvData.languages || []),
+      };
+      if (
+        cvData.education !== mergedData.educations ||
+        cvData.hard_skill !== mergedData.hardSkills ||
+        cvData.soft_skill !== mergedData.softSkills ||
+        cvData.experience !== mergedData.experiences ||
+        cvData.language !== mergedData.languages
+      ) {
+        setCvData({
+          ...cvData,
+          education: mergedData.educations,
+          hard_skill: mergedData.hardSkills,
+          soft_skill: mergedData.softSkills,
+          experience: mergedData.experiences,
+          language: mergedData.languages,
+        });
+      }
+    };
+
+    handleMergeAndSave();
+  }, [cvData]);
+
+  const stringToArray = (str) => {
+    if (typeof str !== "string") {
+      console.error("Input is not a string:", str);
+      return [];
+    }
+    return str.split(", ").map((item) => item.trim());
+  };
+
+  const deepEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+
+  const useDebounce = (value, delay) => {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+
+    useEffect(() => {
+      const handler = setTimeout(() => {
+        setDebouncedValue(value);
+      }, delay);
+
+      return () => {
+        clearTimeout(handler);
+      };
+    }, [value, delay]);
+
+    return debouncedValue;
+  };
+
+  const debouncedEducation = useDebounce(cvData.education, 100000);
+  const debouncedHardSkill = useDebounce(cvData.hard_skill, 100000);
+  const debouncedSoftSkill = useDebounce(cvData.soft_skill, 100000);
+  const debouncedExperience = useDebounce(cvData.experience, 100000);
+  const debouncedLanguage = useDebounce(cvData.language, 100000);
+
+  useEffect(() => {
+    const handleStringAndSave = () => {
+      const stringData = {
+        education: stringToArray(debouncedEducation || ""),
+        hard_skill: stringToArray(debouncedHardSkill || ""),
+        soft_skill: stringToArray(debouncedSoftSkill || ""),
+        experience: stringToArray(debouncedExperience || ""),
+        language: stringToArray(debouncedLanguage || ""),
+      };
+
+      if (
+        !deepEqual(cvData.educations, stringData.education) ||
+        !deepEqual(cvData.hardSkills, stringData.hard_skill) ||
+        !deepEqual(cvData.softSkills, stringData.soft_skill) ||
+        !deepEqual(cvData.experiences, stringData.experience) ||
+        !deepEqual(cvData.languages, stringData.language)
+      ) {
+        setCvData({
+          ...cvData,
+          educations: stringData.education,
+          hardSkills: stringData.hard_skill,
+          softSkills: stringData.soft_skill,
+          experiences: stringData.experience,
+          languages: stringData.language,
+        });
+      }
+    };
+    if (
+      (debouncedEducation && cvData.educations !== undefined) ||
+      (debouncedHardSkill && cvData.hardSkills !== undefined) ||
+      (debouncedSoftSkill && cvData.softSkills !== undefined) ||
+      (debouncedExperience && cvData.experiences !== undefined) ||
+      (debouncedLanguage && cvData.languages !== undefined)
+    ) {
+      handleStringAndSave();
+    }
+  }, [
+    debouncedEducation,
+    debouncedHardSkill,
+    debouncedSoftSkill,
+    debouncedExperience,
+    debouncedLanguage,
+    setCvData,
+  ]);
+
+  useEffect(() => {
+    console.log("this is cv data from fill_skill", cvData);
+  }, [cvData]);
 
   return (
     <div className="bg-gray-100 p-8 rounded-lg shadow-xl shadow-gray-300 w-[70vw]  z-10">
@@ -63,6 +181,7 @@ const FillSkill = () => {
                   )
                 }
                 className="input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
+                style={{ whiteSpace: "normal" }}
               />
               <label
                 htmlFor="education"
@@ -92,7 +211,7 @@ const FillSkill = () => {
                     className="p-3 bg-transperent tooltip border text-customTeal hover:text-white  border-customTeal rounded-full hover:bg-customTeal transition duration-200"
                   >
                     <Icon icon={"mingcute:add-line"} />
-                    <div class="tooltiptext">Add more line</div>
+                    <div className="tooltiptext">Add more line</div>
                   </button>
                 ) : (
                   ""

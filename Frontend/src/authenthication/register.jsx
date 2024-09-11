@@ -37,17 +37,69 @@ const Register = () => {
     }
   }
 
+  const validatePassword = (password) => {
+    const passwordRegex = /^[A-Z][a-zA-Z0-9]{7,}$/;
+    const hasNumber = /\d/;
+
+    if (!passwordRegex.test(password)) {
+      return "Password must be at least 8 letters long and start with a capital letter.";
+    } else if (!hasNumber.test(password)) {
+      return "Password must contain at least one number.";
+    } else {
+      return "";
+    }
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      return "Please enter a valid email address.";
+    } else {
+      return "";
+    }
+  };
+
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
+    if (name === "password") {
+      const passwordError = validatePassword(value);
+      if (passwordError) {
+        setErrors({ ...errors, password: passwordError });
+      } else {
+        setErrors({ ...errors, password: null });
+      }
+    }
+
+
+    if (name === "email") {
+      const emailError = validateEmail(value);
+      if (emailError) {
+        setErrors({ ...errors, email: emailError });
+      } else {
+        setErrors({ ...errors, email: null });
+      }
+    }
+
+
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage(null);
     setErrors(null);
+
+    const passwordError = validatePassword(formData.password);
+    const emailError = validateEmail(formData.email);
+    if (passwordError || emailError) {
+      setErrors({ password: passwordError, email: emailError });
+      return;
+    }
 
     try {
       const response = await registerClient(formData);
@@ -176,16 +228,16 @@ const Register = () => {
               </button>
             </form>
 
-            {message && <p className="text-green-500 mt-4">{message}</p>}
+            {message && <p className="text-green-500 absolute bottom-1/4 text-xs">{message}</p>}
             {errors && (
-              <div className="text-red-500 mt-4">
+              <div className="text-red-500 text-xs absolute bottom-1/4">
                 {Object.keys(errors).map((key) => (
                   <p key={key}>{errors[key]}</p>
                 ))}
               </div>
             )}
 
-            <div className="flex items-center w-4/5 m-4">
+            <div className="flex items-center w-4/5 m-4 pt-6">
               <div className="flex-grow border-t border-b w-4/5"></div>
               <h1 className="text-base mx-4">OR</h1>
               <div className="flex-grow border-t border-b w-4/5"></div>

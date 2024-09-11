@@ -20,7 +20,7 @@ class ResumeController extends Controller
             'soft_skill' => 'nullable|string|max:255',
             'language' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'about' => 'nullable|string',
+            'about' => 'nullable|string',   
             'education' => 'nullable|string',
             'experience' => 'nullable|string',
             'reference' => 'nullable|string|max:255',

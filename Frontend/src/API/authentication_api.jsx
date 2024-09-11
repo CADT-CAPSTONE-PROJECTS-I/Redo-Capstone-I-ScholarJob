@@ -13,7 +13,7 @@ export const registerClient = async (formData) => {
     sessionStorage.setItem('token', token);
     sessionStorage.setItem('clientId', id);
 
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Error registering client:', error.response?.data || error.message);
