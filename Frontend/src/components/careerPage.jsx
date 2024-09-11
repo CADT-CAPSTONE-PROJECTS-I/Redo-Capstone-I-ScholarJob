@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navbar, ScholarJobLogoGreen, Link ,Icon} from "../import/all_import.jsx";
+import { Navbar, ScholarJobLogoGreen, Link ,Icon, Footer} from "../import/all_import.jsx";
 import { getJobs, getOrganizationAddresses } from '../API/career_api.jsx';
 
 const CareerPage = () => {
@@ -153,14 +153,13 @@ const CareerPage = () => {
                     src={job.image_url || ScholarJobLogoGreen}
                     className="w-32 h-32 object-cover rounded-lg mr-5"
                     alt="ScholarJob Logo"
-                  />
-
-                
-                  {job.urgent && (
+                  />                
+                  {job.urgent == 1 && (
                     <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-semibold py-1 px-3 rounded-bl-lg">
                       Urgent!
                     </span>
                   )}
+                  
 
                   <div className="flex flex-col justify-between">
                     <div className="ml-3">
@@ -238,6 +237,10 @@ const CareerPage = () => {
           </div>
         </nav>
       </div>
+      
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 };

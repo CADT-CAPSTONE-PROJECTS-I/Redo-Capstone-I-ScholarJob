@@ -1,40 +1,32 @@
-import { React, appStore, UploadImage, Icon, ImageDone, getDataCVApi, useEffect } from "../import/all_import.jsx";
+import {
+  React,
+  appStore,
+  UploadImage,
+  Icon,
+  ImageDone,
+} from "../import/all_import.jsx";
 
 const FillPersonal = () => {
   const { cvData, setCvData, setSelectedImage, selectedImage } = appStore();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCvData({ [name]: value });
+    setCvData({ ...cvData, [name]: value });
   };
-
-  useEffect(() => {
-    const fetchCVData = async () => {
-      const data = await getDataCVApi();
-      if (data) {
-        setCvData({
-          ...data,
-          profilePicture: data.profilePicture ? data.profilePicture : null
-        });
-      }
-    };
-
-    fetchCVData();
-  }, [setCvData]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file && file.type.startsWith('image/')) {
+    if (file && file.type.startsWith("image/")) {
       setCvData({
         ...cvData,
         profilePicture: URL.createObjectURL(file),
       });
       setSelectedImage(file);
     } else {
-      alert('Please select a valid image file.');
+      alert("Please select a valid image file.");
     }
   };
-  
+
   return (
     <div className="bg-gray-100 p-8 rounded-lg shadow-xl w-[70vw] z-10">
       <form>
@@ -60,7 +52,7 @@ const FillPersonal = () => {
               type="text"
               id="name"
               name="name"
-              value={cvData.name || ''}
+              value={cvData.name || ""}
               onChange={handleChange}
               className=" input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
               required
@@ -94,7 +86,7 @@ const FillPersonal = () => {
               Position
             </label>
           </div>
-  
+
           {/* phone */}
           <div className="input-group relative w-full mt-5 mb-4">
             <Icon
@@ -103,15 +95,15 @@ const FillPersonal = () => {
             />
             <input
               type="text"
-              id="phone"
-              name="phone"
-              value={cvData.phone}
+              id="phone_number"
+              name="phone_number"
+              value={cvData.phone_number}
               onChange={handleChange}
               className="input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
               required
             />
             <label
-              htmlFor="phone"
+              htmlFor="phone_number"
               className="input-group__label block text-gray-400  text-sm"
             >
               Phone
@@ -139,7 +131,7 @@ const FillPersonal = () => {
               Email
             </label>
           </div>
-   
+
           {/* aboutyou */}
           <div className="input-group relative w-full mt-5 mb-4">
             <Icon
@@ -148,21 +140,21 @@ const FillPersonal = () => {
             />
             <input
               type="text"
-              id="aboutMe"
-              name="aboutMe"
-              value={cvData.aboutMe}
+              id="about"
+              name="about"
+              value={cvData.about}
               onChange={handleChange}
               className="input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
               required
             />
             <label
-              htmlFor="aboutMe"
+              htmlFor="about"
               className="input-group__label block text-gray-400  text-sm"
             >
               About you
             </label>
           </div>
-      
+
           {/* current address */}
           <div className="input-group relative w-full mt-5 mb-4">
             <Icon
@@ -171,15 +163,15 @@ const FillPersonal = () => {
             />
             <input
               type="text"
-              id="currentAddress"
-              name="currentAddress"
-              value={cvData.currentAddress}
+              id="address"
+              name="address"
+              value={cvData.address}
               onChange={handleChange}
               className="input-group__input w-full pl-7 border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200"
               required
             />
             <label
-              lowercase="currentAddress"
+              lowercase="address"
               className="input-group__label block text-gray-400  text-sm"
             >
               Address
@@ -206,11 +198,15 @@ const FillPersonal = () => {
                           ? "Your photo has been uploaded"
                           : "Drag and Drop your photo file here"}
                       </h1>
-                      {!selectedImage ? <div className="flex items-center ">
-                        <div className="flex-grow border-t border-b w-1/2"></div>
-                        <h1 className="text-sm mx-4">OR</h1>
-                        <div className="flex-grow border-t border-b w-1/2"></div>
-                      </div> : ""}
+                      {!selectedImage ? (
+                        <div className="flex items-center ">
+                          <div className="flex-grow border-t border-b w-1/2"></div>
+                          <h1 className="text-sm mx-4">OR</h1>
+                          <div className="flex-grow border-t border-b w-1/2"></div>
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                     <div className="flex justify-center">
                       <label className="py-2 px-4 rounded-md text-white text-sm bg-customTeal cursor-pointer  hover:bg-customTeal-dark ">

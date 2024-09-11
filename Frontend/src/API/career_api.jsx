@@ -22,7 +22,7 @@ export const getJobs = async (filters = {}, page = 1, per_page = 10) => {
 export const getJobDetail = async (jobId) => {
   try {
     const response = await axios.get(`${BASE_URL}/job/detail/${jobId}`);
-    console.log(response.data.data);
+    // console.log(response.data.data);
     return response.data.data;
   } catch (error) {
     console.error('Error fetching job detail:', error);
@@ -33,7 +33,7 @@ export const getJobDetail = async (jobId) => {
 export const getOrganizationAddresses = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/organization-addresses`);
-    console.log(response.data.data);
+    // console.log(response.data.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching organization addresses:', error);
