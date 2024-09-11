@@ -1,8 +1,8 @@
-import { Icon, React, appStore, cvClientApi } from "../import/all_import.jsx";
+import { Icon, React, appStore, cvClientApi, useEffect, getDataCVApi } from "../import/all_import.jsx";
 import { forwardRef } from "react";
 
 const FormCVPage = forwardRef((props, ref) => {
-  const { cvData, selectedImage } = appStore();
+  const { cvData, selectedImage, setCvData } = appStore();
 
   const handleSubmitCV = async (e) => {
     e.preventDefault();
@@ -13,6 +13,22 @@ const FormCVPage = forwardRef((props, ref) => {
       console.error("Submission failed:", error.message);
     }
   };
+
+  useEffect(() => {
+    const fetchCVData = async () => {
+      const data = await getDataCVApi();
+      const apiData = data.resume;
+      setCvData(apiData);
+      if (data) {
+        setCvData({
+          ...data,
+          profilePicture: data.profilePicture ? data.profilePicture : null,
+        });
+      }
+    };
+
+    fetchCVData();
+  }, [setCvData]);
 
   return (
     <form
@@ -57,7 +73,7 @@ const FormCVPage = forwardRef((props, ref) => {
                   <Icon icon="solar:phone-bold" className="text-white " />
                 </div>
                 <h2 className="text-xs -mt-3 font-semibold text-gray-800 ">
-                  {cvData.phone}
+                  {cvData.phone_number}
                 </h2>
               </div>
               <div className="mt-3 flex items-center">
@@ -73,37 +89,10 @@ const FormCVPage = forwardRef((props, ref) => {
                   <Icon icon="mdi:location" className="text-white w-3 " />
                 </div>
                 <h2 className="text-xs flex-1 -mt-3 font-semibold text-gray-800  break-words">
-                  {cvData.currentAddress}
+                  {cvData.address}
                 </h2>
               </div>
             </div>
-
-            {/* perspnality */}
-            {/* <div className="flex flex-col ml-4 mt-2 justify-start ">
-              <div className="flex items-center ml-1  space-x-2 justify-start">
-                <div className="h-3 w-3 bg-customBlue-light"></div>
-                <h1 className="font-bold -mt-4">PERSONALITY</h1>
-              </div>
-              <ul className=" text-sm font-semibold text-gray-800 ml-1">
-                <li>
-                  <pre>• Age        : {cvData.age} years old</pre>
-                </li>
-                <li>
-                  <pre>• Gender     : {cvData.gender}</pre>
-                </li>
-                <li>
-                  <pre>• Birthdate  : {cvData.dateOfBirth}</pre>
-                </li>
-                <li>
-                  <pre className="break-words w-full whitespace-normal pr-4 flex">
-                    <span className="mr-2 ">•</span>{" "}
-                    <span className=" text-justify">
-                      Birthplace : {cvData.placeOfBirth}
-                    </span>
-                  </pre>
-                </li>
-              </ul>
-            </div> */}
 
             {/* hard skill */}
             <div className="flex flex-col ml-4 mt-5 justify-start ">
@@ -195,7 +184,7 @@ const FormCVPage = forwardRef((props, ref) => {
                   <h1 className="font-bold -mt-4">ABOUT ME</h1>
                 </div>
                 <p className="text-sm text-justify pr-9 pl-3 font-semibold w-[480px]">
-                  {cvData.aboutMe}
+                  {cvData.about}
                 </p>
               </div>
 

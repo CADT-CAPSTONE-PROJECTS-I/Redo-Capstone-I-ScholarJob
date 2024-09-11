@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\OrganizationController;
 use App\Http\Controllers\Backend\ClientController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\ApplicationController;
+use App\Http\Controllers\Backend\AboutUsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -109,6 +110,13 @@ Route::prefix('organization')->name('organizations.')->group(function () {
     Route::get('/show/{id}', [OrganizationController::class, 'show'])->name('show');
     Route::post('/update/{id}', [OrganizationController::class, 'update'])->name('update');
     Route::post('/destroy/{id}', [OrganizationController::class, 'destroy'])->name('destroy');
+});
+
+// Aboutus Routes
+Route::prefix('aboutus')->name('about_us.')->group(function () {
+    Route::get('/index', [AboutUsController::class, 'index'])->name('index');
+    Route::put('/update', [AboutUsController::class, 'update'])->name('update');
+    Route::post('/store', [AboutUsController::class, 'store'])->name('store');
 });
 
 // Application Routes

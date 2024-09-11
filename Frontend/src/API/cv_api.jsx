@@ -12,7 +12,8 @@ export const cvClientApi = async (cvData, selectedImage) => {
     formData.append("image", selectedImage);
   }
   try {
-    const response = await axios.post(`${BASE_URL}/generate/cv`, formData, {
+    const response = await axios.post(`${BASE_URL}/cv/generate`, formData, {
+      body: JSON.stringify(formData),
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -27,5 +28,25 @@ export const cvClientApi = async (cvData, selectedImage) => {
       error.response?.data || error.message
     );
     throw error.response?.data || { message: "CV submission failed" };
+  }
+};
+
+export const getDataCVApi = async () => {
+  try {
+    const token = sessionStorage.getItem('token'); 
+    if (!token) {
+      throw new Error('No authentication token found.');
+    }
+
+    const response = await axios.get(`${BASE_URL}/cv/show`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching CV data:', error.response?.data || error.message);
+    throw error;
   }
 };
