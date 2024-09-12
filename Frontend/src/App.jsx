@@ -67,6 +67,10 @@ const App = () => {
           path: "/scholarship/detail/:id",
           element: <ScholarshipDetail/>,
         },
+        {
+          path: "/organization/detail/:id",
+          element: <OrganizationDetail/>,
+        },
         
         {
           path: "/view",

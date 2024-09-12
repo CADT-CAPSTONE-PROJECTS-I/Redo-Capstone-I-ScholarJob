@@ -1,10 +1,7 @@
 import {
   React,
   Navbar,
-  Register,
   Link,
-  CadtLogo,
-  HarvardUniverity,
   FindYourNeed,
   FlourishYourFuture,
   ApplyIt,
@@ -17,59 +14,6 @@ import {
 } from "../import/all_import.jsx";
 
 const HomePage = () => {
-  const data = [
-    {
-      id: 1,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: CadtLogo,
-    },
-    {
-      id: 2,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: CadtLogo,
-    },
-    {
-      id: 3,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: HarvardUniverity,
-    },
-    {
-      id: 4,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: CadtLogo,
-    },
-    {
-      id: 5,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: HarvardUniverity,
-    },
-    {
-      id: 6,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: HarvardUniverity,
-    },
-    {
-      id: 7,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: HarvardUniverity,
-    },
-    {
-      id: 8,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: HarvardUniverity,
-    },
-    {
-      id: 9,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: HarvardUniverity,
-    },
-    {
-      id: 10,
-      school_name: "Cambodia Academy & Digital Technology",
-      image: HarvardUniverity,
-    },
-  ];
-
   const { topUniversities, setTopUniversities } = appStore();
 
   const BASE_URL = "http://localhost:8000/api";
@@ -109,6 +53,24 @@ const HomePage = () => {
     };
 
     fetchTopJobs();
+  }, []);
+
+  const { topOrgs, setTopOrgs } = appStore();
+  useEffect(() => {
+    const fetchTopOrgs = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/organization/list`);
+        console.log(response.data); // Debugging the API response structure
+        // Extract the data array from the response
+        const topOrgs = response.data.data;
+        // Set top universities to the first 10 items
+        setTopOrgs(topOrgs.slice(0, 10));
+      } catch (error) {
+        console.error("Error fetching topOrgs:", error);
+      }
+    };
+
+    fetchTopOrgs();
   }, []);
 
   const scrollToTop = () => {
@@ -266,52 +228,63 @@ const HomePage = () => {
 
       {/* Jobs Organization */}
       <section className="mt-6">
-        <div className="w-[1400px] m-auto mb-[-40px]">
-          <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg w-[230px] flex justify-center items-center text-white font-semibold text-lg">
-            Jobs Organizations
+      <div className="w-[1400px] m-auto ">
+          <div className="flex justify-between mb-4">
+            <div className="font-bebas tracking-widest  mb-[-16px] bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg w-[230px] flex justify-center items-center text-white font-medium text-xl">
+            Our Partners
+            </div>
+          <Link
+            to={`/morescholarships`}
+            onClick={scrollToTop}
+          >
+            <button className="font-bebas tracking-widest translate-y-5 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[30px] rounded-t-lg w-[130px] flex justify-center items-center text-white font-medium text-lg cursor-pointer">
+              more
+            </button>
+            </Link>
           </div>
         </div>
 
         {/* Scrollable container */}
-        <div className="shadow-2xl rounded-b-lg mt-10 h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
-          <li className="list-none" onClick={scrollToTop}>
-            <Link to={`/scholarship/organization`}>
-              <div className="flex mt-3">
-                {data.slice(0, 10).map((school) => (
-                  <div
-                    key={school.id}
-                    className="w-60 h-90 mx-3 bg-gray-300 shadow-xl  rounded-lg overflow-y-auto flex-shrink-0"
-                  >
+        <div className="shadow-2xl rounded-b-lg h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
+          <ul className="list-none" onClick={scrollToTop}>
+            <div className="flex mt-3">
+              {topOrgs.map((organization) => (
+                <li
+                  key={topOrgs.id}
+                  className="w-60 h-100 mx-3 bg-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0"
+                >
+                  <Link to={`/organization/detail/${organization.id}`}>
                     <div className="flex items-center justify-center h-[270px] p-2">
                       <img
-                        src={school.image}
-                        alt={`${school.school_name} Logo`}
+                        src={organization.image_url || ScholarJobLogoGreen}// Adjust according to your API data structure
+                        alt={organization.name}
                         className="w-full h-full object-contain rounded-lg border border-gray-300"
                       />
                     </div>
                     <div className="p-2 bg-gray-200">
-                      <h2 className="text-center text-lg font-semibold text-gray-600">
-                        {school.school_name}
+                      <h2 className="text-center h-[55px] text-lg font-semibold text-gray-600">
+                        {organization.name}{" "}
+                        
                       </h2>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </Link>
-          </li>
+                  </Link>
+                </li>
+              ))}
+            </div>
+          </ul>
         </div>
       </section>
 
       {/* Scholarship Organization */}
-      <section className="mt-6">
+      {/* <section className="mt-6">
         <div className="w-[1400px] m-auto mb-[-40px]">
           <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg w-[300px] flex justify-center items-center text-white font-bold text-lg">
             Universities Organizations
           </div>
-        </div>
+        </div> */}
 
         {/* Scrollable container */}
-        <div className="shadow-2xl rounded-b-lg mt-10 h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
+        {/* <div className="shadow-2xl rounded-b-lg mt-10 h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
           <li className="list-none" onClick={scrollToTop}>
             <Link to={`/scholarship/organization`}>
               <div className="flex mt-3">
@@ -338,7 +311,7 @@ const HomePage = () => {
             </Link>
           </li>
         </div>
-      </section>
+      </section> */}
 
       <div className="px-8 mt-8 text-center ">
         <h1 className="text-4xl font-bold">
@@ -391,7 +364,7 @@ const HomePage = () => {
           </div>
           <div className="mt-2">
             <h1 className="text-center font-semibold text-2xl">
-              Filourish your life
+              Flourish your life
             </h1>
             <p className=" w-80 text-center">
               From a hopeless person to someone who is experienced and has
