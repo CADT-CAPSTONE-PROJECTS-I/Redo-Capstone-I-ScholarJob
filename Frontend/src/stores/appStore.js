@@ -9,6 +9,9 @@ const appStore = create((set, get) => ({
   topJobs: [],
   setTopJobs: (data) => set ({topJobs: data}),
 
+  topOrgs: [],
+  setTopOrgs: (data) => set ({topOrgs: data})
+,
   changePassword: false,
   setChangePassword: (data) => set({ changePassword: data }),
 
