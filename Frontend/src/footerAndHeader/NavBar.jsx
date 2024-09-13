@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   useNavigate,
   React,
@@ -10,7 +11,7 @@ import {
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const {token} = appStore();
+  const {token, client_id, message} = appStore();
 
   return (
     <nav className="bg-white shadow-md fixed w-full z-20 top-0  start-0 border-b border-gray-200 rounded-b-3xl">
@@ -28,7 +29,7 @@ const Navbar = () => {
             SCHOLARJOB
           </span>
         </Link>
-        {token !== null ? (
+        {message === "Login successful!" ? (
           <div className=" flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <UserDropdown />
           </div>

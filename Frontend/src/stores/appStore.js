@@ -129,6 +129,12 @@ const appStore = create((set, get) => ({
   setToken: ( token) => {
     sessionStorage.setItem('token', token);  
   },
+
+  client_id: sessionStorage.getItem('clientId') || null, 
+  setClient_id: ( client_id) => {
+    sessionStorage.setItem('clientId', client_id);  
+  },
+
   logout: () => {
     sessionStorage.removeItem('token');  
     set({ user: null, token: null }); 
@@ -136,7 +142,6 @@ const appStore = create((set, get) => ({
 
   loading: true,
   setLoading: (data) => set({loading: data}),
-
 
 }));
 

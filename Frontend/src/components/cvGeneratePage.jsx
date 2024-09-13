@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   React,
   Navbar,
@@ -49,20 +50,28 @@ const CVGeneratePage = () => {
 
   const handleDownloadPdf = () => {
     const element = document.getElementById("cv-template");
-    try{
-      const options = {
-        margin: 0,
-        filename: `${cvData.name || "cv"}_CV.pdf`,
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-      };
-      html2pdf().from(element).set(options).save();
-      setSuccessModalOpen(true);
-    }catch(error){
-      console.log(error)
+    if (cvData.profilePicture === null) {
+      setSuccessModalOpen(true); 
+    } else {
+      try {
+        const options = {
+          margin: 0,
+          filename: `${cvData.name || "cv"}_CV.pdf`,
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+        };
+        html2pdf()
+          .from(element)
+          .set(options)
+          .save()
+          .then(() => {
+            setSuccessModalOpen(true); 
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
-
   };
 
   return (
@@ -119,17 +128,26 @@ const CVGeneratePage = () => {
             ImagePopup={LoginImage}
           />
         )}
-        <PopUpGen 
-          isOpen={successModalOpen}
-          iconColor="text-customTeal"
-          color='text-customTeal'
-          icon={"icon-park-outline:success"}
-          title='Successful Submittion'
-          onClose={() => {
-            setSuccessModalOpen(false);
-            // onClose();
-          }}
-        />
+        {successModalOpen && (
+          <PopUpGen
+            isOpen={successModalOpen}
+            iconColor={
+              cvData.profilePicture ? "text-customTeal" : "text-red-500"
+            }
+            color={cvData.profilePicture ? "text-customTeal" : "text-red-500"}
+            icon={
+              cvData.profilePicture
+                ? "solar:check-circle-broken"
+                : "radix-icons:image"
+            }
+            title={
+              cvData.profilePicture
+                ? "Generated Successfully!"
+                : "The image is required!"
+            }
+            onClose={() => setSuccessModalOpen(false)}
+          />
+        )}
       </div>
       <div className="mt-12">
         <Footer />
