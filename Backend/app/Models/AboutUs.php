@@ -10,7 +10,6 @@ class AboutUs extends Model
 
     protected $table = 'about_us';
 
-    // Disable auto-incrementing of the ID since we are fixing it to 1
     public $incrementing = false;
 
     protected $fillable = [

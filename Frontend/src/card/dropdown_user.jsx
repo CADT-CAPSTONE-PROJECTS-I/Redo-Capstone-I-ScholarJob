@@ -5,12 +5,13 @@ import {
   UserIcon,
   useRef,
   useEffect,
+  Icon,
 } from "../import/all_import.jsx";
 
 const UserDropdown = () => {
   const navigate = useNavigate();
   const { isDropdownOpen, setIsDropdownOpen, logout } = appStore();
-  const dropdownRef = useRef(null); 
+  const dropdownRef = useRef(null);
 
   const handleProfileClick = () => {
     navigate("/view");
@@ -39,24 +40,29 @@ const UserDropdown = () => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-        className="flex items-center space-x-2 focus:outline-none border-2 rounded-full border-customTeal"
+        className="flex items-center hover:text-customTeal-dark"
       >
-        <img src={UserIcon} alt="User" className="w-8 h-8 rounded-full" />
+        <Icon icon="gridicons:dropdown" className="size-6 " />
+        <div className="flex items-center space-x-2 focus:outline-none border-2 rounded-full border-customTeal hover:border-customTeal-dark ">
+          <img src={UserIcon} alt="User" className="w-8 h-8 rounded-full" />
+        </div>
       </button>
 
       {isDropdownOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2">
           <button
             onClick={handleProfileClick}
-            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            className="flex items-center space-x-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-customTeal hover:text-white"
           >
-            Profile
+            <Icon icon="healthicons:ui-user-profile" className="size-6" />
+            <span>Profile</span>
           </button>
           <button
             onClick={handleLogoutClick}
-            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            className="flex items-center space-x-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-customTeal hover:text-white"
           >
-            Log Out
+            <Icon icon="solar:logout-broken" className="size-6" />
+            <span>Log Out</span>
           </button>
         </div>
       )}

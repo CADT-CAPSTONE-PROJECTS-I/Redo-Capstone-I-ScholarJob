@@ -9,6 +9,9 @@ const appStore = create((set, get) => ({
   topJobs: [],
   setTopJobs: (data) => set ({topJobs: data}),
 
+  topOrgs: [],
+  setTopOrgs: (data) => set ({topOrgs: data})
+,
   changePassword: false,
   setChangePassword: (data) => set({ changePassword: data }),
 
@@ -130,6 +133,9 @@ const appStore = create((set, get) => ({
     sessionStorage.removeItem('token');  
     set({ user: null, token: null }); 
   },
+
+  loading: true,
+  setLoading: (data) => set({loading: data}),
 
 
 }));

@@ -113,10 +113,9 @@ Route::prefix('organization')->name('organizations.')->group(function () {
 });
 
 // Aboutus Routes
-Route::prefix('aboutus')->name('about_us.')->group(function () {
-    Route::get('/index', [AboutUsController::class, 'index'])->name('index');
-    Route::put('/update', [AboutUsController::class, 'update'])->name('update');
-    Route::post('/store', [AboutUsController::class, 'store'])->name('store');
+Route::prefix('about')->name('about.')->group(function () {
+    Route::get('/', [AboutUsController::class, 'index'])->name('index');
+    Route::post('/', [AboutUsController::class, 'storeOrUpdate'])->name('storeOrUpdate');
 });
 
 // Application Routes
