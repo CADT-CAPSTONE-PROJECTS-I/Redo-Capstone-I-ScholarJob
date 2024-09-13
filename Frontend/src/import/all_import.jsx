@@ -59,6 +59,7 @@ export { default as PopUpGen } from "../card/pop_up_general.jsx";
 export { default as ApplyModalJob } from "../CareerDetail/apply_modal_job.jsx";
 export { default as LoadingPage } from "../card/loading_page.jsx";
 export { getDataCVApi } from "../API/cv_api.jsx";
+export { default as UserDropdown } from "../card/dropdown_user.jsx";
 
 //import of all icon and image
 export { default as FacebookIcon } from "../assets/icon/facebook_icon.jpg";
@@ -80,6 +81,7 @@ export { default as LoginImage } from "../assets/image/login_image.png";
 export { default as ImageDone } from "../assets/image/image_done.png";
 export { default as loadingImage } from "../assets/image/loading_image.png";
 export { default as homepageVector } from "../assets/image/homepage_vector.png";
+export { default as UserIcon } from "../assets/icon/user_icon.jpg";
 
 //import of all style css
 import "../styles/authenthication_style.css";

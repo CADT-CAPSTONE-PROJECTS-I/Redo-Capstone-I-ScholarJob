@@ -113,14 +113,24 @@ const appStore = create((set, get) => ({
   clientId: null,
   setClientId: (data) => set({ clientId: data }),
 
-  token: null,
-  setToken: (data) => set({ token: data }),
+  // token: null,
+  // setToken: (data) => set({ token: data }),
 
   isModalOpen: false,
   setIsModalOpen: (data) => set({ isModalOpen: data }),
 
   successModalOpen: false,
   setSuccessModalOpen: (data) => set({ successModalOpen: data }),
+
+  token: sessionStorage.getItem('token') || null, 
+  setToken: ( token) => {
+    sessionStorage.setItem('token', token);  
+  },
+  logout: () => {
+    sessionStorage.removeItem('token');  
+    set({ user: null, token: null }); 
+  },
+
 
 }));
 

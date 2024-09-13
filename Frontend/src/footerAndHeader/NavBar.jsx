@@ -5,43 +5,12 @@ import {
   Link,
   NavLink,
   appStore,
-  Icon,
-  useEffect,
-  useRef,
+  UserDropdown,
 } from "../import/all_import.jsx";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const token = appStore.getState().token;
-  const { message, setMessage, isDropdownOpen, setIsDropdownOpen } = appStore();
-
-  const dropdownRef = useRef(null);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsDropdownOpen(false);
-    }
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === "Escape") {
-      setIsDropdownOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
+  const {token} = appStore();
 
   return (
     <nav className="bg-white shadow-md fixed w-full z-20 top-0  start-0 border-b border-gray-200 rounded-b-3xl">
@@ -49,7 +18,6 @@ const Navbar = () => {
         <Link
           to="/"
           className="flex items-center space-x-1 rtl:space-x-reverse "
-          ref={dropdownRef}
         >
           <img
             src={ScholarJobLogoGreen}
@@ -62,26 +30,7 @@ const Navbar = () => {
         </Link>
         {token !== null ? (
           <div className=" flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <button onClick={toggleDropdown} className="focus:outline-none">
-              <Icon icon="ph:user-circle-light" className="w-10 h-10" />
-            </button>
-            {isDropdownOpen && (
-              <div className="absolute right-20 mt-10 w-48 bg-white shadow-lg rounded-lg border border-gray-200 z-10">
-                <div>
-                  <div className="px-4 py-2 hover:bg-customTeal hover:text-white cursor-pointer">
-                    <Link
-                      to="/view"
-                      className="px-4 py-2 hover:bg-customTeal hover:text-white cursor-pointer"
-                    >
-                      Profile
-                    </Link>
-                  </div>
-                  <Link className="px-4 py-2 hover:bg-customTeal hover:text-white cursor-pointer">
-                    Logout
-                  </Link>
-                </div>
-              </div>
-            )}
+            <UserDropdown />
           </div>
         ) : (
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
