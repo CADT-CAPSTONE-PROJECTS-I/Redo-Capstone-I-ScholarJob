@@ -1,8 +1,7 @@
 import { create } from "zustand";
 
 const appStore = create((set, get) => ({
-
-  // scholarship: [], 
+  // scholarship: [],
   // setScholarship: (data) => set({ scholarship: data }),
   topUniversities: [],
   setTopUniversities: (data) => set ({topUniversities: data}),
@@ -10,110 +9,140 @@ const appStore = create((set, get) => ({
   topJobs: [],
   setTopJobs: (data) => set ({topJobs: data}),
 
+  topOrgs: [],
+  setTopOrgs: (data) => set ({topOrgs: data})
+,
   changePassword: false,
   setChangePassword: (data) => set({ changePassword: data }),
 
-  currentComponent: 'personal',
+  currentComponent: "personal",
   setCurrentComponent: (data) => set({ currentComponent: data }),
 
   selectedImage: null,
-  setSelectedImage: (data) => set({selectedImage: data }),
+  setSelectedImage: (data) => set({ selectedImage: data }),
 
   currentPage: 1,
-  setCurrentPage: (data) => set({currentPage: data }),
+  setCurrentPage: (data) => set({ currentPage: data }),
 
-  activeTab: 'about',
-  setActiveTab:(data) => set ({activeTab: data }),
+  activeTab: "about",
+  setActiveTab: (data) => set({ activeTab: data }),
 
   addresses: [],
-  setAddresses: (data) => set ({addresses: data}),
+  setAddresses: (data) => set({ addresses: data }),
 
   cvData: {
-    name: '',
-    gender: '',
-    position: '',
-    aboutMe: '',
-    age: '',
-    email: '',
-    dateOfBirth: '',
-    placeOfBirth: '',
-    currentAddress:'',
-    phone: '',
+    name: "",
+    gender: "",
+    position: "",
+    about: "",
+    age: "",
+    email: "",
+    dateOfBirth: "",
+    placeOfBirth: "",
+    address: "",
+    phone_number: "",
     educations: [""],
-    skills: [""],
-    experiences:[""],
+    experiences: [""],
     hardSkills: [""],
     softSkills: [""],
     languages: [""],
-    references: ' ',
-    profilePicture: '',
+    references: "",
+    hard_skill: "",
+    education: "",
+    experience: "",
+    soft_skill: "",
+    language: "",
+    imgae: "",
+    reference: "",
+    profilePicture: "",
   },
-  setCvData: (data) => set((state) => ({
-    cvData: { ...state.cvData, ...data },
-  })),
+  setCvData: (data) =>
+    set((state) => ({
+      cvData: { ...state.cvData, ...data },
+    })),
 
   formData: {
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
     // password_comfirmation: '',
   },
-  setFormData: (data) => set((state) => ({
-    formData: {...state.formData, ...data},
-  })),
+  setFormData: (data) =>
+    set((state) => ({
+      formData: { ...state.formData, ...data },
+    })),
 
   message: null,
-  setMessage:(data) => set({message: data}),
+  setMessage: (data) => set({ message: data }),
 
   errors: null,
-  setErrors:(data) => set({errors: data}),
+  setErrors: (data) => set({ errors: data }),
 
   messageLogin: null,
-  setMessageLogin:(data) => set({messageLogin: data}),
+  setMessageLogin: (data) => set({ messageLogin: data }),
 
   errorsLogin: null,
-  setErrorsLogin:(data) => set({errorsLogin: data}),
+  setErrorsLogin: (data) => set({ errorsLogin: data }),
 
   isDropdownOpen: false,
-  setIsDropdownOpen:(data) => set({isDropdownOpen: data}),
+  setIsDropdownOpen: (data) => set({ isDropdownOpen: data }),
 
   isPopupOpen: false,
-  setIsPopupOpen: (data) => set({isPopupOpen: data}),
+  setIsPopupOpen: (data) => set({ isPopupOpen: data }),
 
-  jobs: [], 
-  setJobs: (data) => set({jobs: data}),
+  jobs: [],
+  setJobs: (data) => set({ jobs: data }),
 
   filters: {
-    itle: '',
-    job_type: '',
-    salary_min: '',
-    salary_max: '',
-    experience: '',
-    category_id: '',
-    organization_address: '' 
+    itle: "",
+    job_type: "",
+    salary_min: "",
+    salary_max: "",
+    experience: "",
+    category_id: "",
+    organization_address: "",
   },
-  setFilters: (data) => set((state) => ({
-    cvData: { ...state.filters, ...data },
-  })),
+  setFilters: (data) =>
+    set((state) => ({
+      cvData: { ...state.filters, ...data },
+    })),
 
-  addresses: [], 
-  setAddresses: (data) => set({addresses: data}),
+  addresses: [],
+  setAddresses: (data) => set({ addresses: data }),
 
   job: null,
-  setJob:(data) => set({job: data}), 
+  setJob: (data) => set({ job: data }),
 
   clientId: null,
-  setClientId: (data) => set({clientId: data}),
+  setClientId: (data) => set({ clientId: data }),
 
-  token: null,
-  setToken: (data) => set({token: data}),
+  // token: null,
+  // setToken: (data) => set({ token: data }),
 
   isModalOpen: false,
-  setIsModalOpen: (data) => set({isModalOpen: data}),
+  setIsModalOpen: (data) => set({ isModalOpen: data }),
 
   successModalOpen: false,
-  setSuccessModalOpen: (data) => set({successModalOpen: data}),
+  setSuccessModalOpen: (data) => set({ successModalOpen: data }),
+
+  token: sessionStorage.getItem('token') || null, 
+  setToken: ( token) => {
+    sessionStorage.setItem('token', token);  
+  },
+
+  client_id: sessionStorage.getItem('clientId') || null, 
+  setClient_id: ( client_id) => {
+    sessionStorage.setItem('clientId', client_id);  
+  },
+
+  logout: () => {
+    sessionStorage.removeItem('token');  
+    set({ user: null, token: null }); 
+  },
+
+  loading: true,
+  setLoading: (data) => set({loading: data}),
 
 }));
 
-export {appStore};
+export { appStore };

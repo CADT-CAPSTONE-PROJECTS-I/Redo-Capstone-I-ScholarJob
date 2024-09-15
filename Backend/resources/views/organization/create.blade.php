@@ -26,7 +26,6 @@
                             <input type="text" id="name" name="name" placeholder="Enter Name"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
-
                         <div>
                             <label for="industry_type" class="block text-gray-700 font-medium mb-2">Industry Type</label>
                             <select id="industry_type" name="industry_type" class="form-select mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
@@ -34,7 +33,7 @@
                                 <option value="bank" {{ old('industry_type') == 'bank' ? 'selected' : '' }}>Bank</option>
                                 <option value="school" {{ old('industry_type') == 'school' ? 'selected' : '' }}>School</option>
                                 <option value="startup" {{ old('industry_type') == 'startup' ? 'selected' : '' }}>Startup</option>
-                                <option value="goverment" {{ old('industry_type') == 'goverment' ? 'selected' : '' }}>Gov</option>
+                                <option value="government" {{ old('industry_type') == 'government' ? 'selected' : '' }}>Gov</option>
                             </select>
                         </div>
 
@@ -53,6 +52,7 @@
                             <input type="text" id="phone_number" name="phone_number" placeholder="Enter Phone Number"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
+ 
                         <div>
                             <label for="contact" class="block text-gray-700 font-medium mb-2">Contact Person</label>
                             <input type="text" id="contact" name="contact" placeholder="Enter Contact Person"
@@ -63,6 +63,41 @@
                             <input type="file" id="image" name="image"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Enter Email"
+                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+
+                        <div>
+                            <label for="about" class="block text-gray-700 font-medium mb-2">About</label>
+                            <textarea id="about" name="about" placeholder="Enter About"
+                                class="form-textarea mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                        </div>
+
+                        <div>
+                            <label for="location" class="block text-gray-700 font-medium mb-2">Location</label>
+                            <input type="text" id="location" name="location" placeholder="Enter Location"
+                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+
+                        <div>
+                            <label for="offer_policy" class="block text-gray-700 font-medium mb-2">Offer Policy</label>
+                            <textarea id="offer_policy" name="offer_policy" placeholder="Enter Offer Policy"
+                                class="form-textarea mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                        </div>
+                        <div>
+                            <label for="founded" class="block text-gray-700 font-medium mb-2">Founded</label>
+                            <input type="date" id="founded" name="founded" placeholder="Enter Founded Date"
+                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+
+                        <div>
+                            <label for="hour_of_operation" class="block text-gray-700 font-medium mb-2">Hours of Operation</label>
+                            <input type="text" id="hour_of_operation" name="hour_of_operation" placeholder="Enter Hours of Operation"
+                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+
                     </div>
                 </form>
             </div>

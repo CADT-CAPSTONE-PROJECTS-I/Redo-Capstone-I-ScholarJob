@@ -10,7 +10,8 @@ class Organization extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'industry_type', 'website', 'address', 'phone_number', 'contact', 'image'
+        'name', 'industry_type', 'website', 'address', 'phone_number', 'contact', 'image',
+        'email','about','location', 'offer_policy','founded','hour_of_operation'
     ];
 
     public function jobs()

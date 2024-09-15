@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class OrganizationController extends Controller
 {
+
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -22,6 +23,7 @@ class OrganizationController extends Controller
 
         return view('organization.index', compact('organizations'));
     }
+
 
     public function create()
     {
@@ -37,6 +39,12 @@ class OrganizationController extends Controller
             'address' => 'required',
             'phone_number' => 'required',
             'contact' => 'required',
+            'email' => 'nullable|email',
+            'about' => 'nullable',
+            'location' => 'nullable',
+            'offer_policy' => 'nullable',
+            'founded' => 'nullable|date',
+            'hour_of_operation' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -51,6 +59,12 @@ class OrganizationController extends Controller
             'address' => $request->address,
             'phone_number' => $request->phone_number,
             'contact' => $request->contact,
+            'email' => $request->email,
+            'about' => $request->about,
+            'location' => $request->location,
+            'offer_policy' => $request->offer_policy,
+            'founded' => $request->founded,
+            'hour_of_operation' => $request->hour_of_operation,
             'image' => $imagePath ?? null,
         ]);
 
@@ -74,6 +88,12 @@ class OrganizationController extends Controller
             'address' => 'required',
             'phone_number' => 'required|string|max:15',
             'contact' => 'required',
+            'email' => 'nullable|email',
+            'about' => 'nullable',
+            'location' => 'nullable',
+            'offer_policy' => 'nullable',
+            'founded' => 'nullable|date',
+            'hour_of_operation' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -91,6 +111,12 @@ class OrganizationController extends Controller
             'address' => $request->address,
             'phone_number' => $request->phone_number,
             'contact' => $request->contact,
+            'email' => $request->email,
+            'about' => $request->about,
+            'location' => $request->location,
+            'offer_policy' => $request->offer_policy,
+            'founded' => $request->founded,
+            'hour_of_operation' => $request->hour_of_operation,
             'image' => $imagePath ?? $organization->image,
         ]);
 
