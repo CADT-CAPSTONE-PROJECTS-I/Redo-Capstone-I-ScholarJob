@@ -1,4 +1,4 @@
-import { axios } from "../import/all_import.jsx";
+import { appStore, axios } from "../import/all_import.jsx";
 
 const BASE_URL = "http://localhost:8000/api";
 

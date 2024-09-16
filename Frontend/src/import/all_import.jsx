@@ -41,24 +41,27 @@ export { default as CVGeneratePage } from "../components/cvGeneratePage.jsx";
 export { default as FillPersonal } from "../generate/fill_personal.jsx";
 export { default as FillSkill } from "../generate/fill_skill.jsx";
 export { default as FormCVPage } from "../generate/form_cv.jsx";
-export { default as ScholarshipDetail } from "../detailPages/schorlarship_details.jsx";
-export { default as DetailedJobPage } from "../CareerDetail/detail_page.jsx";
+export { default as ScholarshipDetail } from "../scholarshipDetail/schorlarship_details.jsx";
+export { default as DetailedJobPage } from "../careerDetail/detail_page.jsx";
 export { default as EditProfile } from "../profile/edit_profile.jsx";
 export { default as ViewProfile } from "../profile/view_profile.jsx";
 export { default as UnderlineTab } from "../activeTabs_Organization/UnderlineTabs.jsx";
-export { default as OrganizationDetail } from "../detailPages/organization_details.jsx";
+export { default as OrganizationDetail } from "../scholarshipDetail/organization_details.jsx";
 export { default as AboutUsTab } from "../activeTabs_Organization/aboutUs_tab.jsx";
 export { default as Offerings } from "../activeTabs_Organization/jobOfferings_tab.jsx";
-export { default as ApplyModalScholarship } from "../detailPages/apply_modal_scho.jsx";
+export { default as ApplyModalScholarship } from "../scholarshipDetail/apply_modal_scho.jsx";
 export { loginClient } from "../API/authentication_api.jsx";
 export { registerClient } from "../API/authentication_api.jsx";
 export { default as MessagePopup } from "../card/pop_up.jsx";
 export { getJobDetail } from "../API/career_api.jsx";
 export { cvClientApi } from "../API/cv_api.jsx";
 export { default as PopUpGen } from "../card/pop_up_general.jsx";
-export { default as ApplyModalJob } from "../CareerDetail/apply_modal_job.jsx";
+export { default as ApplyModalJob } from "../careerDetail/apply_modal_job.jsx";
 export { default as LoadingPage } from "../card/loading_page.jsx";
 export { getDataCVApi } from "../API/cv_api.jsx";
+export { default as UserDropdown } from "../card/dropdown_user.jsx";
+export { default as SeeMoreJobPage } from "../careerDetail/seeMoreJobsPage.jsx";
+export { default as SeeMoreScholarshipPage } from "../scholarshipDetail/seeMoreScholarshipsPage.jsx";
 
 //import of all icon and image
 export { default as FacebookIcon } from "../assets/icon/facebook_icon.jpg";
@@ -80,6 +83,7 @@ export { default as LoginImage } from "../assets/image/login_image.png";
 export { default as ImageDone } from "../assets/image/image_done.png";
 export { default as loadingImage } from "../assets/image/loading_image.png";
 export { default as homepageVector } from "../assets/image/homepage_vector.png";
+export { default as UserIcon } from "../assets/icon/user_icon.jpg";
 
 //import of all style css
 import "../styles/authenthication_style.css";

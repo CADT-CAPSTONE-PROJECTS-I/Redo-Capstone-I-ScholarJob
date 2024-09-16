@@ -9,6 +9,9 @@ const appStore = create((set, get) => ({
   topJobs: [],
   setTopJobs: (data) => set ({topJobs: data}),
 
+  topOrgs: [],
+  setTopOrgs: (data) => set ({topOrgs: data})
+,
   changePassword: false,
   setChangePassword: (data) => set({ changePassword: data }),
 
@@ -113,14 +116,32 @@ const appStore = create((set, get) => ({
   clientId: null,
   setClientId: (data) => set({ clientId: data }),
 
-  token: null,
-  setToken: (data) => set({ token: data }),
+  // token: null,
+  // setToken: (data) => set({ token: data }),
 
   isModalOpen: false,
   setIsModalOpen: (data) => set({ isModalOpen: data }),
 
   successModalOpen: false,
   setSuccessModalOpen: (data) => set({ successModalOpen: data }),
+
+  token: sessionStorage.getItem('token') || null, 
+  setToken: ( token) => {
+    sessionStorage.setItem('token', token);  
+  },
+
+  client_id: sessionStorage.getItem('clientId') || null, 
+  setClient_id: ( client_id) => {
+    sessionStorage.setItem('clientId', client_id);  
+  },
+
+  logout: () => {
+    sessionStorage.removeItem('token');  
+    set({ user: null, token: null }); 
+  },
+
+  loading: true,
+  setLoading: (data) => set({loading: data}),
 
 }));
 

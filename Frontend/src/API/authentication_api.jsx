@@ -13,7 +13,6 @@ export const registerClient = async (formData) => {
     sessionStorage.setItem('token', token);
     sessionStorage.setItem('clientId', id);
 
-    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Error registering client:', error.response?.data || error.message);
@@ -34,7 +33,6 @@ export const loginClient = async (formData) => {
     console.log('Stored token:', sessionStorage.getItem('token'));
     console.log('Stored clientId:', sessionStorage.getItem('clientId'));
 
-    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Error logging in:', error.response?.data || error.message);

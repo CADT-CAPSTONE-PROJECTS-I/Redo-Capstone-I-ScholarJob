@@ -3,9 +3,14 @@ import {
   ScholarJobLogoWhite,
   Link,
   Icon,
+  appStore,
+  useNavigate,
 } from "../import/all_import.jsx";
 
 const Footer = () => {
+  const navigate = useNavigate();
+  const {token, logout} = appStore();
+
   return (
     <footer className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white py-12 px-16">
       <div className="container mx-auto flex flex-wrap justify-between">
@@ -107,22 +112,40 @@ const Footer = () => {
               Stay up to date on the latest from ScholarJob
             </p>
           </div>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter your email address"
-            className="input-group__input w-full border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200 text-white placeholder-white"
-            required
-          />
-          <button
-            type="bottom"
-            onClick={() => {
-              navigate("/register");
-            }}
-            className=" mt-4 text-white py-3 px-9 rounded-md bg-customTeal text-sm hover:bg-customTeal-dark "
-          >
-            SIGN UP
-          </button>
+          {token !== null ? (
+            <div className="flex flex-col items-center">
+              <p>Good luck with your new job.</p>
+              <button
+                type="bottom"
+                onClick={() => {
+                  logout();
+                  Navigate("/login");
+                }}
+                className=" mt-4 text-white py-3 px-9 rounded-md bg-customTeal text-sm hover:bg-customTeal-dark "
+              >
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <div>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email address"
+                className="input-group__input w-full border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200 text-white placeholder-white"
+                required
+              />
+              <button
+                type="bottom"
+                onClick={() => {
+                  navigate("/register");
+                }}
+                className=" mt-4 text-white py-3 px-9 rounded-md bg-customTeal text-sm hover:bg-customTeal-dark "
+              >
+                SIGN UP
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
