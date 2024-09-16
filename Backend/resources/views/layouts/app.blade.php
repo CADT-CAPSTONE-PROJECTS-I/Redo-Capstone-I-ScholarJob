@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
 
-    <!-- Vite -->
+    <!-- Vite Assets -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -63,12 +62,6 @@
 
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            {{-- <!-- Brand Logo -->
-            <a href="{{ route('dashboard') }}" class="brand-link">
-                <img src="{{ asset('path_to_logo') }}" alt="Logo" class="brand-image img-circle elevation-3">
-                <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span>
-            </a> --}}
-
             <!-- Sidebar -->
             @include('layouts.navigation')
         </aside>
@@ -107,11 +100,6 @@
 
         <!-- Main Footer -->
         <footer class="main-footer">
-            <!-- <strong>&copy; {{ date('Y') }} <a href="{{ url('/') }}">{{ config('app.name', 'ScholarJob') }}</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.0.0
-            </div> -->
         </footer>
     </div>
 

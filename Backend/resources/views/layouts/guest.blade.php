@@ -7,6 +7,8 @@
     <link rel="icon" href="{{ asset('image/scholarJob_logo_green.png') }}" type="image/png">
     <title>ScholarJob</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- <link rel="stylesheet" href="{{ asset('build/assets/app.css') }}">
+    <script src="{{ asset('build/assets/app.js') }}" defer></script> --}}
 </head>
 
     <body>
