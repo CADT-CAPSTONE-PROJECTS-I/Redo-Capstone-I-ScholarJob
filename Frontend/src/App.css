@@ -1,0 +1,4 @@
+
+.btn {
+    @apply transform transition-all duration-300;
+  }

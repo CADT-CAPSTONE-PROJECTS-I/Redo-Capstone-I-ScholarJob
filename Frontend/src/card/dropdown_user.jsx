@@ -49,7 +49,7 @@ const UserDropdown = () => {
       </button>
 
       {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2">
+        <div className="absolute right-0 mt-2 border w-48 bg-white rounded-md shadow-lg py-2">
           <button
             onClick={handleProfileClick}
             className="flex items-center space-x-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-customTeal hover:text-white"
@@ -57,6 +57,9 @@ const UserDropdown = () => {
             <Icon icon="healthicons:ui-user-profile" className="size-6" />
             <span>Profile</span>
           </button>
+          <div className="flex justify-center px-4">
+            <div className="flex-grow border"></div>
+          </div>
           <button
             onClick={handleLogoutClick}
             className="flex items-center space-x-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-customTeal hover:text-white"

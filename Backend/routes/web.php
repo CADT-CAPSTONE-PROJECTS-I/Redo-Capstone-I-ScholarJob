@@ -116,7 +116,13 @@ Route::prefix('organization')->name('organizations.')->group(function () {
 Route::prefix('about')->name('about.')->group(function () {
     Route::get('/', [AboutUsController::class, 'index'])->name('index');
     Route::post('/', [AboutUsController::class, 'storeOrUpdate'])->name('storeOrUpdate');
+    // Route::post('/', [AboutUsController::class, 'storeTeam'])->name('storeTeam');
 });
+    Route::post('/team/store', [AboutUsController::class, 'storeTeam'])->name('team.store');
+    Route::get('/team/show/{id}', [AboutUsController::class, 'showTeam'])->name('team.edit');
+    Route::post('/team/update/{id}', [AboutUsController::class, 'updateTeam'])->name('team.update'); 
+
+
 
 // Application Routes
 Route::prefix('application')->name('applications.')->group(function () {

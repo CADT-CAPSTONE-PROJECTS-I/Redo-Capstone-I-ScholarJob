@@ -20,15 +20,7 @@ const DetailedJobPage = () => {
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const {
-    clientId,
-    setClientId,
-    setIsPopupOpen,
-    isPopupOpen,
-    message,
-    isModalOpen,
-    setIsModalOpen,
-  } = appStore();
+  const { setIsPopupOpen, isPopupOpen, message, isModalOpen , setIsModalOpen, token, clientId } = appStore();
 
   useEffect(() => {
     const fetchJobDetail = async () => {
@@ -36,10 +28,6 @@ const DetailedJobPage = () => {
         const data = await getJobDetail(jobId);
         setJob(data);
         setLoading(false);
-
-        const storedClientId = localStorage.getItem("clientId");
-        console.log("Stored Client ID:", storedClientId);
-        setClientId(storedClientId);
       } catch (err) {
         setError(err.message);
         setLoading(false);
@@ -50,18 +38,14 @@ const DetailedJobPage = () => {
   }, [jobId]);
 
   const handleApplyNowClick = () => {
-    if (message !== "Login successful!") {
-      setIsPopupOpen(true);
-      setIsModalOpen(false);
-    } else {
+    if (token !== null) {
       setIsModalOpen(true);
+    } else {
+      setIsModalOpen(false);
     }
-
-    // if (!clientId) {
-    //   alert("Please log in to apply.");
-    //   return;
-    // }
-    // setIsModalOpen(true);
+    if(token === null){
+      setIsPopupOpen(true);
+    }
   };
 
   const handleCloseModal = () => {
@@ -86,7 +70,7 @@ const DetailedJobPage = () => {
         <Navbar />
       </header>
 
-      <div className="max-w-screen-lg mx-auto p-8 bg-white shadow-lg rounded-lg mt-6">
+      <div className="max-w-screen-lg  mx-auto p-8 bg-white shadow-lg rounded-lg mt-12">
         <div className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white p-6 rounded mb-8">
           <div className="flex items-center">
             <img

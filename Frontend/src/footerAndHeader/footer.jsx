@@ -9,7 +9,15 @@ import {
 
 const Footer = () => {
   const navigate = useNavigate();
-  const {token, logout} = appStore();
+  const {token, logout, formData, setFormData} = appStore();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  }
 
   return (
     <footer className="bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white py-12 px-16">
@@ -119,9 +127,9 @@ const Footer = () => {
                 type="bottom"
                 onClick={() => {
                   logout();
-                  Navigate("/login");
+                  navigate("/login");
                 }}
-                className=" mt-4 text-white py-3 px-9 rounded-md bg-customTeal text-sm hover:bg-customTeal-dark "
+                className=" mt-4 text-white py-3 px-9 font-bold rounded-md bg-customTeal text-sm border shadow-md hover:border hover:border-white hover:text-white hover:bg-gradient-to-tl hover:from-customTeal-light/50 hover:to-customTeal-dark/80 "
               >
                 Log Out
               </button>
@@ -131,6 +139,9 @@ const Footer = () => {
               <input
                 type="email"
                 id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="Enter your email address"
                 className="input-group__input w-full border-b-2 border-gray-300 focus:outline-none focus:border-customTeal transition duration-200 text-white placeholder-white"
                 required

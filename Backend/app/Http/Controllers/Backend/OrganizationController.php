@@ -6,10 +6,11 @@ use App\Models\Organization;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreOrUpdateOrganizationRequest; 
 
 class OrganizationController extends Controller
-{
 
+{
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -24,115 +25,66 @@ class OrganizationController extends Controller
         return view('organization.index', compact('organizations'));
     }
 
-
     public function create()
     {
+    
         return view('organization.create');
     }
-
-    public function store(Request $request)
+    
+    public function store(StoreOrUpdateOrganizationRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'industry_type' => 'nullable',
-            'website' => 'nullable',
-            'address' => 'required',
-            'phone_number' => 'required',
-            'contact' => 'required',
-            'email' => 'nullable|email',
-            'about' => 'nullable',
-            'location' => 'nullable',
-            'offer_policy' => 'nullable',
-            'founded' => 'nullable|date',
-            'hour_of_operation' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        $validatedData = $request->validated();
+        
+        try {
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->move(public_path('image'), $request->file('image')->getClientOriginalName());
+                $validatedData['image'] = 'image/' . $request->file('image')->getClientOriginalName();
+            }
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images/organizations', 'public');
+            Organization::create($validatedData);
+
+            return redirect()->route('organizations.index')->with('success', 'Organization created successfully.');
+        } catch (\Exception $e) {
+            return back()->withInput()->with('error', 'Failed to create Organization. Please try again.');
         }
-
-        Organization::create([
-            'name' => $request->name,
-            'industry_type' => $request->industry_type,
-            'website' => $request->website,
-            'address' => $request->address,
-            'phone_number' => $request->phone_number,
-            'contact' => $request->contact,
-            'email' => $request->email,
-            'about' => $request->about,
-            'location' => $request->location,
-            'offer_policy' => $request->offer_policy,
-            'founded' => $request->founded,
-            'hour_of_operation' => $request->hour_of_operation,
-            'image' => $imagePath ?? null,
-        ]);
-
-        return redirect()->route('organizations.index')->with('success', 'Organization created successfully!');
     }
 
     public function show($id)
     {
         $organization = Organization::findOrFail($id);
-        return view('organization.edit', compact('organization'));
+        
+        return view('organization.edit',compact('organization'));
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreOrUpdateOrganizationRequest $request, $id)
     {
-        $organization = Organization::findOrFail($id);
+        $validatedData = $request->validated();
 
-        $request->validate([
-            'name' => 'required',
-            'industry_type' => 'nullable',
-            'website' => 'nullable',
-            'address' => 'required',
-            'phone_number' => 'required|string|max:15',
-            'contact' => 'required',
-            'email' => 'nullable|email',
-            'about' => 'nullable',
-            'location' => 'nullable',
-            'offer_policy' => 'nullable',
-            'founded' => 'nullable|date',
-            'hour_of_operation' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-        if ($request->hasFile('image')) {
-            if ($organization->image) {
-                Storage::disk('public')->delete($organization->image);
+        try {
+            $organization = Organization::findOrFail($id);
+            
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->move(public_path('image'), $request->file('image')->getClientOriginalName());
+                $validatedData['image'] = 'image/' . $request->file('image')->getClientOriginalName();
             }
-            $imagePath = $request->file('image')->store('images/organizations', 'public');
+
+            $organization->update($validatedData);
+
+            return redirect()->route('organizations.index')->with('success', 'organization updated successfully.');
+        } catch (\Exception $e) {
+            return back()->withInput()->with('error', 'Failed to update organization. Please try again.');
         }
-
-        $organization->update([
-            'name' => $request->name,
-            'industry_type' => $request->industry_type,
-            'website' => $request->website,
-            'address' => $request->address,
-            'phone_number' => $request->phone_number,
-            'contact' => $request->contact,
-            'email' => $request->email,
-            'about' => $request->about,
-            'location' => $request->location,
-            'offer_policy' => $request->offer_policy,
-            'founded' => $request->founded,
-            'hour_of_operation' => $request->hour_of_operation,
-            'image' => $imagePath ?? $organization->image,
-        ]);
-
-        return redirect()->route('organizations.index')->with('success', 'Organization updated successfully!');
     }
 
     public function destroy($id)
     {
-        $organization = Organization::findOrFail($id);
-
-        if ($organization->image) {
-            Storage::disk('public')->delete($organization->image);
+        try {
+            $organization = Organization::findOrFail($id);
+            $organization->delete();
+            return redirect()->route('organizations.index')->with('success', 'organization deleted successfully.');
+        } catch (\Exception $e) {
+            
+            return back()->with('error', 'Failed to delete organization. Please try again.');
         }
-
-        $organization->delete();
-
-        return redirect()->route('organizations.index')->with('success', 'Organization deleted successfully!');
     }
 }

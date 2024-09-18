@@ -7,6 +7,9 @@ use App\Http\Controllers\API\ApplicationController;
 use App\Http\Controllers\API\ResumeController;
 use App\Http\Controllers\API\HomepageController;
 use App\Http\Controllers\API\OrganizationController;
+use App\Http\Controllers\Api\AboutUsController;
+use App\Http\Controllers\Api\TeamController;
+
 
 
 
@@ -36,3 +39,6 @@ Route::get('urgent/job',[HomepageController::class, 'ListUrgentJobs']);
 Route::get('organization/list',[OrganizationController::class, 'list']);
 Route::get('organization/detail/{id}',[OrganizationController::class, 'detail']);
 Route::get('/organization/list/all', [OrganizationController::class, 'listAll']);
+
+Route::get('about-us', [AboutUsController::class, 'index']);
+Route::get('team-members', [TeamController::class, 'index']);

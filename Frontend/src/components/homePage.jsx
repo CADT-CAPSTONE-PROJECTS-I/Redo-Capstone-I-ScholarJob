@@ -1,3 +1,4 @@
+import { Button } from "@material-tailwind/react";
 import {
   React,
   Navbar,
@@ -11,16 +12,19 @@ import {
   useEffect,
   ScholarJobLogoGreen,
   homepageVector,
+  LoadingPage,
 } from "../import/all_import.jsx";
 
 const HomePage = () => {
-  const { topUniversities, setTopUniversities } = appStore();
+  const { topUniversities, setTopUniversities, loading, setLoading } =
+    appStore();
 
   const BASE_URL = "https://dev-career.cammob.ovh/capstone/Backend/public/api";
   // Fetch Top 10 Universities (Example using Axios)
   useEffect(() => {
     const fetchTopUniversities = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(`${BASE_URL}/scholarship/list`);
         console.log(response.data); // Debugging the API response structure
 
@@ -28,13 +32,19 @@ const HomePage = () => {
         const universities = response.data.data;
         // Set top universities to the first 10 items
         setTopUniversities(universities.slice(0, 10));
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching universities:", error);
+        setLoading(false);
       }
     };
 
     fetchTopUniversities();
   }, []);
+
+  if (loading) {
+    <LoadingPage />;
+  }
 
   const { topJobs, setTopJobs } = appStore(); // State for the top universities
   useEffect(() => {
@@ -77,12 +87,16 @@ const HomePage = () => {
     window.scrollTo(0, 0);
   };
 
+  const scrollToTop10 = () => {
+    window.scrollTo({ top: "520", behavior: "smooth" });
+  };
+
   return (
     <div>
       <header className="p-12">
         <Navbar />
       </header>
-      <section className="relative items-center flex min-h-[200px] mx-16 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white">
+      <section className="relative items-center flex min-h-[200px] mx-16 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 rounded-lg text-white">
         <div className="flex container mx-auto">
           <div className="mt-10">
             <div className="ml-16 text-5xl font-bold mb-10">
@@ -97,12 +111,12 @@ const HomePage = () => {
 
             {/* Move the button below the text */}
             <div className="ml-16 mt-10">
-              <Link
-                to="/register"
-                className="text-customTeal font-semibold bg-white focus:outline-none font-sm rounded-lg text-lg px-5 py-3"
+              <Button
+                onClick={scrollToTop10}
+                className="text-customTeal font-semibold shadow-lg bg-white focus:outline-none font-sm rounded-lg text-lg px-5 py-3 border hover:border hover:border-white hover:text-white hover:bg-gradient-to-tl hover:from-customTeal-light/50 hover:to-customTeal-dark/80"
               >
-                Register now!
-              </Link>
+                Explore Now!
+              </Button>
             </div>
           </div>
 
@@ -130,43 +144,41 @@ const HomePage = () => {
       </section>
 
       {/* Top 10 for Jobs  */}
-      <section className="mt-6">
-        <div className="w-[1400px] m-auto ">
+      <section className="mt-6 mx-16">
+        <div className="w-full m-auto ">
           <div className="flex justify-between mb-4">
-            <div className="font-bebas tracking-widest  mb-[-16px] bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg w-[230px] flex justify-center items-center text-white font-medium text-xl">
+            <div className="font-bebas tracking-widest  mb-[-16px] bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg flex px-8 justify-center items-center text-white font-medium text-xl">
               Top 10 jobs
             </div>
-          <Link
-            to={`/morejobs`}
-            onClick={scrollToTop}
-          >
-            <button className="font-bebas tracking-widest translate-y-5 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[30px] rounded-t-lg w-[130px] flex justify-center items-center text-white font-medium text-lg cursor-pointer">
-              more
-            </button>
-            </Link>
+            <div>
+              <Link to={`/morejobs`} onClick={scrollToTop}>
+                <button className="font-bebas tracking-widest translate-y-5 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[30px] rounded-t-lg w-[130px] flex justify-center items-center text-white font-medium text-md cursor-pointer hover:bg-gradient-to-br">
+                  See more
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
 
         {/* Scrollable container */}
-        <div className="shadow-2xl rounded-b-lg h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
+        <div className="border-l h-[290px] border-gray-500 border-r overflow-x-scroll no-scrollbar w-full m-auto bg-gray-200">
           <ul className="list-none" onClick={scrollToTop}>
-            <div className="flex mt-3">
+            <div className="flex">
               {topJobs.map((job) => (
                 <li
                   key={job.id}
-                  className="w-60 h-100 mx-3 bg-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0"
+                  className="w-52 h-100 ml-4 my-4 border bg-white border-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0 transition transfom-transition hover:scale-105 hover:border-2 hover:border-customTeal"
                 >
                   <Link to={`/career/${job.id}`}>
-                    <div className="flex items-center justify-center h-[270px] p-2">
+                    <div className="flex items-center justify-center h-[200px] p-2">
                       <img
-                        src={job.image_url || ScholarJobLogoGreen} // Adjust according to your API data structure
+                        src={job.image_url || ScholarJobLogoGreen}
                         className="w-full h-full object-contain rounded-lg border border-gray-300"
                       />
                     </div>
-                    <div className="p-2 bg-gray-200">
-                      <h2 className="text-center h-[55px] text-lg font-semibold text-gray-600">
+                    <div className=" bg-white flex justify-center ">
+                      <h2 className="h-[55px] text-lg font-semibold text-gray-600">
                         {job.title}{" "}
-                        {/* Adjust according to your API data structure */}
                       </h2>
                     </div>
                   </Link>
@@ -178,42 +190,41 @@ const HomePage = () => {
       </section>
 
       {/* Top 10 Universities Section */}
-      <section className="mt-6">
-      <div className="w-[1400px] m-auto ">
+      <section className="mt-6 mx-16">
+        <div className="w-full m-auto ">
           <div className="flex justify-between mb-4">
-            <div className="font-bebas tracking-widest  mb-[-16px] bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg w-[230px] flex justify-center items-center text-white font-medium text-xl">
+            <div className="font-bebas tracking-widest  mb-[-16px] bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg flex px-8 justify-center items-center text-white font-medium text-xl">
               Top 10 scholarships
             </div>
-          <Link
-            to={`/morescholarships`}
-            onClick={scrollToTop}
-          >
-            <button className="font-bebas tracking-widest translate-y-5 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[30px] rounded-t-lg w-[130px] flex justify-center items-center text-white font-medium text-lg cursor-pointer">
-              more
-            </button>
-            </Link>
+            <div>
+              <Link to={`/morescholarships`} onClick={scrollToTop}>
+                <button className="font-bebas tracking-widest translate-y-5 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[30px] rounded-t-lg w-[130px] flex justify-center items-center text-white font-medium text-md cursor-pointer hover:bg-gradient-to-br">
+                  See more
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
 
         {/* Scrollable container */}
-        <div className="shadow-2xl rounded-b-lg h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
+        <div className="border-l h-[290px] border-gray-500 border-r overflow-x-scroll no-scrollbar w-full m-auto bg-gray-200">
           <ul className="list-none" onClick={scrollToTop}>
-            <div className="flex mt-3">
+            <div className="flex">
               {topUniversities.map((university) => (
                 <li
                   key={university.id}
-                  className="w-60 h-100 mx-3 bg-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0"
+                  className="w-52 h-100 ml-4 my-4 border bg-white border-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0 transition transfom-transition hover:scale-105 hover:border-2 hover:border-customTeal"
                 >
                   <Link to={`/scholarship/detail/${university.id}`}>
-                    <div className="flex items-center justify-center h-[270px] p-2">
+                    <div className="flex items-center justify-center h-[200px] p-2">
                       <img
                         src={university.image_url} // Adjust according to your API data structure
                         alt={university.title}
                         className="w-full h-full object-contain rounded-lg border border-gray-300"
                       />
                     </div>
-                    <div className="p-2 bg-gray-200">
-                      <h2 className="text-center h-[55px] text-lg font-semibold text-gray-600">
+                    <div className=" bg-white flex justify-center ">
+                      <h2 className="h-[55px] text-lg font-semibold text-gray-600">
                         {university.major}{" "}
                         {/* Adjust according to your API data structure */}
                       </h2>
@@ -227,44 +238,42 @@ const HomePage = () => {
       </section>
 
       {/* Jobs Organization */}
-      <section className="mt-6">
-      <div className="w-[1400px] m-auto ">
+      <section className="mt-6 mx-16">
+        <div className="w-full m-auto ">
           <div className="flex justify-between mb-4">
-            <div className="font-bebas tracking-widest  mb-[-16px] bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg w-[230px] flex justify-center items-center text-white font-medium text-xl">
-            Our Partners
+            <div className="font-bebas tracking-widest  mb-[-16px] bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg flex px-8 justify-center items-center text-white font-medium text-xl">
+              Our Partners
             </div>
-          <Link
-            to={`/moresorganizations`}
-            onClick={scrollToTop}
-          >
-            <button className="font-bebas tracking-widest translate-y-5 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[30px] rounded-t-lg w-[130px] flex justify-center items-center text-white font-medium text-lg cursor-pointer">
-              more
-            </button>
-            </Link>
+            <div>
+              <Link to={`/moresorganizations`} onClick={scrollToTop}>
+                <button className="font-bebas tracking-widest translate-y-5 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[30px] rounded-t-lg w-[130px] flex justify-center items-center text-white font-medium text-md cursor-pointer hover:bg-gradient-to-br">
+                  See more
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
 
         {/* Scrollable container */}
-        <div className="shadow-2xl rounded-b-lg h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
+        <div className="border-l h-[290px] border-gray-500 border-r overflow-x-scroll no-scrollbar w-full m-auto bg-gray-200">
           <ul className="list-none" onClick={scrollToTop}>
-            <div className="flex mt-3">
+            <div className="flex">
               {topOrgs.map((organization) => (
                 <li
-                  key={topOrgs.id}
-                  className="w-60 h-100 mx-3 bg-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0"
+                  key={organization.id}
+                  className="w-52 h-100 ml-4 my-4 border bg-white border-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0 transition-transform transform duration-300 hover:scale-105 hover:border-2 hover:border-customTeal"
                 >
                   <Link to={`/organization/detail/${organization.id}`}>
-                    <div className="flex items-center justify-center h-[270px] p-2">
+                    <div className="flex items-center justify-center h-[200px] p-2">
                       <img
-                        src={organization.image_url || ScholarJobLogoGreen}// Adjust according to your API data structure
+                        src={organization.image_url || ScholarJobLogoGreen} // Adjust according to your API data structure
                         alt={organization.name}
                         className="w-full h-full object-contain rounded-lg border border-gray-300"
                       />
                     </div>
-                    <div className="p-2 bg-gray-200">
-                      <h2 className="text-center h-[55px] text-lg font-semibold text-gray-600">
+                    <div className="bg-white flex justify-center p-2">
+                      <h2 className="h-[40px] text-lg font-semibold text-gray-600 text-center">
                         {organization.name}{" "}
-                        
                       </h2>
                     </div>
                   </Link>
@@ -283,8 +292,8 @@ const HomePage = () => {
           </div>
         </div> */}
 
-        {/* Scrollable container */}
-        {/* <div className="shadow-2xl rounded-b-lg mt-10 h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
+      {/* Scrollable container */}
+      {/* <div className="shadow-2xl rounded-b-lg mt-10 h-[370px] overflow-x-scroll no-scrollbar w-[1400px] m-auto bg-gray-200">
           <li className="list-none" onClick={scrollToTop}>
             <Link to={`/scholarship/organization`}>
               <div className="flex mt-3">
@@ -322,7 +331,7 @@ const HomePage = () => {
         </p>
       </div>
 
-      <section className="w-[1400px] m-auto mt-8 flex justify-evenly mb-8">
+      <section className="w-full m-auto mt-8 flex justify-evenly">
         <div>
           <div className="w-80 h-48 overflow-hidden rounded-lg">
             <img
@@ -374,7 +383,9 @@ const HomePage = () => {
         </div>
       </section>
 
-      <Footer />
+      <footer className="mt-12">
+        <Footer />
+      </footer>
     </div>
   );
 };

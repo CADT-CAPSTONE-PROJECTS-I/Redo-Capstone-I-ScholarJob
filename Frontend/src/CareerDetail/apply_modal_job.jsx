@@ -13,9 +13,7 @@ const ApplyModalJob = ({ isOpen, onClose, jobId }) => {
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState("pending");
   const [isLoading, setIsLoading] = useState(false);
-  const { successModalOpen, setSuccessModalOpen } = appStore();
-
-  const clientId = localStorage.getItem("clientId");
+  const { successModalOpen, setSuccessModalOpen, clientId } = appStore();
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -70,11 +68,11 @@ const ApplyModalJob = ({ isOpen, onClose, jobId }) => {
       <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
         <form className="bg-white p-4 rounded-lg" onSubmit={handleSubmit}>
           <div className="flex justify-between items-center relative">
-            <button className="tooltip">
+            <button className="tooltip text-red-500 transition transform-transition duration-300 hover:scale-110 hover:text-red-600">
               <Icon
                 icon={"ic:round-close"}
                 onClick={onClose}
-                className="text-red-500  size-6 cursor-pointer "
+                className="  size-6 cursor-pointer "
               />
               <div class="tooltiptext">Close</div>
             </button>

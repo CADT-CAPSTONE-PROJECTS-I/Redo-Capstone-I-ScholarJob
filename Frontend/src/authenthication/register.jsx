@@ -244,33 +244,37 @@ const Register = () => {
             </div>
 
             <div className="flex justify-center space-x-4 mb-8">
-              <button className="bg-white">
+            <button className="bg-white tooltip transform transition-transform duration-300 hover:scale-110">
                 <img
                   src={FacebookIcon}
                   alt="Facebook"
                   className="rounded-full border border-blue-500 w-8 h-8"
                 />
+                <div className="tooltiptext">Facebook</div>
               </button>
-              <button className="bg-white">
+              <button className="bg-white tooltip transform transition-transform duration-300 hover:scale-110">
                 <img
                   src={GoogleIcon}
                   alt="Google"
                   className="p-2 rounded-full border bg-gray-5 0 border--200 w-9 h-9"
                 />
+                <div className="tooltiptext">Google</div>
               </button>
-              <button className="bg-white">
+              <button className="bg-white tooltip transform transition-transform duration-300 hover:scale-110">
                 <img
                   src={InstargramIcon}
                   alt="Instagram"
                   className="rounded-full border border-red-200 w-9 h-9"
                 />
+                <div className="tooltiptext">Instargram</div>
               </button>
-              <button className="bg-white">
+              <button className="bg-white tooltip transform transition-transform duration-300 hover:scale-110">
                 <img
                   src={LinkedInIcon}
                   alt="LinkedIn"
                   className="rounded-full border border-blue-300 w-9 h-9"
                 />
+                <div className="tooltiptext">LinkedIn</div>
               </button>
             </div>
           </div>
