@@ -11,7 +11,8 @@ import {
   MessagePopup,
   LoginImage,
   LoadingPage,
-  Footer
+  Footer,
+  // RelatedJobs,
 } from "../import/all_import.jsx";
 
 const DetailedJobPage = () => {
@@ -19,7 +20,15 @@ const DetailedJobPage = () => {
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { clientId, setClientId, setIsPopupOpen, isPopupOpen, message, isModalOpen , setIsModalOpen } = appStore();
+  const {
+    clientId,
+    setClientId,
+    setIsPopupOpen,
+    isPopupOpen,
+    message,
+    isModalOpen,
+    setIsModalOpen,
+  } = appStore();
 
   useEffect(() => {
     const fetchJobDetail = async () => {
@@ -47,7 +56,7 @@ const DetailedJobPage = () => {
     } else {
       setIsModalOpen(true);
     }
-    
+
     // if (!clientId) {
     //   alert("Please log in to apply.");
     //   return;
@@ -60,7 +69,7 @@ const DetailedJobPage = () => {
   };
 
   if (loading) {
-    return <LoadingPage/>;
+    return <LoadingPage />;
   }
 
   if (error) {
@@ -68,7 +77,7 @@ const DetailedJobPage = () => {
   }
 
   if (!job) {
-    return <LoadingPage/>;
+    return <LoadingPage />;
   }
 
   return (
@@ -117,7 +126,11 @@ const DetailedJobPage = () => {
                 Age Requirement: {job.age_require}
               </div>
               <div className="border-b border-gray-300 pb-2">
-                Job Description:<div className="bg-white" dangerouslySetInnerHTML={{ __html: job.description }} />
+                Job Description:
+                <div
+                  className="bg-white"
+                  dangerouslySetInnerHTML={{ __html: job.description }}
+                />
               </div>
             </div>
           </div>
@@ -152,7 +165,10 @@ const DetailedJobPage = () => {
               Job's Responsibilities
             </h2>
           </div>
-          <div className="bg-white p-4" dangerouslySetInnerHTML={{ __html: job.responsible }} />
+          <div
+            className="bg-white p-4"
+            dangerouslySetInnerHTML={{ __html: job.responsible }}
+          />
         </div>
 
         <div className="border border-gray-300 rounded mb-8">
@@ -180,8 +196,12 @@ const DetailedJobPage = () => {
             Apply Now!
           </button>
         </div>
+
+        
+          {/* <RelatedJobs /> */}
         
       </div>
+
       <br />
       <footer>
         <Footer />
@@ -200,8 +220,6 @@ const DetailedJobPage = () => {
         />
       )}
     </div>
-    
-
   );
 };
 

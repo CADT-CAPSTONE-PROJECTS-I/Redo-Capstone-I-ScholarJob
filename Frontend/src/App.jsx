@@ -16,6 +16,7 @@ import {
   ViewProfile,
   SeeMoreJobPage,
   SeeMoreScholarshipPage,
+  SeeMoreOrganizationPage,
 } from "./import/all_import.jsx";
 
 const App = () => {
@@ -92,6 +93,10 @@ const App = () => {
         {
           path: "/morescholarships",
           element:<SeeMoreScholarshipPage/>
+        },
+        {
+          path: "/moresorganizations",
+          element:<SeeMoreOrganizationPage/>
         },
       ],
     },

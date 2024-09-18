@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8000/api';
+const BASE_URL = 'https://dev-career.cammob.ovh/capstone/Backend/public/api';
 
 export const getJobs = async (filters = {}, page = 1, per_page = 10) => {
   try {

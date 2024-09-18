@@ -3,6 +3,9 @@ import { create } from "zustand";
 const appStore = create((set, get) => ({
   // scholarship: [],
   // setScholarship: (data) => set({ scholarship: data }),
+  relatedJobs: [],
+  setRelatedJobs: (jobs) => set({ relatedJobs: jobs }),
+
   topUniversities: [],
   setTopUniversities: (data) => set ({topUniversities: data}),
 

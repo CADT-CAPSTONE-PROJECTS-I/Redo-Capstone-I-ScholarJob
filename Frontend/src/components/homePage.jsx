@@ -16,7 +16,7 @@ import {
 const HomePage = () => {
   const { topUniversities, setTopUniversities } = appStore();
 
-  const BASE_URL = "http://localhost:8000/api";
+  const BASE_URL = "https://dev-career.cammob.ovh/capstone/Backend/public/api";
   // Fetch Top 10 Universities (Example using Axios)
   useEffect(() => {
     const fetchTopUniversities = async () => {
@@ -234,7 +234,7 @@ const HomePage = () => {
             Our Partners
             </div>
           <Link
-            to={`/morescholarships`}
+            to={`/moresorganizations`}
             onClick={scrollToTop}
           >
             <button className="font-bebas tracking-widest translate-y-5 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[30px] rounded-t-lg w-[130px] flex justify-center items-center text-white font-medium text-lg cursor-pointer">
@@ -322,7 +322,7 @@ const HomePage = () => {
         </p>
       </div>
 
-      <section className="w-[1400px] m-auto mt-8 flex justify-evenly">
+      <section className="w-[1400px] m-auto mt-8 flex justify-evenly mb-8">
         <div>
           <div className="w-80 h-48 overflow-hidden rounded-lg">
             <img

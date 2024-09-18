@@ -4,6 +4,7 @@ import {
   CadtLogo,
   Link,
   appStore,
+  ScholarJobLogoGreen,
   Icon,
 } from "../import/all_import.jsx";
 
@@ -11,7 +12,7 @@ const Offerings = () => {
   const scholarship = Array.from({ length: 30 }, (_, index) => ({
     url: "cadt",
     school_name: "Cambodia Academy & Digital Technology",
-    image: index % 3 === 0 ? HarvardUniverity : CadtLogo,
+    image: index % 3 === 0 ? HarvardUniverity : index % 3 === 1 ? CadtLogo : ScholarJobLogoGreen ,
     degree: "Master Degree",
     duration: 3.5,
     location: "Phnom Penh",

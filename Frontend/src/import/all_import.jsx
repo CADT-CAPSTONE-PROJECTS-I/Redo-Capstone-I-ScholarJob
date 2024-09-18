@@ -62,6 +62,9 @@ export { getDataCVApi } from "../API/cv_api.jsx";
 export { default as UserDropdown } from "../card/dropdown_user.jsx";
 export { default as SeeMoreJobPage } from "../careerDetail/seeMoreJobsPage.jsx";
 export { default as SeeMoreScholarshipPage } from "../scholarshipDetail/seeMoreScholarshipsPage.jsx";
+export { default as SeeMoreOrganizationPage } from "../scholarshipDetail/seeMoreOrganizationPage.jsx";
+// export { getRelatedJobs } from "../API/relatedJobs_api.jsx";
+// export { default as RelatedJobs } from "../CareerDetail/relatedJobs.jsx";
 
 //import of all icon and image
 export { default as FacebookIcon } from "../assets/icon/facebook_icon.jpg";

@@ -25,7 +25,7 @@ const ScholarshipDetailPage = () => {
     const fetchScholarshipDetail = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/scholarship/detail/${id}`
+          `https://dev-career.cammob.ovh/capstone/Backend/public/api/scholarship/detail/${id}`
         );
         setScholarship(response.data.data);
         setLoading(false);

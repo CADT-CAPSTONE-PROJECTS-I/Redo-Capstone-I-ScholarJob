@@ -27,7 +27,7 @@ const ScholarshipPage = () => {
   const fetchScholarships = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:8000/api/scholarship/list', {
+      const response = await axios.get('https://dev-career.cammob.ovh/capstone/Backend/public/api/scholarship/list', {
         params: {
           page: currentPage,
           per_page: itemsPerPage,

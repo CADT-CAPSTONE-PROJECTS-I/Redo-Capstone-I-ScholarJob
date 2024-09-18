@@ -23,7 +23,7 @@ const OrganizationDetails = () => {
     const fetchOrganizationDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/organization/detail/${id}`
+          `https://dev-career.cammob.ovh/capstone/Backend/public/api/organization/detail/${id}`
         );
         if (response.data.status) {
           setOrganization(response.data.data); // Update organization state with fetched data

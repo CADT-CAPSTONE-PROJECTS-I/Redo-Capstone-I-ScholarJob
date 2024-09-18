@@ -10,7 +10,7 @@ import {
 } from "../import/all_import.jsx";
 
 const seeMoreJobPage = () => {
-  const BASE_URL = "http://localhost:8000/api";
+  const BASE_URL = "https://dev-career.cammob.ovh/capstone/Backend/public/api";
   const { topJobs, setTopJobs } = appStore(); // State for the top universities
 
   useEffect(() => {
