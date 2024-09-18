@@ -14,12 +14,18 @@ class StoreOrUpdateOrganizationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'industry_type' => 'nullable|string|max:255',
-            'website' => 'nullable|url',
-            'address' => 'required|string',
+            'name' => 'required',
+            'industry_type' => 'nullable',
+            'website' => 'nullable',
+            'address' => 'required',
             'phone_number' => 'required|string|max:15',
-            'contact' => 'required|string',
+            'contact' => 'required',
+            'email' => 'nullable|email',
+            'about' => 'nullable',
+            'location' => 'nullable',
+            'offer_policy' => 'nullable',
+            'founded' => 'nullable|date',
+            'hour_of_operation' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }

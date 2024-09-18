@@ -59,11 +59,6 @@
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
                         <div>
-                            <label for="image" class="block text-gray-700 font-medium mb-2">Image</label>
-                            <input type="file" id="image" name="image"
-                                class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
-                        <div>
                             <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
                             <input type="email" id="email" name="email" placeholder="Enter Email"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
@@ -97,10 +92,49 @@
                             <input type="text" id="hour_of_operation" name="hour_of_operation" placeholder="Enter Hours of Operation"
                                 class="form-input mt-1 block w-full rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
+                        <div >
+                            <label for="image" class="block text-gray-700 font-medium mb-2">Image</label>
+                            <div
+                                class="relative w-full h-64 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50">
+                                <input type="file" id="image" name="image"
+                                    class="absolute inset-0 opacity-0 cursor-pointer" onchange="previewImage(event)">
+                                <div id="imagePreview" class="flex items-center justify-center">
+                                    <img id="imageDisplay" src="#" alt="Image Preview"
+                                        class="hidden w-full h-full object-cover rounded-lg" style="height:300px">
+                                    <span class="text-gray-400" id="placeholder">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="h-16 w-16 mx-auto text-gray-300" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 7V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V7M3 7L10 3M21 7L14 3M14 3V7M10 3V7M5 19H19" />
+                                        </svg>
+                                        Upload Image
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <script>
+        function previewImage(event) {
+            const imagePreview = document.getElementById('imagePreview');
+            const imageDisplay = document.getElementById('imageDisplay');
+            const placeholder = document.getElementById('placeholder');
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageDisplay.src = e.target.result;
+                    imageDisplay.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 </x-app-layout>

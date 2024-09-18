@@ -26,8 +26,7 @@ class Job extends Model
     
     public function organization()
     {
-        return $this->belongsTo(Organization::class);
-    }
+     }
 
     public function category()
     {
