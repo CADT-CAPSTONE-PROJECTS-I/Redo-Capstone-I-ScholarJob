@@ -21,7 +21,6 @@ class JobController extends Controller
     {
         $organizations = Organization::pluck('name', 'id');
         $categories = Category::pluck('title', 'id');
-        
     
         return view('job.create', compact('organizations', 'categories'));
     }
@@ -36,7 +35,7 @@ class JobController extends Controller
                 $validatedData['image'] = 'image/' . $request->file('image')->getClientOriginalName();
             }
 
-               Job::create($validatedData);
+            Job::create($validatedData);
 
             return redirect()->route('jobs.index')->with('success', 'Job created successfully.');
         } catch (\Exception $e) {
