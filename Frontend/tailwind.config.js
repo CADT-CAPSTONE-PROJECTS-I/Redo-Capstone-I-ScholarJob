@@ -8,7 +8,7 @@ export default {
     extend: {
       colors: {
         customTeal: {
-          light: '#47b947',
+          light: '#338235',
           DEFAULT: '#37af9f',
           dark: '#067d68',
           darker: '#0F766E',
@@ -25,5 +25,13 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addBase }) {
+      addBase({
+        'button': {
+          '@apply transform transition-all duration-300': {},
+        },
+      });
+    },
+  ],
 }

@@ -70,7 +70,7 @@ const ScholarshipPage = () => {
       <header className="p-8">
         <Navbar />
       </header>
-      <section className="relative flex items-center min-h-[300px] m-8 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white justify-center">
+      <section className="relative flex items-center min-h-[300px] my-8 mx-16 rounded-lg bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white justify-center">
         <div className="w-1/2 pl-8 text-4xl font-bold">
           <div className="flex flex-col">
             Start your flourishing journey with us, ScholarJob!
@@ -128,44 +128,57 @@ const ScholarshipPage = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-10 mt-10 px-8">
-        {scholarships.map((scholarship, index) => (
-          <Link
-            key={index}
-            to={`/scholarship/detail/${scholarship.id}`}
-            className="flex flex-col items-center bg-gray-200 border border-gray-200 rounded-lg shadow-xl md:flex-row md:max-w-3xl hover:bg-gray-100"
-          >
-            <div className="flex items-center justify-center p-2 md:w-48">
-              <img
-                src={scholarship.image_url || ScholarJobLogoGreen}
-                className="w-32 h-32 object-cover rounded-lg mr-3"
-                alt="ScholarJob Logo"
-              />
+      <section className="relative items-center flex min-h-[250px] mx-16 rounded-lg bg-gray-100">
+  <div className="container mx-auto px-4 py-2 ">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {scholarships.map((scholarship, index) => (
+        <Link
+          key={index}
+          to={`/scholarship/detail/${scholarship.id}`}
+          className="no-underline"
+        >
+          <div className="relative bg-white rounded-lg shadow-md p-4 flex transform transition-all duration-300 hover:scale-105 hover:bg-customTeal group hover:text-white">
+            <img
+              src={scholarship.image_url || ScholarJobLogoGreen}
+              className="w-32 h-32 object-cover rounded-lg mr-5"
+              alt="ScholarJob Logo"
+            />
+            {scholarship.urgent && (
+              <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-semibold py-1 px-3 rounded-bl-lg">
+                Urgent!
+              </span>
+            )}
+
+            <div className="flex flex-col justify-between">
+              <div className="ml-3">
+                <h3 className="text-lg font-bold">{scholarship.major}</h3>
+                <p>{scholarship.degree}</p>
+              </div>
+              <div className="ml-3">
+                <p>
+                  <strong>Duration:</strong> {scholarship.program_duration} years
+                </p>
+                <p>
+                  <strong>Location:</strong> {scholarship.location}
+                </p>
+                <p>
+                  <strong>Available Positions:</strong>{" "}
+                  {scholarship.available_position}
+                </p>
+              </div>
+              <div className="ml-3 mt-2 group-hover:text-white">
+                <p>
+                  <strong>Deadline:</strong> {new Date(scholarship.deadline).toLocaleDateString()}
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col justify-between p-4 leading-normal">
-              <h5 className="text-2xl font-bold tracking-tight text-gray-600 mb-1">
-                {scholarship.major}
-              </h5>
-              
-              <h6 className="text-lg font-bold text-gray-600 mb-2">
-                {scholarship.degree}
-              </h6>
-              <p className="text-sm font-medium text-gray-500">
-                Duration: {scholarship.program_duration} years
-              </p>
-              <p className="text-sm font-medium text-gray-500">
-                Location: {scholarship.location}
-              </p>
-              <p className="text-sm font-medium text-gray-500">
-                Available Positions: {scholarship.available_position}
-              </p>
-              <p className="text-sm font-medium text-gray-500">
-                Deadline: {new Date(scholarship.deadline).toLocaleDateString()}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
+          </div>
+        </Link>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       <div className="flex justify-center my-6">
         <nav aria-label="Pagination">

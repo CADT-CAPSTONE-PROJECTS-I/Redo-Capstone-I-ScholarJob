@@ -8,6 +8,7 @@ export {
 } from "react";
 export {
   useNavigate,
+  useLocation,
   BrowserRouter as Router,
   Route,
   Routes,

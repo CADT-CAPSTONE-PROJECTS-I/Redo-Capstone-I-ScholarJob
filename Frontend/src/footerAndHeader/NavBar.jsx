@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   useNavigate,
   React,
@@ -11,7 +10,7 @@ import {
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const {token, client_id, message} = appStore();
+  const { token } = appStore();
 
   return (
     <nav className="bg-white shadow-md fixed w-full z-20 top-0  start-0 border-b border-gray-200 rounded-b-3xl">
@@ -29,7 +28,7 @@ const Navbar = () => {
             SCHOLARJOB
           </span>
         </Link>
-        {message === "Login successful!" ? (
+        {token ? (
           <div className=" flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <UserDropdown />
           </div>
@@ -37,7 +36,7 @@ const Navbar = () => {
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button
               type="button"
-              className="text-white bg-customTeal hover:bg-customTeal-dark  focus:ring-2 focus:outline-none focus:ring-customTeal-dark font-medium rounded-md text-sm px-4 py-2 text-center mr-2"
+              className="text-white bg-customTeal hover:bg-customTeal-dark  focus:ring-2 focus:outline-none focus:ring-customTeal-dark font-medium rounded-md text-sm px-4 py-2 text-center mr-2 transform transition-all duration-300"
               onClick={() => {
                 navigate("/login");
               }}
@@ -46,7 +45,7 @@ const Navbar = () => {
             </button>
             <button
               type="button"
-              className="text-customTeal bg-white hover:text-white border border-customTeal hover:bg-customTeal  focus:ring-2 focus:outline-none focus:ring-customTeal-dark font-medium rounded-md text-sm px-4 py-2 text-center "
+              className="text-customTeal bg-white hover:text-white border border-customTeal hover:bg-customTeal  focus:ring-2 focus:outline-none focus:ring-customTeal-dark font-medium rounded-md text-sm px-4 py-2 text-center transform transition-all duration-300"
               onClick={() => {
                 navigate("/register");
               }}

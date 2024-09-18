@@ -25,6 +25,7 @@ const CVGeneratePage = () => {
     setIsPopupOpen,
     successModalOpen,
     setSuccessModalOpen,
+    token,
   } = appStore();
 
   const formRef = useRef(null);
@@ -38,7 +39,7 @@ const CVGeneratePage = () => {
   };
 
   const handleDownloadButtonClick = () => {
-    if (message === "Login successful!") {
+    if (token !== null) {
       if (formRef.current) {
         formRef.current.requestSubmit();
       }
@@ -50,9 +51,9 @@ const CVGeneratePage = () => {
 
   const handleDownloadPdf = () => {
     const element = document.getElementById("cv-template");
-    if (cvData.profilePicture === null) {
+    if (cvData.profilePicture === null ) {
       setSuccessModalOpen(true); 
-    } else {
+    }else {
       try {
         const options = {
           margin: 0,
@@ -80,7 +81,7 @@ const CVGeneratePage = () => {
         <header className="p-10">
           <Navbar />
         </header>
-        <div className="bg-gradient-to-tl  absolute top-1 from-customTeal-light/50 to-customTeal-dark/80 max-w-6xl w-full h-52 z-0 "></div>
+        <div className="bg-gradient-to-tl  absolute top-1 from-customTeal-light/50 to-customTeal-dark/80 max-w-6xl w-full h-60 rounded-lg z-0 "></div>
         <div className="relative mt-6">
           {currentComponent === "personal" ? <FillPersonal /> : <FillSkill />}
           <div className="flex space-x-2 justify-end my-8">

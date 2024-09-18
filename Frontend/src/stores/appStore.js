@@ -113,12 +113,6 @@ const appStore = create((set, get) => ({
   job: null,
   setJob: (data) => set({ job: data }),
 
-  clientId: null,
-  setClientId: (data) => set({ clientId: data }),
-
-  // token: null,
-  // setToken: (data) => set({ token: data }),
-
   isModalOpen: false,
   setIsModalOpen: (data) => set({ isModalOpen: data }),
 
@@ -130,18 +124,22 @@ const appStore = create((set, get) => ({
     sessionStorage.setItem('token', token);  
   },
 
-  client_id: sessionStorage.getItem('clientId') || null, 
-  setClient_id: ( client_id) => {
-    sessionStorage.setItem('clientId', client_id);  
+  clientId: sessionStorage.getItem('clientId') || null, 
+  setClientId: ( clientId) => {
+    sessionStorage.setItem('clientId', clientId);  
   },
 
   logout: () => {
     sessionStorage.removeItem('token');  
     set({ user: null, token: null }); 
+    sessionStorage.removeItem('clientId');
+    set({user: null, clientId: null});
   },
 
   loading: true,
   setLoading: (data) => set({loading: data}),
+
+  
 
 }));
 
