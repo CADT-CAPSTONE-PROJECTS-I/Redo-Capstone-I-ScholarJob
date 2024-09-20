@@ -58,23 +58,30 @@ const AboutUsPage = () => {
         </div>
       </section>
 
-      <section className="mt-16 relative flex flex-col justify-center">
-        <h2 className="text-3xl font-bold justify-center flex">Team Work</h2>
-        <div className="border-t border-2 flex justify-center mx-auto w-1/12 items-center rounded-full border-customTeal my-2"></div>
-        <div className="flex justify-between mx-16 mt-8">
-          {teamMembers.map(member => (
-            <div key={member.id} className="bg-grey text-center">
+      <section className="mt-16 relative flex flex-col justify-center items-center">
+        <h2 className="text-4xl font-extrabold text-center text-gray-800">Our Team</h2>
+        <div className="border-t border-4 w-12 mt-4 mb-8 border-customTeal rounded-full"></div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto">
+          {teamMembers.map((member) => (
+            <div
+              key={member.id}
+              className="bg-white shadow-md rounded-lg text-center w-full sm:w-80 md:w-72 lg:w-64 p-6 mb-10 hover:scale-105 hover:shadow-2xl transition-transform duration-300 transform ease-in-out"
+            >
               <img
-                  src={member.image_url || ScholarJobLogoGreen}
-                  alt={member.name}
-                className="rounded-full w-40 mx-auto mb-4"
+                src={member.image_url || ScholarJobLogoGreen}
+                alt={member.name}
+                className="rounded-full w-36 h-36 mx-auto mb-4 object-cover border-4 border-customTeal"
               />
-              <h3 className="font-bold text-lg mb-2">{member.name}</h3>
-              <p className="text-gray-600">{member.position}</p>
+              <h3 className="font-semibold text-xl text-gray-800 mb-2">{member.name}</h3>
+              <p className="text-customTeal font-medium mb-1">{member.position}</p>
+              <p className="text-gray-500 text-sm mb-3">{member.description}</p>
+              <p className="text-gray-400 text-xs">{member.contact}</p>
             </div>
           ))}
         </div>
       </section>
+
       <footer className="mt-12">
         <Footer />
       </footer>
