@@ -46,36 +46,37 @@
     </div>
 
     <div class="mt-10">
-    <h2 class="text-3xl font-bold mb-6 text-gray-800 text-center">Our Team</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="team-list">
-        @foreach ($team as $member)
-            <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg overflow-hidden" data-id="{{ $member->id }}">
-                <!-- Image Container -->
-                <div class="relative w-full h-64 bg-gray-100 border border-gray-300 rounded-t-lg flex items-center justify-center cursor-pointer hover:bg-gray-50">
-                    <div id="imagePreview" class="w-full h-full relative group">
-                        @if ($member->image)
-                            <img src="{{ asset($member->image) }}" alt="{{ $member->name }}" class="w-full h-full object-cover rounded-t-lg">
-                        @else
-                            <img id="imageDisplay" src="/path-to-placeholder-image.png" alt="Placeholder Image" class="w-full h-full object-cover rounded-t-lg">
-                        @endif
-                        <!-- Edit Button (Hidden by default, shown on hover at the top) -->
-                        <button type="button" onclick="openEditTeamModal({{ $member->id }})"
-                            class="absolute top-4 left-1/4 transform -translate-x-1/2 bg-gray-500 text-white px-4 py-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <i class="fas fa-edit mr-2"></i>Edit
-                        </button>
+        <h2 class="text-3xl font-bold mb-6 text-gray-800 text-center">Our Team</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="team-list">
+            @foreach ($team as $member)
+                <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg overflow-hidden" data-id="{{ $member->id }}">
+                    <!-- Image Container -->
+                    <div class="relative w-full h-64 bg-gray-100 border border-gray-300 rounded-t-lg flex items-center justify-center cursor-pointer hover:bg-gray-50">
+                        <div id="imagePreview" class="w-full h-full relative">
+                            @if ($member->image)
+                                <img src="{{ asset($member->image) }}" alt="{{ $member->name }}" class="w-full h-full object-cover rounded-t-lg">
+                            @else
+                                <img id="imageDisplay" src="/path-to-placeholder-image.png" alt="Placeholder Image" class="w-full h-full object-cover rounded-t-lg">
+                            @endif
+
+                            <!-- Edit Button (Always Visible) -->
+                            <button type="button" onclick="openEditTeamModal({{ $member->id }})"
+                                    class="absolute top-2 right-2 bg-gray-400 text-white p-2 rounded opacity-100 transition-opacity duration-300">
+                                    <i class="fas fa-edit mr-2"></i>Edit
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Content Container -->
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800">{{ $member->name }}</h3>
+                        <p class="text-sm text-gray-500 mb-1">{{ $member->position }}</p>
+                        <p class="mt-2 text-gray-700 leading-relaxed">{{ $member->description }}</p>
+                        <a href="mailto:{{ $member->contact }}" class="block mt-4 text-dark-gray-500 hover:text-blue-700 font-medium">{{ $member->contact }}</a>
                     </div>
                 </div>
-                <!-- Content Container -->
-                <div class="p-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">{{ $member->name }}</h3>
-                    <p class="text-sm text-gray-500 mb-1">{{ $member->position }}</p>
-                    <p class="mt-2 text-gray-700 leading-relaxed">{{ $member->description }}</p>
-                    <a href="mailto:{{ $member->contact }}" class="block mt-4 text-dark-gray-500 hover:text-blue-700 font-medium">{{ $member->contact }}</a>
-                </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
-</div>
 
 
     <div id="addTeamModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
