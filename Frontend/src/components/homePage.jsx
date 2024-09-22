@@ -7,81 +7,45 @@ import {
   FlourishYourFuture,
   ApplyIt,
   Footer,
-  axios,
   appStore,
   useEffect,
   ScholarJobLogoGreen,
   homepageVector,
   LoadingPage,
+  fetchTopUniversities,
+  fetchTopJobsHomepage,
+  fetchTopOrgs,
 } from "../import/all_import.jsx";
 
 const HomePage = () => {
-  const { topUniversities, setTopUniversities, loading, setLoading } =
-    appStore();
+  const { topUniversities, setTopUniversities, loading, setLoading, topJobs, setTopJobs, topOrgs, setTopOrgs  } = appStore();
 
-  const BASE_URL = "https://dev-career.cammob.ovh/capstone/Backend/public/api";
-  // Fetch Top 10 Universities (Example using Axios)
   useEffect(() => {
-    const fetchTopUniversities = async () => {
+    const fetchData = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
-        const response = await axios.get(`${BASE_URL}/scholarship/list`);
-        console.log(response.data); // Debugging the API response structure
+        const [universities, jobs, orgs] = await Promise.all([
+          fetchTopUniversities(),
+          fetchTopJobsHomepage(),
+          fetchTopOrgs(),
+        ]);
 
-        // Extract the data array from the response
-        const universities = response.data.data;
-        // Set top universities to the first 10 items
         setTopUniversities(universities.slice(0, 10));
-        setLoading(false);
+        setTopJobs(jobs.slice(0, 10));
+        setTopOrgs(orgs.slice(0, 10));
       } catch (error) {
-        console.error("Error fetching universities:", error);
+        console.error("Error fetching data:", error);
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchTopUniversities();
+    fetchData();
   }, []);
 
   if (loading) {
-    <LoadingPage />;
+    return <LoadingPage />;
   }
-
-  const { topJobs, setTopJobs } = appStore(); // State for the top universities
-  useEffect(() => {
-    const fetchTopJobs = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/job/list`);
-        console.log(response.data); // Debugging the API response structure
-
-        // Extract the data array from the response
-        const topJobs = response.data.data;
-        // Set top universities to the first 10 items
-        setTopJobs(topJobs.slice(0, 10));
-      } catch (error) {
-        console.error("Error fetching topJobs:", error);
-      }
-    };
-
-    fetchTopJobs();
-  }, []);
-
-  const { topOrgs, setTopOrgs } = appStore();
-  useEffect(() => {
-    const fetchTopOrgs = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/organization/list`);
-        console.log(response.data); // Debugging the API response structure
-        // Extract the data array from the response
-        const topOrgs = response.data.data;
-        // Set top universities to the first 10 items
-        setTopOrgs(topOrgs.slice(0, 10));
-      } catch (error) {
-        console.error("Error fetching topOrgs:", error);
-      }
-    };
-
-    fetchTopOrgs();
-  }, []);
 
   const scrollToTop = () => {
     window.scrollTo(0, 0);
@@ -90,7 +54,6 @@ const HomePage = () => {
   const scrollToTop10 = () => {
     window.scrollTo({ top: "520", behavior: "smooth" });
   };
-
   return (
     <div>
       <header className="p-12">
@@ -255,7 +218,7 @@ const HomePage = () => {
         </div>
 
         {/* Scrollable container */}
-        <div className="border-l h-[290px] border-gray-500 border-r overflow-x-scroll no-scrollbar w-full m-auto bg-gray-200">
+        <div className="border-l h-[305px] border-gray-500 border-r overflow-x-scroll no-scrollbar w-full m-auto bg-gray-200">
           <ul className="list-none" onClick={scrollToTop}>
             <div className="flex">
               {topOrgs.map((organization) => (
@@ -272,7 +235,7 @@ const HomePage = () => {
                       />
                     </div>
                     <div className="bg-white flex justify-center p-2">
-                      <h2 className="h-[40px] text-lg font-semibold text-gray-600 text-center">
+                      <h2 className="h-[55px] text-lg font-semibold text-gray-600 text-center">
                         {organization.name}{" "}
                       </h2>
                     </div>

@@ -2,7 +2,6 @@ import {
   React,
   useState,
   useEffect,
-  axios,
   useParams,
   Navbar,
   Footer,
@@ -12,6 +11,7 @@ import {
   ApplyModalScholarship,
   LoginImage,
   LoadingPage,
+  fetchScholarshipDetails,
 } from "../import/all_import.jsx";
 
 const ScholarshipDetailPage = () => {
@@ -19,16 +19,13 @@ const ScholarshipDetailPage = () => {
   const [scholarship, setScholarship] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const {setIsPopupOpen, isPopupOpen, message, isModalOpen, setIsModalOpen, token, clientId  } = appStore();
- 
+  const { setIsPopupOpen, isPopupOpen, isModalOpen, setIsModalOpen, token, clientId } = appStore();
 
   useEffect(() => {
-    const fetchScholarshipDetail = async () => {
+    const getScholarshipDetail = async () => {
       try {
-        const response = await axios.get(
-          `https://dev-career.cammob.ovh/capstone/Backend/public/api/scholarship/detail/${id}`
-        );
-        setScholarship(response.data.data);
+        const data = await fetchScholarshipDetails(id);
+        setScholarship(data.data);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -36,16 +33,13 @@ const ScholarshipDetailPage = () => {
       }
     };
 
-    fetchScholarshipDetail();
+    getScholarshipDetail();
   }, [id]);
 
   const handleApplyNowClick = () => {
     if (token !== null) {
       setIsModalOpen(true);
     } else {
-      setIsModalOpen(false);
-    }
-    if(token === null){
       setIsPopupOpen(true);
     }
   };
@@ -65,7 +59,6 @@ const ScholarshipDetailPage = () => {
   if (!scholarship) {
     return <div>No scholarship details available.</div>;
   }
-
   return (
     <div className="bg-gray-100 min-h-screen">
       <header className="p-6 bg-white shadow-md">

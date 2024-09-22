@@ -1,3 +1,4 @@
+// seeMoreJobPage.jsx
 import {
   React,
   Navbar,
@@ -6,29 +7,23 @@ import {
   appStore,
   useEffect,
   Link,
-  axios,
+  fetchTopJobsCareer,
 } from "../import/all_import.jsx";
 
-const seeMoreJobPage = () => {
-  const BASE_URL = "https://dev-career.cammob.ovh/capstone/Backend/public/api";
-  const { topJobs, setTopJobs } = appStore(); // State for the top universities
+const SeeMoreJobPage = () => {
+  const { topJobs, setTopJobs } = appStore();
 
   useEffect(() => {
-    const fetchTopJobs = async () => {
+    const getTopJobs = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/job/list`);
-        console.log(response.data); // Debugging the API response structure
-
-        // Extract the data array from the response
-        const topJobs = response.data.data;
-        // Set top universities to the first 10 items
-        setTopJobs(topJobs.slice(0, 10));
+        const jobs = await fetchTopJobsCareer();
+        setTopJobs(jobs.slice(0, 10));
       } catch (error) {
-        console.error("Error fetching topJobs:", error);
+        console.error("Error fetching top jobs:", error);
       }
     };
 
-    fetchTopJobs();
+    getTopJobs();
   }, []);
 
   const scrollToTop = () => {
@@ -40,34 +35,33 @@ const seeMoreJobPage = () => {
       <header className="p-12">
         <Navbar />
       </header>
-      <div className="justify-center text-center ">
-        {" "}
-        <p className=" text-5xl font-extrabold font-bebas bg-gradient-to-t from-customTeal/50 to-customTeal-dark/80 bg-clip-text text-transparent">
-          Urgent Jobs, apply Now !
-        </p>{" "}
+      <div className="justify-center text-center mb-6">
+        <p className="text-5xl font-extrabold font-bebas bg-gradient-to-t from-customTeal/50 to-customTeal-dark/80 bg-clip-text text-transparent">
+          Urgent Jobs, apply Now!
+        </p>
       </div>
 
-      <section className="py-6">
-        {/* Grid container to display jobs in 5 columns */}
-        <div className="shadow-2xl rounded-lg w-[1400px] m-auto bg-gray-200">
+      <section className="px-16">
+        {/* Container with horizontal scroll for jobs */}
+        <div className="border-l h-[290px] border-gray-500 border-r overflow-x-scroll no-scrollbar w-full m-auto bg-gray-200">
           <ul className="list-none" onClick={scrollToTop}>
-            <div className="grid grid-cols-5 gap-6 mt-3 p-4">
+            <div className="flex">
               {topJobs.map((job) => (
                 <li
                   key={job.id}
-                  className="bg-gray-300 shadow-xl rounded-lg overflow-y-auto"
+                  className="w-52 h-100 ml-4 my-4 border bg-white border-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0 transform transition-transform hover:scale-105 hover:border-2 hover:border-customTeal"
                 >
                   <Link to={`/career/${job.id}`}>
-                    <div className="flex items-center justify-center h-[270px] p-2">
+                    <div className="flex items-center justify-center h-[200px] p-2">
                       <img
-                        src={job.image_url || ScholarJobLogoGreen} // Adjust according to your API data structure
+                        src={job.image_url || ScholarJobLogoGreen}
                         className="w-full h-full object-contain rounded-lg border border-gray-300"
+                        alt={job.title} // Add alt text for accessibility
                       />
                     </div>
-                    <div className="p-2 bg-gray-200">
-                      <h2 className="text-center h-[55px] text-lg font-semibold text-gray-600">
+                    <div className="bg-white flex justify-center">
+                      <h2 className="h-[55px] text-lg font-semibold text-gray-600">
                         {job.title}
-                        {/* Adjust according to your API data structure */}
                       </h2>
                     </div>
                   </Link>
@@ -77,10 +71,11 @@ const seeMoreJobPage = () => {
           </ul>
         </div>
       </section>
-
-      <Footer />
+      <footer className="mt-12">
+        <Footer />
+      </footer>
     </div>
   );
 };
 
-export default seeMoreJobPage;
+export default SeeMoreJobPage;

@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const BASE_URL = 'https://dev-career.cammob.ovh/capstone/Backend/public/api';
+import { axios , BASE_URL } from "../import/all_import.jsx";
 
 export const getJobs = async (filters = {}, page = 1, per_page = 10) => {
   try {
@@ -40,3 +38,28 @@ export const getOrganizationAddresses = async () => {
     return [];
   }
 };
+
+export const submitJobApplication = async (formData) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/application/store`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error submitting job application:', error);
+    throw error; 
+  }
+};
+
+export const fetchTopJobsCareer = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/job/list`);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching top jobs:", error);
+    throw error; 
+  }
+};
+

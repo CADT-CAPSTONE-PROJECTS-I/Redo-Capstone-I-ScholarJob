@@ -66,6 +66,21 @@ export { default as SeeMoreScholarshipPage } from "../scholarshipDetail/seeMoreS
 export { default as SeeMoreOrganizationPage } from "../scholarshipDetail/seeMoreOrganizationPage.jsx";
 // export { getRelatedJobs } from "../API/relatedJobs_api.jsx";
 // export { default as RelatedJobs } from "../CareerDetail/relatedJobs.jsx";
+export { submitJobApplication } from "../API/career_api.jsx";
+export { fetchTopJobsCareer } from "../API/career_api.jsx";
+export { getOrganizationAddresses } from "../API/career_api.jsx";
+export { getJobs } from "../API/career_api.jsx";
+export { fetchTopUniversities } from "../API/homepage_api.jsx";
+export { fetchTopJobsHomepage } from "../API/homepage_api.jsx";
+export { fetchTopOrgs } from "../API/homepage_api.jsx";
+export { fetchScholarships } from "../API/scholarship_api.jsx";
+export { submitApplication } from "../API/scholarship_api.jsx";
+export { fetchOrganizationDetails } from "../API/scholarship_api.jsx";
+export { fetchScholarshipDetails } from "../API/scholarship_api.jsx";
+export { fetchTopOrganizations } from "../API/scholarship_api.jsx";
+export { fetchTopScholarships } from "../API/scholarship_api.jsx";
+export { fetchAboutData } from "../API/aboutus_api.jsx";
+export { fetchTeamMembers } from "../API/aboutus_api.jsx";
 
 //import of all icon and image
 export { default as FacebookIcon } from "../assets/icon/facebook_icon.jpg";
@@ -93,3 +108,5 @@ export { default as UserIcon } from "../assets/icon/user_icon.jpg";
 import "../styles/authenthication_style.css";
 import "../styles/navBar_style.css";
 import "../styles/generate_style.css";
+
+export const BASE_URL = 'https://dev-career.cammob.ovh/capstone/Backend/public/api';

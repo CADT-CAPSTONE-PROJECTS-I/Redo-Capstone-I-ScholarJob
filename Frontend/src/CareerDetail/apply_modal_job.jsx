@@ -1,12 +1,13 @@
+// ApplyModalJob.jsx
 import {
   React,
   useState,
   PopUpGen,
-  axios,
   UploadImage,
   ImageDone,
   Icon,
   appStore,
+  submitJobApplication,
 } from "../import/all_import.jsx";
 
 const ApplyModalJob = ({ isOpen, onClose, jobId }) => {
@@ -36,23 +37,12 @@ const ApplyModalJob = ({ isOpen, onClose, jobId }) => {
       setIsLoading(true);
 
       try {
-        const response = await axios.post(
-          "http://localhost:8000/api/application/store",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        setIsLoading(false);
+        await submitJobApplication(formData);
         setSuccessModalOpen(true);
       } catch (error) {
+        alert("There was an error submitting your application. Please try again.");
+      } finally {
         setIsLoading(false);
-        alert(
-          "There was an error submitting your application. Please try again."
-        );
       }
     } else {
       alert("Please select a file to upload.");
@@ -72,9 +62,9 @@ const ApplyModalJob = ({ isOpen, onClose, jobId }) => {
               <Icon
                 icon={"ic:round-close"}
                 onClick={onClose}
-                className="  size-6 cursor-pointer "
+                className="size-6 cursor-pointer"
               />
-              <div class="tooltiptext">Close</div>
+              <div className="tooltiptext">Close</div>
             </button>
             <label className="text-lg font-bold absolute left-1/2 transform -translate-x-1/2">
               Select Attach File
@@ -98,7 +88,7 @@ const ApplyModalJob = ({ isOpen, onClose, jobId }) => {
           )}
           <div className="bg-white h-[40vh] w-[140vh] border-dashed rounded-md border-customTeal border-2 flex justify-center items-center mt-4">
             <form>
-              <label className=" crusor-pointer">
+              <label className="cursor-pointer">
                 <div>
                   <div className="flex justify-center h-24">
                     {file ? (
@@ -129,11 +119,11 @@ const ApplyModalJob = ({ isOpen, onClose, jobId }) => {
                     )}
                   </div>
                   <div className="flex justify-center">
-                    <label className="py-2 px-4 rounded-md text-white text-sm bg-customTeal cursor-pointer  hover:bg-customTeal-dark ">
+                    <label className="py-2 px-4 rounded-md text-white text-sm bg-customTeal cursor-pointer hover:bg-customTeal-dark ">
                       {file ? "Change CV" : "Browse files"}
                       <input
                         type="file"
-                        accept="pdf/*"
+                        accept="application/pdf"
                         className="hidden"
                         onChange={handleFileChange}
                       />

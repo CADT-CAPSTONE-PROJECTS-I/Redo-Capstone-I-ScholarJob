@@ -1,6 +1,4 @@
-// import { axios } from "../import/all_import.jsx";
-
-// const BASE_URL = "https://dev-career.cammob.ovh/capstone/Backend/public/api";
+// import { axios , BASE_URL } from "../import/all_import.jsx";
 
 // export const getRelatedJobs = async (filters = {}, page = 1, per_page = 10) => {
 //   try {
