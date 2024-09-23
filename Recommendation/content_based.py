@@ -31,11 +31,11 @@ def cbf_recommend():
         recommended_indices = cosine_similarities.argsort()[::-1][:top_n]
         
         # Fetch the job data for the recommended indices
-        recommended_jobs = df.iloc[recommended_indices].to_dict(orient='records')
+        recommended_jobs = df_job.iloc[recommended_indices].to_dict(orient='records')
 
         if not recommended_jobs:
             return jsonify({'error': 'No recommendations found.'}), 404
-
+        
         return jsonify(recommended_jobs)
 
     except Exception as e:

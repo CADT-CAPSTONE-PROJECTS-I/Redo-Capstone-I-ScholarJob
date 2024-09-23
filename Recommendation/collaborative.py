@@ -8,7 +8,7 @@ def cf_recommend():
         return jsonify({'error': 'Job index is required'}), 400
 
     # Check if the job exists in the dataset
-    if job_index >= len(df) or job_index < 0:
+    if job_index >= len(df_job) or job_index < 0:
         return jsonify({'error': 'Invalid job index'}), 400
 
     # Get number of similar jobs to return, default to 5
@@ -22,7 +22,7 @@ def cf_recommend():
     similar_jobs_indices = [i[0] for i in sim_scores[1:num_similar + 1]]
 
     # Get the corresponding jobs and return as JSON
-    similar_jobs = df.iloc[similar_jobs_indices].to_dict(orient='records')
+    similar_jobs = df_job.iloc[similar_jobs_indices].to_dict(orient='records')
 
     return jsonify(similar_jobs)
   

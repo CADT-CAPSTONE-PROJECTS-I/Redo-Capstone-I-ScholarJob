@@ -6,12 +6,12 @@ const AboutUsPage = () => {
   const [teamMembers, setTeamMembers] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/about-us')
+    fetch('https://dev-career.cammob.ovh/capstone/Backend/public/api/about-us')
       .then(response => response.json())
       .then(data => setAboutData(data))
       .catch(error => console.error('Error fetching About Us data:', error));
     
-    fetch('http://localhost:8000/api/team-members')
+    fetch('https://dev-career.cammob.ovh/capstone/Backend/public/api/team-members')
       .then(response => response.json())
       .then(data => setTeamMembers(data))
       .catch(error => console.error('Error fetching Team Members data:', error));
