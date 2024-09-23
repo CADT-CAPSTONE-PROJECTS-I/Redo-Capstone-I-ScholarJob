@@ -6,8 +6,9 @@ import {
   Icon,
   Footer,
   LoadingPage,
+  getJobs,
+  getOrganizationAddresses
 } from "../import/all_import.jsx";
-import { getJobs, getOrganizationAddresses } from "../API/career_api.jsx";
 
 const CareerPage = () => {
   const [jobs, setJobs] = useState([]);

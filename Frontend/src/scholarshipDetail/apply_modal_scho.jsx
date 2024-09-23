@@ -2,25 +2,27 @@ import {
   React,
   useState,
   PopUpGen,
-  axios,
   UploadImage,
   ImageDone,
   Icon,
   useEffect,
   appStore,
+  submitApplication
 } from "../import/all_import.jsx";
 
 const ApplyModalScholarship = ({ isOpen, onClose, scholarshipId }) => {
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState("pending");
   const [isLoading, setIsLoading] = useState(false);
-  const {clientId, successModalOpen, setSuccessModalOpen} = appStore();
+  const { clientId, successModalOpen, setSuccessModalOpen } = appStore();
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
-  useEffect(()=>{console.log(clientId)},[clientId])
+  useEffect(() => {
+    console.log(clientId);
+  }, [clientId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,32 +33,15 @@ const ApplyModalScholarship = ({ isOpen, onClose, scholarshipId }) => {
     }
 
     if (file) {
-      const formData = new FormData();
-      formData.append("client_id", clientId);
-      formData.append("scholarship_id", scholarshipId);
-      formData.append("status", status);
-      formData.append("attach_file", file);
-
       setIsLoading(true);
 
       try {
-        const response = await axios.post(
-          "http://localhost:8000/api/application/store",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        setIsLoading(false);
+        await submitApplication(clientId, scholarshipId, status, file);
         setSuccessModalOpen(true);
       } catch (error) {
+        alert("There was an error submitting your application. Please try again.");
+      } finally {
         setIsLoading(false);
-        alert(
-          "There was an error submitting your application. Please try again."
-        );
       }
     } else {
       alert("Please select a file to upload.");
@@ -66,6 +51,7 @@ const ApplyModalScholarship = ({ isOpen, onClose, scholarshipId }) => {
   if (!isOpen) {
     return null;
   }
+
 
   return (
     <>

@@ -1,6 +1,4 @@
-import { appStore, axios } from "../import/all_import.jsx";
-
-const BASE_URL = "http://localhost:8000/api";
+import { axios , BASE_URL } from "../import/all_import.jsx";
 
 export const cvClientApi = async (cvData, selectedImage) => {
   const formData = new FormData();

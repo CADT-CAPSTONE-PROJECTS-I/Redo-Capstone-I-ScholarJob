@@ -1,6 +1,4 @@
-import { axios, appStore } from "../import/all_import.jsx";
-
-const BASE_URL = 'http://localhost:8000/api';
+import { axios, appStore, BASE_URL } from "../import/all_import.jsx";
 
 
 export const registerClient = async (formData) => {

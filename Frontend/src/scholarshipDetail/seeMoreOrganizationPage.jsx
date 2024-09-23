@@ -1,74 +1,66 @@
 import {
-    React,
-    Navbar,
-    Footer,
-    ScholarJobLogoGreen,
-    appStore,
-    useEffect,
-    Link,
-    axios,
-  } from "../import/all_import.jsx";
-  
-  const seeMoreOrganizationPage = () => {
+  React,
+  Navbar,
+  Footer,
+  ScholarJobLogoGreen,
+  appStore,
+  useEffect,
+  Link,
+  fetchTopOrganizations,
+} from "../import/all_import.jsx";
 
-    const BASE_URL = "https://dev-career.cammob.ovh/capstone/Backend/public/api";
-    // Fetch Top 10 Universities (Example using Axios)
-    const { topOrgs, setTopOrgs } = appStore();
-    useEffect(() => {
-      const fetchTopOrgs = async () => {
-        try {
-          const response = await axios.get(`${BASE_URL}/organization/list`);
-          console.log(response.data); // Debugging the API response structure
-          // Extract the data array from the response
-          const topOrgs = response.data.data;
-          // Set top universities to the first 10 items
-          setTopOrgs(topOrgs.slice(0, 10));
-        } catch (error) {
-          console.error("Error fetching topOrgs:", error);
-        }
-      };
-  
-      fetchTopOrgs();
-    }, []);
-  
-    const scrollToTop = () => {
-      window.scrollTo(0, 0);
+const SeeMoreOrganizationPage = () => {
+  const { topOrgs, setTopOrgs } = appStore();
+
+  useEffect(() => {
+    const getTopOrgs = async () => {
+      try {
+        const topOrganizations = await fetchTopOrganizations();
+        setTopOrgs(topOrganizations.slice(0, 10));
+      } catch (error) {
+        console.error("Error fetching topOrgs:", error);
+      }
     };
-  
-    return (
-      <div>
-        <header className="p-12">
-          <Navbar />
-        </header>
-        <div className="justify-center text-center ">
-          {" "}
-          <p className=" text-5xl font-extrabold font-bebas bg-gradient-to-t from-customTeal/50 to-customTeal-dark/80 bg-clip-text text-transparent">
-            Urgent Scholarships, apply Now !
-          </p>{" "}
-        </div>
-  
-        <section className="mt-6">
-        {/* Scrollable container */}
-        <div className="shadow-2xl rounded-lg w-[1400px] m-auto bg-gray-200">
-        <ul className="list-none" onClick={scrollToTop}>
-          <div className="grid grid-cols-5 gap-6 mt-3 p-4">
+
+    getTopOrgs();
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
+  return (
+    <div>
+      <header className="p-12">
+        <Navbar />
+      </header>
+      <div className="justify-center text-center mb-6">
+        <p className="text-5xl font-extrabold font-bebas bg-gradient-to-t from-customTeal/50 to-customTeal-dark/80 bg-clip-text text-transparent">
+          Urgent Scholarships, apply Now!
+        </p>
+      </div>
+
+      <section className="px-16">
+        {/* Container with horizontal scroll for organizations */}
+        <div className="border-l h-[300px] border-gray-500 border-r overflow-x-scroll no-scrollbar w-full m-auto bg-gray-200">
+          <ul className="list-none" onClick={scrollToTop}>
+            <div className="flex">
               {topOrgs.map((organization) => (
                 <li
                   key={organization.id}
-                  className=" bg-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0"
+                  className="w-52 h-100 ml-4 my-4 border bg-white border-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0 transform transition-transform hover:scale-105 hover:border-2 hover:border-customTeal"
                 >
                   <Link to={`/organization/detail/${organization.id}`}>
-                    <div className="flex items-center justify-center h-[270px] p-2">
+                    <div className="flex items-center justify-center h-[200px] p-2">
                       <img
-                        src={organization.image_url || ScholarJobLogoGreen } // Adjust according to your API data structure
+                        src={organization.image_url || ScholarJobLogoGreen}
                         alt={organization.name}
                         className="w-full h-full object-contain rounded-lg border border-gray-300"
                       />
                     </div>
-                    <div className="p-2 bg-gray-200">
-                      <h2 className="text-center h-[55px] text-lg font-semibold text-gray-600">
-                        {organization.name}{" "}
-                        {/* Adjust according to your API data structure */}
+                    <div className="bg-white flex justify-center">
+                      <h2 className="h-[60px] text-lg font-semibold text-gray-600">
+                        {organization.name}
                       </h2>
                     </div>
                   </Link>
@@ -78,11 +70,12 @@ import {
           </ul>
         </div>
       </section>
-  
+
+      <footer className="mt-12">
         <Footer />
-      </div>
-    );
-  };
-  
-  export default seeMoreOrganizationPage;
-  
+      </footer>
+    </div>
+  );
+};
+
+export default SeeMoreOrganizationPage;

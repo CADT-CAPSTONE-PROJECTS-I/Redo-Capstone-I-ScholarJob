@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import {
+  React,
+  useEffect,
+  useState,
+  fetchScholarships,
   Navbar,
   LoadingPage,
   Icon,
@@ -16,32 +18,26 @@ const ScholarshipPage = () => {
   const [error, setError] = useState(null);
   const [totalRecords, setTotalRecords] = useState(0);
   const [searchTerm, setSearchTerm] = useState(''); 
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState('');
   const itemsPerPage = 10;
   const { currentPage, setCurrentPage } = appStore(); 
 
   useEffect(() => {
-    fetchScholarships();
-  }, [currentPage, query]);
+    const loadScholarships = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchScholarships(currentPage, itemsPerPage, query);
+        setScholarships(data.data);
+        setTotalRecords(data.total);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const fetchScholarships = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get('https://dev-career.cammob.ovh/capstone/Backend/public/api/scholarship/list', {
-        params: {
-          page: currentPage,
-          per_page: itemsPerPage,
-          search: query,
-        },
-      });
-      setScholarships(response.data.data);
-      setTotalRecords(response.data.total);
-      setLoading(false);
-    } catch (err) {
-      setError(err.message);
-      setLoading(false);
-    }
-  };
+    loadScholarships();
+  }, [currentPage, query]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value); 
@@ -58,12 +54,13 @@ const ScholarshipPage = () => {
   const totalPages = Math.ceil(totalRecords / itemsPerPage);
 
   if (loading) {
-    return <LoadingPage/>;
+    return <LoadingPage />;
   }
 
   if (error) {
     return <div>Error: {error}</div>;
   }
+
 
   return (
     <div>
