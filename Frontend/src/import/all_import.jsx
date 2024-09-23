@@ -109,4 +109,5 @@ import "../styles/authenthication_style.css";
 import "../styles/navBar_style.css";
 import "../styles/generate_style.css";
 
-export const BASE_URL = 'https://dev-career.cammob.ovh/capstone/Backend/public/api';
+// export const BASE_URL = 'https://dev-career.cammob.ovh/capstone/Backend/public/api';
+export const BASE_URL = 'http://localhost:8000/api';

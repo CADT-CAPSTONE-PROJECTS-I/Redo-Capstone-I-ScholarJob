@@ -10,6 +10,63 @@ import {
   getOrganizationAddresses
 } from "../import/all_import.jsx";
 
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  const pageNumbers = [];
+  const maxVisiblePages = 5;
+
+  if (currentPage > 1) {
+    pageNumbers.push(1);
+  }
+  if (currentPage > 3) {
+    pageNumbers.push('...');
+  }
+  const startPage = Math.max(2, currentPage - 2);
+  const endPage = Math.min(totalPages - 1, currentPage + 2);
+
+  for (let i = startPage; i <= endPage; i++) {
+    pageNumbers.push(i);
+  }
+
+  if (currentPage < totalPages - 2) {
+    pageNumbers.push('...');
+  }
+
+  if (currentPage < totalPages) {
+    pageNumbers.push(totalPages);
+  }
+
+  return (
+    <div className="pagination flex justify-center space-x-2 mt-8">
+      <button
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        className={`px-4 py-2 border ${currentPage === 1 ? "bg-gray-200" : "bg-customTeal text-white"}`}
+      >
+        Previous
+      </button>
+
+      {pageNumbers.map((page, index) => (
+        <button
+          key={index}
+          onClick={() => onPageChange(page)}
+          className={`px-4 py-2 border ${page === currentPage ? "bg-customTeal-dark text-white" : "bg-white"}`}
+          disabled={page === '...'}
+        >
+          {page}
+        </button>
+      ))}
+
+      <button
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        className={`px-4 py-2 border ${currentPage === totalPages ? "bg-gray-200" : "bg-customTeal text-white"}`}
+      >
+        Next
+      </button>
+    </div>
+  );
+};
+
 const CareerPage = () => {
   const [jobs, setJobs] = useState([]);
   const [filters, setFilters] = useState({
@@ -23,7 +80,7 @@ const CareerPage = () => {
   });
   const [addresses, setAddresses] = useState([]);
   const [totalRecords, setTotalRecords] = useState(0);
-  const itemsPerPage = 10;
+  const itemsPerPage = 50;
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
@@ -57,9 +114,9 @@ const CareerPage = () => {
   const totalPages = Math.ceil(totalRecords / itemsPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  
-  if(loading){
-    <LoadingPage/>
+
+  if (loading) {
+    return <LoadingPage />;
   }
 
   return (
@@ -83,7 +140,7 @@ const CareerPage = () => {
             />
             <button
               className="bg-white text-green-500 px-4 py-2 ml-2 rounded-lg"
-              onClick={() => fetchJobs()}
+              onClick={() => paginate(1)}
             >
               Search
             </button>
@@ -161,11 +218,11 @@ const CareerPage = () => {
         </button>
       </div>
       <section className="relative items-center flex min-h-[250px] mx-16 rounded-lg bg-gray-100">
-        <div className="container mx-auto px-4 py-2 ">
+        <div className="container mx-auto px-4 py-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {jobs.map((job, idx) => (
               <Link to={`/career/${job.id}`} key={idx} className="no-underline">
-                <div className="relative bg-white rounded-lg shadow-md p-4 flex transform transition-all duration-300 hover:scale-105 hover:bg-customTeal group  hover:text-white">
+                <div className="relative bg-white rounded-lg shadow-md p-4 flex transform transition-all duration-300 hover:scale-105 hover:bg-customTeal group hover:text-white">
                   <img
                     src={job.image_url || ScholarJobLogoGreen}
                     className="w-32 h-32 object-cover rounded-lg mr-5"
@@ -207,56 +264,12 @@ const CareerPage = () => {
         </div>
       </section>
 
-      <div className="flex justify-center my-6">
-        <nav aria-label="Pagination">
-          <div className="py-2 shadow-2xl rounded-full">
-            <ul className="inline-flex items-center -space-x-px">
-              <li>
-                <button
-                  onClick={() =>
-                    paginate(currentPage > 1 ? currentPage - 1 : 1)
-                  }
-                  className="mx-3 text-customTeal p-1 rounded-full hover:bg-customTeal hover:text-white"
-                >
-                  <Icon
-                    icon="ic:round-less-than"
-                    className="w-[28px] h-[28px]"
-                  />
-                </button>
-              </li>
-              {Array.from({ length: totalPages }, (_, index) => (
-                <li key={index + 1}>
-                  <button
-                    onClick={() => paginate(index + 1)}
-                    className={`px-3 py-1.5 mx-4 leading-tight rounded-full ${
-                      currentPage === index + 1
-                        ? "text-white bg-customTeal"
-                        : "text-gray-500 bg-white"
-                    } hover:bg-customTeal hover:text-white`}
-                  >
-                    {index + 1}
-                  </button>
-                </li>
-              ))}
-              <li>
-                <button
-                  onClick={() =>
-                    paginate(
-                      currentPage < totalPages ? currentPage + 1 : totalPages
-                    )
-                  }
-                  className="mx-3 text-customTeal p-1 rounded-full hover:bg-customTeal hover:text-white"
-                >
-                  <Icon
-                    icon="ic:round-greater-than"
-                    className="w-[28px] h-[28px]"
-                  />
-                </button>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={paginate}
+      />
+      <br />
 
       <footer>
         <Footer />

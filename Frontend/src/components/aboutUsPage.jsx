@@ -20,12 +20,12 @@ const AboutUsPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('https://dev-career.cammob.ovh/capstone/Backend/public/api/about-us')
+    fetch('http://localhost:8000/api/about-us')
       .then(response => response.json())
       .then(data => setAboutData(data))
       .catch(error => console.error('Error fetching About Us data:', error));
     
-    fetch('https://dev-career.cammob.ovh/capstone/Backend/public/api/team-members')
+    fetch('http://localhost:8000/api/team-members')
       .then(response => response.json())
       .then(data => setTeamMembers(data))
       .catch(error => console.error('Error fetching Team Members data:', error));

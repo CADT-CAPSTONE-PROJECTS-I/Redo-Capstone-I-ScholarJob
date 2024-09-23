@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   React,
   Navbar,
@@ -10,17 +10,16 @@ import {
   FormCVPage,
   LoginImage,
   MessagePopup,
-  useRef,
   PopUpGen,
 } from "../import/all_import.jsx";
 import html2pdf from "html2pdf.js";
+import { getRecommendationsApi } from "../API/cv_api.jsx";
 
 const CVGeneratePage = () => {
   const {
     cvData,
     setCurrentComponent,
     currentComponent,
-    message,
     isPopupOpen,
     setIsPopupOpen,
     successModalOpen,
@@ -29,6 +28,22 @@ const CVGeneratePage = () => {
   } = appStore();
 
   const formRef = useRef(null);
+  const [recommendations, setRecommendations] = useState([]);
+
+  useEffect(() => {
+    if (cvData) {
+      fetchRecommendations();
+    }
+  }, [cvData]);
+
+  const fetchRecommendations = async () => {
+    try {
+      const data = await getRecommendationsApi(cvData);
+      setRecommendations(data);
+    } catch (error) {
+      console.error("Error fetching recommendations:", error);
+    }
+  };
 
   const handleClickSkill = () => {
     setCurrentComponent("skill");
@@ -51,9 +66,9 @@ const CVGeneratePage = () => {
 
   const handleDownloadPdf = () => {
     const element = document.getElementById("cv-template");
-    if (cvData.profilePicture === null ) {
-      setSuccessModalOpen(true); 
-    }else {
+    if (cvData.profilePicture === null) {
+      setSuccessModalOpen(true);
+    } else {
       try {
         const options = {
           margin: 0,
@@ -67,7 +82,7 @@ const CVGeneratePage = () => {
           .set(options)
           .save()
           .then(() => {
-            setSuccessModalOpen(true); 
+            setSuccessModalOpen(true);
           });
       } catch (error) {
         console.log(error);
@@ -81,7 +96,7 @@ const CVGeneratePage = () => {
         <header className="p-10">
           <Navbar />
         </header>
-        <div className="bg-gradient-to-tl  absolute top-1 from-customTeal-light/50 to-customTeal-dark/80 max-w-6xl w-full h-60 rounded-lg z-0 "></div>
+        <div className="bg-gradient-to-tl absolute top-1 from-customTeal-light/50 to-customTeal-dark/80 max-w-6xl w-full h-60 rounded-lg z-0"></div>
         <div className="relative mt-6">
           {currentComponent === "personal" ? <FillPersonal /> : <FillSkill />}
           <div className="flex space-x-2 justify-end my-8">
@@ -122,6 +137,25 @@ const CVGeneratePage = () => {
           <div>
             <FormCVPage ref={formRef} />
           </div>
+
+          {/* Recommendations Section */}
+          <div className="mt-12">
+            <h3 className="text-xl font-bold">Job Recommendations</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+              {recommendations.length > 0 ? (
+                recommendations.map((job, index) => (
+                  <div key={index} className="p-4 border rounded shadow">
+                    <h4 className="font-semibold">{job.title}</h4>
+                    <p>{job.company}</p>
+                    <p>{job.location}</p>
+                    <p className="text-sm">{job.skills}</p>
+                  </div>
+                ))
+              ) : (
+                <p>No recommendations available</p>
+              )}
+            </div>
+          </div>
         </div>
         {isPopupOpen && (
           <MessagePopup
@@ -132,20 +166,10 @@ const CVGeneratePage = () => {
         {successModalOpen && (
           <PopUpGen
             isOpen={successModalOpen}
-            iconColor={
-              cvData.profilePicture ? "text-customTeal" : "text-red-500"
-            }
+            iconColor={cvData.profilePicture ? "text-customTeal" : "text-red-500"}
             color={cvData.profilePicture ? "text-customTeal" : "text-red-500"}
-            icon={
-              cvData.profilePicture
-                ? "solar:check-circle-broken"
-                : "radix-icons:image"
-            }
-            title={
-              cvData.profilePicture
-                ? "Generated Successfully!"
-                : "The image is required!"
-            }
+            icon={cvData.profilePicture ? "solar:check-circle-broken" : "radix-icons:image"}
+            title={cvData.profilePicture ? "Generated Successfully!" : "The image is required!"}
             onClose={() => setSuccessModalOpen(false)}
           />
         )}

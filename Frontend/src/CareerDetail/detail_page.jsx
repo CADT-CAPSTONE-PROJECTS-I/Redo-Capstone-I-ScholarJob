@@ -127,9 +127,6 @@ const DetailedJobPage = () => {
             </div>
             <div className="bg-white p-4 space-y-2">
               <div className="border-b border-gray-300 pb-2">
-                Job Category: {job.category.title}
-              </div>
-              <div className="border-b border-gray-300 pb-2">
                 Job Type: {job.job_type}
               </div>
               <div className="border-b border-gray-300 pb-2">

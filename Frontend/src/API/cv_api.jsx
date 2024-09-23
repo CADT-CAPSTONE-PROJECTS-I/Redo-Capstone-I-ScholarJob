@@ -1,4 +1,4 @@
-import { axios , BASE_URL } from "../import/all_import.jsx";
+import { axios, BASE_URL } from "../import/all_import.jsx";
 
 export const cvClientApi = async (cvData, selectedImage) => {
   const formData = new FormData();
@@ -11,7 +11,6 @@ export const cvClientApi = async (cvData, selectedImage) => {
   }
   try {
     const response = await axios.post(`${BASE_URL}/cv/generate`, formData, {
-      body: JSON.stringify(formData),
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -45,6 +44,25 @@ export const getDataCVApi = async () => {
     return response.data;
   } catch (error) {
     console.error('Error fetching CV data:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const getRecommendationsApi = async (cvData) => {
+  try {
+    const response = await axios.post(`http://localhost:3000/content_based`, {
+      category: cvData.position,
+      skills: [
+        cvData.hard_skill,
+        cvData.soft_skill,
+        cvData.experience,
+      ].join(", "),
+    });
+
+    console.log("Recommendations Response:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching recommendations:', error.response?.data || error.message);
     throw error;
   }
 };
