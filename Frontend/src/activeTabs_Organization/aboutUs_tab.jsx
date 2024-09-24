@@ -17,7 +17,7 @@ const AboutUsTab = () => {
     const fetchOrgAboutus = async () => {
       try {
         const response = await axios.get(
-          `https://dev-career.cammob.ovh/capstone/Backend/public/api/organization/detail/${id}`
+          `http://localhost:8000/api/organization/detail/${id}`
         );
 
         if (response.data.status) {
