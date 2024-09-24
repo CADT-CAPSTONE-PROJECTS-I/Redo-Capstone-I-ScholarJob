@@ -105,6 +105,7 @@ const HomePage = () => {
           </p>
         </div>
       </section>
+      
 
       {/* Top 10 for Jobs  */}
       <section className="mt-6 mx-16">
@@ -175,7 +176,7 @@ const HomePage = () => {
             <div className="flex">
               {topUniversities.map((university) => (
                 <li
-                  key={university.id}
+                    key={university.id}
                   className="w-52 h-100 ml-4 my-4 border bg-white border-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0 transition transfom-transition hover:scale-105 hover:border-2 hover:border-customTeal"
                 >
                   <Link to={`/scholarship/detail/${university.id}`}>

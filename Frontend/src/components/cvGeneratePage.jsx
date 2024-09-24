@@ -6,6 +6,8 @@ import {
   FillPersonal,
   FillSkill,
   Icon,
+  Link,
+  ScholarJobLogoGreen,
   Footer,
   FormCVPage,
   LoginImage,
@@ -32,12 +34,13 @@ const CVGeneratePage = () => {
 
   useEffect(() => {
     if (cvData) {
-      fetchRecommendations();
+      fetchRecommendations(); 
     }
   }, [cvData]);
 
   const fetchRecommendations = async () => {
     try {
+
       const data = await getRecommendationsApi(cvData);
       setRecommendations(data);
     } catch (error) {
@@ -53,14 +56,18 @@ const CVGeneratePage = () => {
     setCurrentComponent("personal");
   };
 
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   const handleDownloadButtonClick = () => {
     if (token !== null) {
       if (formRef.current) {
-        formRef.current.requestSubmit();
+        formRef.current.requestSubmit(); 
       }
-      handleDownloadPdf();
+      handleDownloadPdf(); 
     } else {
-      setIsPopupOpen(true);
+      setIsPopupOpen(true); 
     }
   };
 
@@ -98,6 +105,7 @@ const CVGeneratePage = () => {
         </header>
         <div className="bg-gradient-to-tl absolute top-1 from-customTeal-light/50 to-customTeal-dark/80 max-w-6xl w-full h-60 rounded-lg z-0"></div>
         <div className="relative mt-6">
+          {/* Switch between Personal and Skill sections */}
           {currentComponent === "personal" ? <FillPersonal /> : <FillSkill />}
           <div className="flex space-x-2 justify-end my-8">
             {currentComponent !== "personal" && (
@@ -138,24 +146,6 @@ const CVGeneratePage = () => {
             <FormCVPage ref={formRef} />
           </div>
 
-          {/* Recommendations Section */}
-          <div className="mt-12">
-            <h3 className="text-xl font-bold">Job Recommendations</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-              {recommendations.length > 0 ? (
-                recommendations.map((job, index) => (
-                  <div key={index} className="p-4 border rounded shadow">
-                    <h4 className="font-semibold">{job.title}</h4>
-                    <p>{job.company}</p>
-                    <p>{job.location}</p>
-                    <p className="text-sm">{job.skills}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No recommendations available</p>
-              )}
-            </div>
-          </div>
         </div>
         {isPopupOpen && (
           <MessagePopup
@@ -174,6 +164,48 @@ const CVGeneratePage = () => {
           />
         )}
       </div>
+
+      <section className="mt-12 mx-16">
+        <div className="w-full m-auto">
+          <div className="flex justify-between mb-4">
+            <div className="font-bebas tracking-widest mb-[-16px] bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 h-[50px] rounded-t-lg flex px-8 justify-center items-center text-white font-medium text-xl">
+              Job Recommendations
+            </div>
+            <div>
+            </div>
+          </div>
+        </div>
+        <div className="border-l h-[290px] border-gray-500 border-r overflow-x-scroll no-scrollbar w-full m-auto bg-gray-200">
+          <ul className="list-none" onClick={scrollToTop}>
+            <div className="flex">
+              {recommendations.length > 0 ? (
+                recommendations.map((job, index) => (
+                  <li
+                    key={index}
+                    className="w-52 h-100 ml-4 my-4 border bg-white border-gray-300 shadow-xl rounded-lg overflow-y-auto flex-shrink-0 transition transform-transition hover:scale-105 hover:border-2 hover:border-customTeal"
+                  >
+                     <Link to={`/career/${job.id_job}`}>
+                      <div className="flex items-center justify-center h-[200px] p-2">
+                        <img
+                          src={job.image_url || ScholarJobLogoGreen}
+                          className="w-full h-full object-contain rounded-lg border border-gray-300"
+                        />
+                      </div>
+                      <div className="bg-white flex justify-center">
+                        <h2 className="h-[55px] text-lg font-semibold text-gray-600">
+                          {job.title_job}
+                        </h2>
+                      </div>
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <p className="text-center w-full">No recommendations available</p>
+              )}
+            </div>
+          </ul>
+        </div>
+      </section>
       <div className="mt-12">
         <Footer />
       </div>
@@ -181,4 +213,4 @@ const CVGeneratePage = () => {
   );
 };
 
-export default CVGeneratePage;
+export default CVGeneratePage;  

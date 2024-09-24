@@ -206,17 +206,7 @@ const CareerPage = () => {
       </section>
       <br />
 
-      <div className="flex justify-center mb-6">
-        <button className="px-4 py-2 bg-gradient-to-tl from-customTeal-light/50 to-customTeal-dark/80 text-white rounded-lg">
-          Recommended
-        </button>
-        <button className="px-4 py-2 bg-white text-green-500 rounded-lg mx-2">
-          Tops
-        </button>
-        <button className="px-4 py-2 bg-white text-green-500 rounded-lg">
-          News
-        </button>
-      </div>
+
       <section className="relative items-center flex min-h-[250px] mx-16 rounded-lg bg-gray-100">
         <div className="container mx-auto px-4 py-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

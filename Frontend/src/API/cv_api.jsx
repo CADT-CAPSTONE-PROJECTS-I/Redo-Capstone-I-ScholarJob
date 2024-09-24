@@ -9,6 +9,19 @@ export const cvClientApi = async (cvData, selectedImage) => {
   if (selectedImage) {
     formData.append("image", selectedImage);
   }
+
+  sessionStorage.setItem("experience", cvData.experience);
+  sessionStorage.setItem("hard_skill", cvData.hard_skill);
+  sessionStorage.setItem("soft_skill", cvData.soft_skill);
+  sessionStorage.setItem("position", cvData.position);
+
+  // Log the sessionStorage variables
+  console.log("Session Storage Values:");
+  console.log("Experience:", sessionStorage.getItem("experience"));
+  console.log("Hard Skill:", sessionStorage.getItem("hard_skill"));
+  console.log("Soft Skill:", sessionStorage.getItem("soft_skill"));
+  console.log("Position:", sessionStorage.getItem("position"));
+
   try {
     const response = await axios.post(`${BASE_URL}/cv/generate`, formData, {
       headers: {
@@ -17,13 +30,8 @@ export const cvClientApi = async (cvData, selectedImage) => {
       },
     });
 
-    console.log("API Response:", response.data);
     return response.data;
   } catch (error) {
-    console.error(
-      "Error submitting CV data:",
-      error.response?.data || error.message
-    );
     throw error.response?.data || { message: "CV submission failed" };
   }
 };
@@ -43,26 +51,33 @@ export const getDataCVApi = async () => {
 
     return response.data;
   } catch (error) {
-    console.error('Error fetching CV data:', error.response?.data || error.message);
     throw error;
   }
 };
 
-export const getRecommendationsApi = async (cvData) => {
+export const getRecommendationsApi = async () => {
   try {
+    const experience = sessionStorage.getItem("experience");
+    const hardSkill = sessionStorage.getItem("hard_skill");
+    const softSkill = sessionStorage.getItem("soft_skill");
+    const position = sessionStorage.getItem("position");
+
+    // Log the retrieved sessionStorage values
+    console.log("Retrieving from Session Storage:");
+    console.log("Experience:", experience);
+    console.log("Hard Skill:", hardSkill);
+    console.log("Soft Skill:", softSkill);
+    console.log("Position:", position);
+
     const response = await axios.post(`http://localhost:3000/content_based`, {
-      category: cvData.position,
-      skills: [
-        cvData.hard_skill,
-        cvData.soft_skill,
-        cvData.experience,
-      ].join(", "),
+      category: position,
+      skills: [hardSkill, softSkill, experience].join(", "),
     });
 
-    console.log("Recommendations Response:", response.data);
+    console.log(response.data)
+
     return response.data;
   } catch (error) {
-    console.error('Error fetching recommendations:', error.response?.data || error.message);
     throw error;
   }
 };
