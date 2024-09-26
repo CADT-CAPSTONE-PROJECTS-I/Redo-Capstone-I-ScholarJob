@@ -1,4 +1,5 @@
 import { axios, BASE_URL } from "../import/all_import.jsx";
+import relatedJobs from './../CareerDetail/relatedJobs';
 
 export const cvClientApi = async (cvData, selectedImage) => {
   const formData = new FormData();
@@ -81,3 +82,4 @@ export const getRecommendationsApi = async () => {
     throw error;
   }
 };
+

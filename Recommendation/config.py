@@ -10,7 +10,7 @@ from scipy.sparse import hstack
 from flask import request, jsonify
 
 # Establish a connection to your MySQL database
-db_connection_str = 'mysql+pymysql://root:@localhost/new_capstone1'
+db_connection_str = 'mysql+pymysql://root:@localhost/re_capstone1'
 db_connection = create_engine(db_connection_str)
 
 # Load your dataset directly from the MySQL database
